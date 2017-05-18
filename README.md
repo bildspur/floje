@@ -1,2 +1,2 @@
-# floje
-Fløje is a mechanical light installation.
+# FLØJE
+FLØJE is a mechanical light installation.
