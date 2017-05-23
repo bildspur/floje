@@ -1,2 +1,4 @@
 # FLØJE
-FLØJE is a mechanical light installation.
+FLØJE is a kybernetic art installation.
+
+![FLØJE](readme/FlojeReal.jpg)
