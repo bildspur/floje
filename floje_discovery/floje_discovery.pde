@@ -16,7 +16,7 @@ JmDNS jmdns;
 ArrayList<ServiceInfo> flojeDevices = new ArrayList<ServiceInfo>();
 
 float ledValue = 0;
-float ledIncrease = 0.01;
+float ledIncrease = 0.1;
 
 void setup()
 {
