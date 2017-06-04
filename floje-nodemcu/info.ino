@@ -1,6 +1,7 @@
 #define LED_PIN 13 // GPIO13 / D7
 
-#define DEFAULT_BLINK_INTERVAL 20
+#define DEFAULT_BLINK_INTERVAL 25
+#define ERROR_BLINK_INTERVAL 10
 
 #define MIN_LED_BRIGHTNESS 0
 #define MAX_LED_BRIGHTNESS 255
@@ -48,18 +49,21 @@ void setLEDBrightness(int value)
 void ledON()
 {
   setLEDBrightness(MAX_LED_BRIGHTNESS);
-  Serial.println("LED ON");
 }
 
 void ledOFF()
 {
   setLEDBrightness(MIN_LED_BRIGHTNESS);
-  Serial.println("LED OFF");
 }
 
 void ledBlink()
 {
   ledBlink(DEFAULT_BLINK_INTERVAL);
+}
+
+void ledError()
+{
+  ledBlink(ERROR_BLINK_INTERVAL);
 }
 
 void ledBlink(int interval)
@@ -76,6 +80,8 @@ void ledBlink(int interval)
 void ledStopBlink()
 {
   isLEDBlinking = false;
+  ledOFF();
 }
+
 
 

@@ -1,20 +1,25 @@
-
+#define DEFAULT_LOOP_DELAY 10
 
 void setup() {
   // setup all controllers
   setupInfo();
 
+  setupServo();
+
   setupNetwork();
   setupOSC();
 
-  setupServo();
-
-  ledOFF();
-  ledBlink();
+  ledBlink(100);
 }
 
 void loop() {
   loopInfo();
-  
-  delay(10);
+  loopNetwork();
+
+  delay(DEFAULT_LOOP_DELAY);
 }
+
+void softReset() {
+  setup();
+}
+
