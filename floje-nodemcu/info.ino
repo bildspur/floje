@@ -46,6 +46,14 @@ void setLEDBrightness(int value)
   analogWrite(LED_PIN, value);
 }
 
+void setLEDState(boolean state)
+{
+  if (state)
+    ledON();
+  else
+    ledOFF();
+}
+
 void ledON()
 {
   setLEDBrightness(MAX_LED_BRIGHTNESS);

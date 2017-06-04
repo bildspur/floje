@@ -1,3 +1,8 @@
+#include <OSCBundle.h>
+#include <OSCData.h>
+#include <OSCMatch.h>
+#include <OSCMessage.h>
+
 #define DEFAULT_LOOP_DELAY 10
 
 void setup() {
@@ -9,7 +14,9 @@ void setup() {
   setupNetwork();
   setupOSC();
 
-  ledBlink(100);
+  // clean up led state
+  ledStopBlink();
+  ledOFF();
 }
 
 void loop() {
