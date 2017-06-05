@@ -25,10 +25,6 @@ void fadeLED(OSCMessage &msg, int addrOffset)
 void toggleOnOff(OSCMessage &msg, int addrOffset)
 {
   boolean ledState = (boolean) msg.getFloat(0);
-
-  Serial.print("Setting led to ");
-  Serial.println(ledState ? "on" : "off");
-
   setLEDState(ledState);
 }
 

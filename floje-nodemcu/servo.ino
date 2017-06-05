@@ -1,7 +1,7 @@
 #include <Servo.h>
 
 #define SERVO_X_PIN 12 // GPIO12 / D6
-#define SERVO_Y_PIN 14 // GPIO14 / D5
+#define SERVO_Y_PIN 15 // GPIO15 / D8
 
 Servo servoX;
 Servo servoY;
