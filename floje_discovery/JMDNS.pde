@@ -6,7 +6,7 @@ class SampleListener implements ServiceListener {
   @Override
     public void serviceRemoved(ServiceEvent event) {
     ServiceInfo info = event.getInfo();
-    if (info.getName().startsWith("FLOJE"))
+    if (info.getName().startsWith("floje"))
     {
       flojeDevices.remove(info);
     }
@@ -17,7 +17,7 @@ class SampleListener implements ServiceListener {
     System.out.println("Service resolved: " + event.getInfo());
 
     ServiceInfo info = event.getInfo();
-    if (info.getName().startsWith("FLOJE"))
+    if (info.getName().startsWith("floje"))
     {
       flojeDevices.add(info);
     }

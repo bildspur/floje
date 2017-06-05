@@ -3,7 +3,7 @@
 #define DEFAULT_BLINK_INTERVAL 25
 #define ERROR_BLINK_INTERVAL 10
 
-#define MIN_LED_BRIGHTNESS 0
+#define MIN_LED_BRIGHTNESS 10
 #define MAX_LED_BRIGHTNESS 255
 
 boolean isLEDBlinking = false;
@@ -15,6 +15,7 @@ int blinkCounter = 0;
 void setupInfo()
 {
   Serial.begin(115200);
+  Serial.println();
 }
 
 void loopInfo()

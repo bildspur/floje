@@ -9,7 +9,7 @@
 #define CONNECTION_WAIT_TIMES 5000
 
 // wifi credentials
-const char *ssid = "Der Geraet";
+const char *ssid = "XOXO";
 const char *password = "";
 
 char deviceName[25];
@@ -33,8 +33,10 @@ void setupDeviceName()
 {
   char *mac = "00:00:00:00:00:00";
   WiFi.macAddress().toCharArray(mac, 17);
-  
+
   strcpy(deviceName, concatStr(DEVICE_IDENTIFIER, "-", generateName(mac)));
+
+  Serial.print("Device Name: ");
   Serial.println(deviceName);
 }
 
@@ -53,7 +55,6 @@ void setupWiFi()
   ledBlink();
 
   // wait till wifi is connected
-  Serial.println("trying to connect...");
   while (WiFi.status() != WL_CONNECTED) {
     loopInfo();
     connectionWaitTimes++;
@@ -117,7 +118,9 @@ void loopUdp()
     while (size--)
       msg.fill(Udp.read());
     if (!msg.hasError()) {
+      ledON();
       routeOSCMessage(msg);
+      ledOFF();
     }
   }
 }
