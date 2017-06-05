@@ -3,16 +3,15 @@
 #include <WiFiUdp.h>
 #include <ESP8266mDNS.h>
 
-#define DEVICE_NAME "FLOJE_"
+#define DEVICE_IDENTIFIER "floje"
 #define OSC_LOCAL_PORT 8000
 
 #define CONNECTION_WAIT_TIMES 5000
 
 // wifi credentials
-const char *ssid = "loading...";
+const char *ssid = "Der Geraet";
 const char *password = "";
 
-String deviceIdentifier = String(DEVICE_NAME) + String(WiFi.macAddress());
 char deviceName[25];
 
 int connectionWaitTimes = 0;
@@ -32,8 +31,11 @@ void setupNetwork()
 
 void setupDeviceName()
 {
-  deviceIdentifier.toCharArray(deviceName, deviceIdentifier.length() + 1);
-  Serial.println(deviceIdentifier);
+  char *mac = "00:00:00:00:00:00";
+  WiFi.macAddress().toCharArray(mac, 17);
+  
+  strcpy(deviceName, concatStr(DEVICE_IDENTIFIER, "-", generateName(mac)));
+  Serial.println(deviceName);
 }
 
 void initWiFi()
