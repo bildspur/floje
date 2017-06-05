@@ -10,7 +10,7 @@
 
 // wifi credentials
 const char *ssid = "XOXO";
-const char *password = "";
+const char *password = "nodemcuX";
 
 char deviceName[25];
 

@@ -16,6 +16,9 @@ void setupInfo()
 {
   Serial.begin(115200);
   Serial.println();
+
+  Serial.print("Chip ID: 0x");
+  Serial.println(ESP.getChipId(), HEX);
 }
 
 void loopInfo()

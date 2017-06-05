@@ -9,10 +9,13 @@ void setup() {
   // setup all controllers
   setupInfo();
 
-  setupServo();
-
+  // network related
   setupNetwork();
+  setupOTA();
   setupOSC();
+
+  // mechanical
+  setupServo();
 
   // clean up led state
   ledStopBlink();
@@ -22,11 +25,13 @@ void setup() {
 void loop() {
   loopInfo();
   loopNetwork();
+  loopOTA();
 
   delay(DEFAULT_LOOP_DELAY);
 }
 
 void softReset() {
-  setup();
+  ESP.restart();
+  //setup();
 }
 
