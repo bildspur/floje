@@ -1,6 +1,6 @@
 package ch.bildspur.floje
 
-import ch.bildspur.floje.controller.SyphonController
+import ch.bildspur.floje.controller.PeasyController
 import org.opencv.core.Core
 import processing.core.PApplet
 import processing.core.PConstants
@@ -28,14 +28,16 @@ class Sketch : PApplet() {
 
     var fpsOverTime = 0f
 
-    lateinit var canvas : PGraphics
+    var peasy = PeasyController(this)
+
+    lateinit var canvas: PGraphics
 
     init {
 
     }
 
     override fun settings() {
-        size(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P2D)
+        size(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
         PJOGL.profile = 1
     }
 
@@ -50,19 +52,26 @@ class Sketch : PApplet() {
         surface.setTitle(NAME)
 
         canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
+
+        peasy.setup()
     }
 
     override fun draw() {
         canvas.draw {
             it.background(55f)
-            drawFPS(canvas)
+
+            peasy.applyTo(canvas)
         }
 
-        // output image
-        image(canvas, 0f, 0f)
+        // add hud
+        peasy.hud {
+            // output image
+            image(canvas, 0f, 0f)
+            drawFPS(g)
+        }
     }
 
-    fun drawFPS(pg : PGraphics) {
+    fun drawFPS(pg: PGraphics) {
         // draw fps
         fpsOverTime += frameRate
         val averageFPS = fpsOverTime / frameCount.toFloat()

@@ -11,12 +11,11 @@ class SyphonController(internal var sketch: PApplet) {
 
     internal var syphon: SyphonServer? = null
 
-    fun setupSyphon(name: String) {
+    fun setup(name: String) {
         syphon = SyphonServer(sketch, name)
     }
 
-    fun sendScreen()
-    {
+    fun sendScreen() {
         sketch.g.endRaw()
         sendImageToSyphon(sketch.g)
         sketch.g.beginDraw()

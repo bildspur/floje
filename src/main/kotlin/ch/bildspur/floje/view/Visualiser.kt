@@ -8,8 +8,7 @@ import processing.core.PGraphics
  */
 class Visualiser {
 
-    fun render(g : PGraphics, grid : Grid)
-    {
+    fun render(g: PGraphics, grid: Grid) {
 
     }
 }
