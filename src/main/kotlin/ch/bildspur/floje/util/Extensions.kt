@@ -25,6 +25,12 @@ fun Float.isApproximate(value: Double, error: Double): Boolean {
     return (Math.abs(Math.abs(this) - Math.abs(value)) < error)
 }
 
+fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit){
+    this.pushMatrix()
+    block(this)
+    this.popMatrix()
+}
+
 fun PGraphics.draw(block: (g: PGraphics) -> Unit) {
     this.beginDraw()
     block(this)
