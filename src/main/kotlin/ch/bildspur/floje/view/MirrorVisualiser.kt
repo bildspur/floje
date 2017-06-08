@@ -50,8 +50,8 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
     }
 
     internal fun translateToPosition(x: Int, y: Int) {
-        val totalWidth = (grid.width * elementSize) + (grid.width - 1) * elementSpace
-        val totalHeight = (grid.height * elementSize) + (grid.height - 1) * elementSpace
+        val totalWidth = ((grid.width - 1) * elementSize) + (grid.width - 1) * elementSpace
+        val totalHeight = ((grid.height - 1) * elementSize) + (grid.height - 1) * elementSpace
 
         val posX = (x * elementSize) + (x * elementSpace) - totalWidth / 2.0f
         val posY = (y * elementSize) + (y * elementSpace) - totalHeight / 2.0f

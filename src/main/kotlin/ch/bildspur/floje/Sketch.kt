@@ -33,7 +33,7 @@ class Sketch : PApplet() {
 
     val peasy = PeasyController(this)
 
-    val grid = Grid(2, 2)
+    val grid = Grid(5, 5)
 
     lateinit var visualiser: MirrorVisualiser
 
@@ -41,7 +41,7 @@ class Sketch : PApplet() {
 
     init {
         // add test flojes
-        grid[3, 3] = Mirror("Test Mirror")
+        grid[2, 2] = Mirror("Test Mirror")
     }
 
     override fun settings() {
@@ -70,8 +70,6 @@ class Sketch : PApplet() {
         canvas.draw {
             it.background(15f)
 
-            it.fill(255)
-            it.box(20f)
             visualiser.render()
 
             peasy.applyTo(canvas)
