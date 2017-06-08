@@ -1,6 +1,9 @@
 package ch.bildspur.floje
 
 import ch.bildspur.floje.controller.PeasyController
+import ch.bildspur.floje.model.Mirror
+import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.view.MirrorVisualiser
 import org.opencv.core.Core
 import processing.core.PApplet
 import processing.core.PConstants
@@ -28,12 +31,17 @@ class Sketch : PApplet() {
 
     var fpsOverTime = 0f
 
-    var peasy = PeasyController(this)
+    val peasy = PeasyController(this)
+
+    val grid = Grid(2, 2)
+
+    lateinit var visualiser: MirrorVisualiser
 
     lateinit var canvas: PGraphics
 
     init {
-
+        // add test flojes
+        grid[3, 3] = Mirror("Test Mirror")
     }
 
     override fun settings() {
@@ -53,12 +61,18 @@ class Sketch : PApplet() {
 
         canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
 
+        visualiser = MirrorVisualiser(canvas, grid)
+
         peasy.setup()
     }
 
     override fun draw() {
         canvas.draw {
-            it.background(55f)
+            it.background(15f)
+
+            it.fill(255)
+            it.box(20f)
+            visualiser.render()
 
             peasy.applyTo(canvas)
         }
