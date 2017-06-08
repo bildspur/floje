@@ -1,4 +1,4 @@
-#define LED_PIN 13 // GPIO13 / D7
+#define LED_PIN D7 // GPIO13
 
 #define DEFAULT_BLINK_INTERVAL 25
 #define ERROR_BLINK_INTERVAL 10
@@ -94,6 +94,3 @@ void ledStopBlink()
   isLEDBlinking = false;
   ledOFF();
 }
-
-
-
