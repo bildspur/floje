@@ -26,8 +26,6 @@ class Sketch : PApplet() {
         }
     }
 
-    val syphon = SyphonController(this)
-
     var fpsOverTime = 0f
 
     lateinit var canvas : PGraphics
@@ -50,7 +48,6 @@ class Sketch : PApplet() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
 
         surface.setTitle(NAME)
-        syphon.setupSyphon(NAME)
 
         canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
     }
@@ -62,7 +59,6 @@ class Sketch : PApplet() {
         }
 
         // output image
-        syphon.sendImageToSyphon(canvas)
         image(canvas, 0f, 0f)
     }
 

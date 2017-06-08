@@ -1,3 +1,4 @@
+/*
 class Timer
 {
     long interval;
@@ -24,3 +25,4 @@ class Timer
       }
     }
 };
+*/
