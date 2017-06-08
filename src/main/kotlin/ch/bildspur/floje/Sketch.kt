@@ -42,6 +42,9 @@ class Sketch : PApplet() {
     init {
         // add test flojes
         grid[2, 2] = Mirror("Test Mirror")
+        val m = Mirror("Test Mirror")
+        m.xAxis = 110
+        grid[1, 4] = m
     }
 
     override fun settings() {
