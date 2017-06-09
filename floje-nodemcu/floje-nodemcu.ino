@@ -39,12 +39,9 @@ void loop() {
   loopInfo();
   loopNetwork();
   loopOTA();
-
-  delay(DEFAULT_LOOP_DELAY);
 }
 
 void softReset() {
   ESP.restart();
-  //setup();
 }
 

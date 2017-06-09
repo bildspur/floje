@@ -1,7 +1,7 @@
 #define LED_PIN D7 // GPIO13
 
-#define DEFAULT_BLINK_INTERVAL 25
-#define ERROR_BLINK_INTERVAL 10
+#define DEFAULT_BLINK_INTERVAL 500
+#define ERROR_BLINK_INTERVAL 100
 
 #define MIN_LED_BRIGHTNESS 10
 #define MAX_LED_BRIGHTNESS 255
@@ -9,8 +9,9 @@
 boolean isLEDBlinking = false;
 boolean blinkState = false;
 
-int blinkInterval = 0;
-int blinkCounter = 0;
+long blinkInterval = 0;
+
+unsigned long previousMillis;
 
 void setupInfo()
 {
@@ -25,23 +26,25 @@ void loopInfo()
 {
   if (isLEDBlinking)
   {
+    unsigned long currentMillis = millis();
+
     // flip state
-    if (blinkCounter > blinkInterval)
+    if (currentMillis - previousMillis >= blinkInterval)
     {
       if (blinkState)
       {
+        Serial.println("LED ON");
         ledON();
       }
       else
       {
+        Serial.println("LED OFF");
         ledOFF();
       }
 
       blinkState = !blinkState;
-      blinkCounter = 0;
+      previousMillis = currentMillis;
     }
-
-    blinkCounter++;
   }
 }
 
@@ -78,12 +81,12 @@ void ledError()
   ledBlink(ERROR_BLINK_INTERVAL);
 }
 
-void ledBlink(int interval)
+void ledBlink(long interval)
 {
   isLEDBlinking = true;
 
   blinkInterval = interval;
-  blinkCounter = 0;
+  previousMillis = millis();
   blinkState = true;
 
   ledON();
