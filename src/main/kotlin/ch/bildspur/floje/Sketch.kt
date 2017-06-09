@@ -43,7 +43,7 @@ class Sketch : PApplet() {
         // add test flojes
         grid[2, 2] = Mirror("Test Mirror")
         val m = Mirror("Test Mirror")
-        m.xAxis = 110
+        m.xAxis.value = 110
         grid[1, 4] = m
     }
 
