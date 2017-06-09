@@ -33,12 +33,10 @@ void loopInfo()
     {
       if (blinkState)
       {
-        Serial.println("LED ON");
         ledON();
       }
       else
       {
-        Serial.println("LED OFF");
         ledOFF();
       }
 
