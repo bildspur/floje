@@ -8,6 +8,8 @@
 
 #define CONNECTION_WAIT_TIMES 5000
 
+#define CONNECTION_ERROR_WAIT_TIME 5000
+
 // wifi credentials
 const char *ssid = "XOXO";
 const char *password = "nodemcuX";
@@ -26,6 +28,8 @@ void setupNetwork()
   setupUDPServer();
   setupMDNS();
 
+  // clean up led state
+  ledStopBlink();
   ledOFF();
 }
 
@@ -105,9 +109,11 @@ void loopNetwork()
   // check for connection loss
   if (WiFi.status() != WL_CONNECTED)
   {
-    setupNetwork();
     ledError();
     Serial.println("lost connection...");
+    wait(CONNECTION_ERROR_WAIT_TIME);
+    
+    setupNetwork();
   }
 }
 

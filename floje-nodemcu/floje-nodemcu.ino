@@ -45,3 +45,13 @@ void softReset() {
   ESP.restart();
 }
 
+void wait(unsigned long waitTime)
+{
+  unsigned long previousMillis = millis();
+  while (millis() - previousMillis <= waitTime)
+  {
+    loopInfo();
+    delay(DEFAULT_LOOP_DELAY);
+  }
+}
+
