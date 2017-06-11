@@ -11,8 +11,8 @@
 #define CONNECTION_ERROR_WAIT_TIME 5000
 
 // wifi credentials
-const char *ssid = "XOXO";
-const char *password = "nodemcuX";
+const char *ssid = "Der Geraet";
+const char *password = "";
 
 char deviceName[25];
 
@@ -38,7 +38,9 @@ void setupDeviceName()
   char *mac = "00:00:00:00:00:00";
   WiFi.macAddress().toCharArray(mac, 17);
 
-  strcpy(deviceName, concatStr(DEVICE_IDENTIFIER, "-", generateName(mac)));
+  char hex[5];
+  sprintf(hex, "%x", ESP.getChipId());
+  strcpy(deviceName, concatStr(DEVICE_IDENTIFIER, "-", concatStr(generateName(mac), "-", hex)));
 
   Serial.print("Device Name: ");
   Serial.println(deviceName);
@@ -112,7 +114,7 @@ void loopNetwork()
     ledError();
     Serial.println("lost connection...");
     wait(CONNECTION_ERROR_WAIT_TIME);
-    
+
     setupNetwork();
   }
 }
