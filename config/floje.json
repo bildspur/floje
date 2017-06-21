@@ -1,0 +1,23 @@
+{
+  "mirrors": [
+    {
+      "position": {
+        "column": 0,
+        "row": 0
+      },
+      "name": "testmcu",
+      "servo": {
+        "x": {
+          "min": 0,
+          "max": 180,
+          "center": 90
+        },
+        "y": {
+          "min": 0,
+          "max": 180,
+          "center": 90
+        }
+      }
+    }
+  ]
+}
