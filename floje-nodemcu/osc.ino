@@ -1,3 +1,5 @@
+#define SERVO_MAX 180
+
 void setupOSC()
 {
 
@@ -9,9 +11,9 @@ void routeOSCMessage(OSCMessage &msg)
   msg.route("/1/fadeLED", fadeLED);
   msg.route("/1/servo", servoPosition);
 
-  msg.route("/floje/servo", setServoXY);
   msg.route("/floje/servo/x", setServoX);
   msg.route("/floje/servo/y", setServoY);
+  msg.route("/floje/servo/xy", setServoXY);
 }
 
 void fadeLED(OSCMessage &msg, int addrOffset)
@@ -40,8 +42,8 @@ void servoPosition(OSCMessage &msg, int addrOffset)
 
 void setServoXY(OSCMessage &msg, int addrOffset)
 {
-  float x = msg.getFloat(0);
-  float y = msg.getFloat(1);
+  int x = msg.getFloat(0);
+  int y = msg.getFloat(1);
 
   setXAxis(x);
   setYAxis(y);
@@ -50,13 +52,17 @@ void setServoXY(OSCMessage &msg, int addrOffset)
 void setServoX(OSCMessage &msg, int addrOffset)
 {
   float x = msg.getFloat(0);
-  setXAxis(x);
+  int p = x * SERVO_MAX;
+
+  setXAxis(p);
 }
 
 
 void setServoY(OSCMessage &msg, int addrOffset)
 {
   float y = msg.getFloat(0);
-  setYAxis(y);
+  int p = y * SERVO_MAX;
+
+  setYAxis(p);
 }
 
