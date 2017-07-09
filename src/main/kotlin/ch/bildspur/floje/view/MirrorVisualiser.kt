@@ -59,6 +59,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.stroke(127f, 140f, 141f)
         g.noFill()
         g.translate(0f, 0f, (towerHeight / 2) + (jointSize / 2))
+        g.sphereDetail(4, 4)
         g.sphere(jointSize)
 
         // draw top plate
