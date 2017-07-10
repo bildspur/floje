@@ -1,5 +1,6 @@
 package ch.bildspur.floje
 
+import ch.bildspur.floje.controller.OscController
 import ch.bildspur.floje.controller.PeasyController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
@@ -32,6 +33,8 @@ class Sketch : PApplet() {
     var fpsOverTime = 0f
 
     val peasy = PeasyController(this)
+
+    val osc = OscController(this)
 
     val grid = Grid(5, 5)
 
@@ -67,9 +70,20 @@ class Sketch : PApplet() {
         visualiser = MirrorVisualiser(canvas, grid)
 
         peasy.setup()
+
+        prepareExitHandler()
     }
 
     override fun draw() {
+        // setup long loading controllers
+        if (initControllers()) {
+            peasy.hud {
+                textAlign(CENTER, CENTER)
+                text("loading controllers...", width / 2f, height / 2f)
+            }
+            return
+        }
+
         canvas.draw {
             it.background(15f)
 
@@ -86,6 +100,15 @@ class Sketch : PApplet() {
         }
     }
 
+    fun initControllers(): Boolean {
+        if (!osc.isSetup) {
+            osc.setup()
+            return true
+        }
+
+        return false
+    }
+
     fun drawFPS(pg: PGraphics) {
         // draw fps
         fpsOverTime += frameRate
@@ -94,5 +117,12 @@ class Sketch : PApplet() {
         pg.textAlign(PApplet.LEFT, PApplet.BOTTOM)
         pg.fill(255)
         pg.text("FPS: ${frameRate.format(2)}\nFOT: ${averageFPS.format(2)}", 10f, height - 5f)
+    }
+
+    fun prepareExitHandler() {
+        Runtime.getRuntime().addShutdownHook(Thread {
+            println("shutting down...")
+            osc.osc.stop()
+        })
     }
 }
