@@ -143,4 +143,10 @@ class Sketch : PApplet() {
             osc.osc.stop()
         })
     }
+
+    override fun keyPressed() {
+        val m = grid[1, 4] as Mirror
+        m.xAxis.moveTo(30)
+        m.yAxis.moveTo(130)
+    }
 }

@@ -13,6 +13,13 @@ class DataModel<T>(private var dataValue: T) {
         get() = this.dataValue
         set(value) {
             dataValue = value
-            onChanged.invoke(value)
+
+            // fire event if changed
+            if (dataValue != value)
+                fire()
         }
+
+    fun fire() {
+        onChanged.invoke(dataValue)
+    }
 }

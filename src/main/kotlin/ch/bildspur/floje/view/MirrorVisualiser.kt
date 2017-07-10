@@ -67,8 +67,8 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.translate(0f, 0f, (jointSize / 2) + (elementThickness / 2))
 
         // rotate mirror
-        g.rotateX(PApplet.radians(90f - mirror.xAxis.servo.position))
-        g.rotateY(PApplet.radians(90f - mirror.yAxis.servo.position))
+        g.rotateX(PApplet.radians(90f - mirror.xAxis.servo.position.value))
+        g.rotateY(PApplet.radians(90f - mirror.yAxis.servo.position.value))
 
         g.box(elementSize, elementSize, elementThickness)
     }
