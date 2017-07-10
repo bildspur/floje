@@ -18,12 +18,12 @@ class Sketch : PApplet() {
     companion object {
         @JvmStatic val FRAME_RATE = 30f
 
-        @JvmStatic val WINDOW_WIDTH = 640
-        @JvmStatic val WINDOW_HEIGHT = 480
+        @JvmStatic val WINDOW_WIDTH = 768
+        @JvmStatic val WINDOW_HEIGHT = 576
 
         @JvmStatic val NAME = "FLØJE Installation"
 
-        @JvmStatic var instance = PApplet()
+        @JvmStatic lateinit var instance: PApplet
 
         @JvmStatic fun map(value: Double, start1: Double, stop1: Double, start2: Double, stop2: Double): Double {
             return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
@@ -61,8 +61,8 @@ class Sketch : PApplet() {
 
     override fun setup() {
         Sketch.instance = this
-
         smooth()
+
         frameRate(FRAME_RATE)
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
@@ -70,6 +70,7 @@ class Sketch : PApplet() {
         surface.setTitle(NAME)
 
         canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
+        canvas.smooth(8)
 
         visualiser = MirrorVisualiser(canvas, grid)
 
@@ -91,7 +92,7 @@ class Sketch : PApplet() {
         updateServos()
 
         canvas.draw {
-            it.background(15f)
+            it.background(255f)
 
             visualiser.render()
 
@@ -133,7 +134,7 @@ class Sketch : PApplet() {
         val averageFPS = fpsOverTime / frameCount.toFloat()
 
         pg.textAlign(PApplet.LEFT, PApplet.BOTTOM)
-        pg.fill(255)
+        pg.fill(0)
         pg.text("FPS: ${frameRate.format(2)}\nFOT: ${averageFPS.format(2)}", 10f, height - 5f)
     }
 
