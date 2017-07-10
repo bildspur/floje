@@ -9,7 +9,7 @@ import processing.core.PApplet
  */
 class OscController(internal var sketch: PApplet) {
     companion object {
-        val OUTGOING_PORT = 9000
+        @JvmStatic val OUTGOING_PORT = 9000
     }
 
     @Volatile
