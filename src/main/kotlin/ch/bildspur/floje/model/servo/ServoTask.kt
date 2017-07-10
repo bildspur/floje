@@ -1,6 +1,6 @@
 package ch.bildspur.floje.model.servo
 
-import ch.bildspur.floje.Sketch.Companion.millis
+import ch.bildspur.floje.Sketch.Companion.currentMillis
 import ch.bildspur.floje.util.Easing.easeInQuad
 import ch.bildspur.floje.util.Easing.easeOutQuad
 import ch.bildspur.floje.util.Easing.linearTween
@@ -22,7 +22,7 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
     var decelerationTarget: Float = 0.toFloat()
 
     var duration: Float = 0.toFloat()
-    var startTime: Long = 0
+    var startTime: Int = 0
 
     var accelerationTime: Float = 0.toFloat()
     var linearMotionTime: Float = 0.toFloat()
@@ -43,7 +43,7 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
         status = ServoTaskStatus.RUNNING
 
         this.startPosition = startPosition
-        this.startTime = millis()
+        this.startTime = currentMillis()
 
         // caluclate time and path
         accelerationTime = calculateMotionTime(0f, velocity, acceleration)
@@ -96,7 +96,7 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
     // t = current time, b = start value, c = change in value, d = duration
 
     fun acceleration(): Int {
-        val t = (millis() - startTime).toFloat()
+        val t = (currentMillis() - startTime).toFloat()
         val b = startPosition.toFloat()
         val c = accelerationTarget - startPosition
         val d = accelerationTime
@@ -104,14 +104,13 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
         // check state switch
         if (t >= d) {
             state = ServoState.LINEARMOTION
-            println("changing to linear motion state")
         }
 
         return Math.round(easeInQuad(t, b, c, d))
     }
 
     fun linearMotion(): Int {
-        val t = millis() - (startTime + accelerationTime)
+        val t = currentMillis() - (startTime + accelerationTime)
         val b = accelerationTarget
         val c = linearMotionTarget - accelerationTarget
         val d = linearMotionTime
@@ -119,7 +118,6 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
         // check state switch
         if (t >= d) {
             state = ServoState.DECELERATION
-            println("changing to deceleration state")
         }
 
         if (d <= 0) {
@@ -131,7 +129,7 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
     }
 
     fun deceleration(): Int {
-        val t = millis() - (startTime.toFloat() + accelerationTime + linearMotionTime)
+        val t = currentMillis() - (startTime.toFloat() + accelerationTime + linearMotionTime)
         val b = linearMotionTarget
         val c = decelerationTarget - linearMotionTarget
         val d = decelerationTime

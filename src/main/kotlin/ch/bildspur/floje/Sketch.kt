@@ -29,8 +29,8 @@ class Sketch : PApplet() {
             return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
         }
 
-        @JvmStatic fun millis(): Long {
-            return this.millis()
+        @JvmStatic fun currentMillis(): Int {
+            return instance.millis()
         }
     }
 
@@ -50,7 +50,7 @@ class Sketch : PApplet() {
         // add test flojes
         grid[2, 2] = Mirror("Test Mirror")
         val m = Mirror("Test Mirror")
-        m.xAxis.value = 110
+        m.xAxis.moveTo(110)
         grid[1, 4] = m
     }
 
@@ -88,6 +88,8 @@ class Sketch : PApplet() {
             return
         }
 
+        updateServos()
+
         canvas.draw {
             it.background(15f)
 
@@ -101,6 +103,18 @@ class Sketch : PApplet() {
             // output image
             image(canvas, 0f, 0f)
             drawFPS(g)
+        }
+    }
+
+    fun updateServos() {
+        grid.columns.forEachIndexed { y, fields ->
+            fields.forEachIndexed { x, field ->
+                if (!field.isEmpty()) {
+                    val mirror = (field as Mirror)
+                    mirror.xAxis.update()
+                    mirror.yAxis.update()
+                }
+            }
         }
     }
 
