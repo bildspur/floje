@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile files('lib/opencv/opencv-310.jar')

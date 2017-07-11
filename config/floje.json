@@ -1,4 +1,8 @@
 {
+  "limits": {
+    "maxAcceleration": 0.333,
+    "maxVelocity": 0.040
+  },
   "mirrors": [
     {
       "position": {
@@ -6,17 +10,9 @@
         "row": 0
       },
       "name": "floje-teal-cabbage-2bca70",
-      "servo": {
-        "x": {
-          "min": 0,
-          "max": 180,
-          "center": 90
-        },
-        "y": {
-          "min": 0,
-          "max": 180,
-          "center": 90
-        }
+      "trim": {
+        "x": 0,
+        "y": 0
       }
     }
   ]
