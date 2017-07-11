@@ -26,6 +26,8 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
 
     val elementSpace = 15
 
+    var showPosition = true
+
     fun render() {
         g.draw {
             renderFloor()
@@ -49,6 +51,11 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.noStroke()
         g.translate(0f, 0f, emptyHeight / 2)
         g.box(elementSize, elementSize, emptyHeight)
+
+        // add text name
+        g.translate(0f, 0f, (emptyHeight / 2) + 1)
+        g.rotateZ(PApplet.radians(-90f))
+        showInformation(x, y)
     }
 
     internal fun renderMirror(mirror: Mirror, x: Int, y: Int) {
@@ -74,7 +81,24 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.rotateX(PApplet.radians(90f - mirror.xAxis.servo.position.value))
         g.rotateY(PApplet.radians(90f - mirror.yAxis.servo.position.value))
 
+        // add mirror
         g.box(elementSize, elementSize, elementThickness)
+
+        // add text name
+        g.translate(0f, 0f, (elementThickness / 2) + 1)
+        g.rotateZ(PApplet.radians(-90f))
+        showInformation(x, y)
+    }
+
+    internal fun showInformation(x: Int, y: Int) {
+        if (!showPosition)
+            return
+
+        g.fill(55f)
+        g.noStroke()
+        g.textSize(14f)
+        g.textAlign(PApplet.CENTER, PApplet.CENTER)
+        g.text("$x,$y", 0f, 0f, 0f)
     }
 
     internal fun renderFloor() {
