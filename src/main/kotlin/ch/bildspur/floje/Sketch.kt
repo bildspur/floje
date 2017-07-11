@@ -40,7 +40,7 @@ class Sketch : PApplet() {
 
     val osc = OscController(this)
 
-    val grid = Grid(5, 5)
+    val grid = Grid(6, 4)
 
     lateinit var visualiser: MirrorVisualiser
 

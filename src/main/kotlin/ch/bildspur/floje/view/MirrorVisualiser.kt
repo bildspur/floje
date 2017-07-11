@@ -12,20 +12,23 @@ import processing.core.PGraphics
  */
 class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
 
-    val elementSize = 80f
+    val radius = 37f
+
+    val elementSize = 50f
     val elementThickness = 2f
 
     val towerSize = 7f
-    val towerHeight = 40f
+    val towerHeight = 20f
 
     val jointSize = 4f
 
     val emptyHeight = 5f
 
-    val elementSpace = 10
+    val elementSpace = 15
 
     fun render() {
         g.draw {
+            renderFloor()
             grid.columns.forEachIndexed { y, fields ->
                 fields.forEachIndexed { x, field ->
                     g.stackMatrix {
@@ -43,6 +46,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         translateToPosition(x, y)
 
         g.fill(41f, 128f, 185f, 100f)
+        g.noStroke()
         g.translate(0f, 0f, emptyHeight / 2)
         g.box(elementSize, elementSize, emptyHeight)
     }
@@ -73,13 +77,26 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.box(elementSize, elementSize, elementThickness)
     }
 
+    internal fun renderFloor() {
+        g.pushMatrix()
+        g.translate(0f, 0f, 0f - elementSize)
+
+        g.fill(127f, 140f, 141f, 100f)
+        g.noStroke()
+        g.box(500f, 500f, 2f)
+        g.popMatrix()
+    }
+
     internal fun translateToPosition(x: Int, y: Int) {
-        val totalWidth = ((grid.width - 1) * elementSize) + (grid.width - 1) * elementSpace
-        val totalHeight = ((grid.height - 1) * elementSize) + (grid.height - 1) * elementSpace
+        val posX = radius
+        val posY = 0f
+        val posZ = (y * elementSize) + (y * elementSpace)
 
-        val posX = (x * elementSize) + (x * elementSpace) - totalWidth / 2.0f
-        val posY = (y * elementSize) + (y * elementSpace) - totalHeight / 2.0f
+        // rotate mirrors to direction
+        g.rotateZ(PApplet.radians((360f / grid.width) * x))
+        g.translate(posX, posY, posZ)
 
-        g.translate(posX, posY)
+        // rotate whole mirror
+        g.rotateY(PApplet.radians(90f))
     }
 }

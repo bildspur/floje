@@ -9,6 +9,10 @@ import oscP5.OscP5
  */
 class OscOutput(val osc: OscP5, val grid: Grid) {
 
+    fun registerMirror(mirror: Mirror) {
+
+    }
+
     fun updateMirrors() {
         grid.columns.forEachIndexed { y, fields ->
             fields.forEachIndexed { x, field ->
