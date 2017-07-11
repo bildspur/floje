@@ -1,5 +1,6 @@
 package ch.bildspur.floje
 
+import ch.bildspur.floje.controller.ConfigurationController
 import ch.bildspur.floje.controller.OscController
 import ch.bildspur.floje.controller.PeasyController
 import ch.bildspur.floje.model.Mirror
@@ -40,6 +41,8 @@ class Sketch : PApplet() {
 
     val osc = OscController(this)
 
+    val config = ConfigurationController(this)
+
     val grid = Grid(6, 4)
 
     lateinit var visualiser: MirrorVisualiser
@@ -47,11 +50,6 @@ class Sketch : PApplet() {
     lateinit var canvas: PGraphics
 
     init {
-        // add test flojes
-        grid[2, 2] = Mirror("Test Mirror")
-        val m = Mirror("Test Mirror")
-        m.xAxis.moveTo(110)
-        grid[1, 4] = m
     }
 
     override fun settings() {
@@ -72,11 +70,16 @@ class Sketch : PApplet() {
         canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
         canvas.smooth(8)
 
+        config.setup()
+        config.loadConfiguration()
+
         visualiser = MirrorVisualiser(canvas, grid)
 
         peasy.setup()
 
         prepareExitHandler()
+
+        setupMirrors()
     }
 
     override fun draw() {
@@ -143,6 +146,20 @@ class Sketch : PApplet() {
             println("shutting down...")
             osc.osc.stop()
         })
+    }
+
+    fun setupMirrors() {
+
+        // set limits and add to position
+        config.settings.mirrors.forEach {
+            grid[it.position.column, it.position.row] = it
+
+            it.xAxis.maxAcceleration = config.settings.limits.maxAcceleration.toFloat()
+            it.yAxis.maxAcceleration = config.settings.limits.maxAcceleration.toFloat()
+
+            it.xAxis.maxVelocity = config.settings.limits.maxVelocity.toFloat()
+            it.yAxis.maxVelocity = config.settings.limits.maxVelocity.toFloat()
+        }
     }
 
     override fun keyPressed() {

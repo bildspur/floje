@@ -13,7 +13,7 @@ import java.nio.file.Paths
  */
 class ConfigurationController(internal var sketch: PApplet) {
     companion object {
-        @JvmStatic val CONFIGURATION_FILE = "floe.json"
+        @JvmStatic val CONFIGURATION_FILE = "floje.json"
     }
 
     lateinit var gson: Gson
