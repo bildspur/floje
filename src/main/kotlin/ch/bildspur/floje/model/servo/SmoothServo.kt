@@ -9,10 +9,10 @@ import ch.bildspur.floje.util.Queue
  */
 class SmoothServo(val servo: Servo, // max speed per seconds
                   var maxVelocity: Float, var maxAcceleration: Float) {
-    var tasks = Queue<ServoTask>(30)
-    var task: ServoTask? = null
+    private var tasks = Queue<ServoTask>(30)
+    private var task: ServoTask? = null
 
-    var servoPosition: Int = 0
+    private var servoPosition: Int = 0
 
     init {
         // init servo to have same position

@@ -5,6 +5,7 @@ import ch.bildspur.floje.controller.timer.TimerTask
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.view.MirrorVisualiser
+import ch.bildspur.floje.view.OscOutput
 import ch.bildspur.floje.view.StatusView
 import org.opencv.core.Core
 import processing.core.PApplet
@@ -55,6 +56,8 @@ class Sketch : PApplet() {
 
     lateinit var statusView: StatusView
 
+    lateinit var oscOutput: OscOutput
+
     lateinit var canvas: PGraphics
 
     init {
@@ -97,8 +100,9 @@ class Sketch : PApplet() {
             return
         }
 
-        timer.update()
+        // update all time relevant methods
         updateServos()
+        timer.update()
 
         canvas.draw {
             it.background(255f)
@@ -143,6 +147,7 @@ class Sketch : PApplet() {
             config.setup()
             config.loadConfiguration()
 
+            oscOutput = OscOutput(osc.osc, grid)
             visualiser = MirrorVisualiser(canvas, grid)
             statusView = StatusView(g, grid)
 
@@ -156,6 +161,12 @@ class Sketch : PApplet() {
             timer.addTask(TimerTask(PingController.PING_INTERVAL, {
                 ping.pingMirrors(grid)
             }))
+
+            // add osc output task
+            timer.addTask(TimerTask(OscOutput.OUTPUT_INTERVAL, {
+                oscOutput.updateMirrors()
+            }))
+
 
             return true
         }
@@ -194,6 +205,9 @@ class Sketch : PApplet() {
             it.yAxis.maxVelocity = config.settings.limits.maxVelocity.toFloat()
 
             it.setup()
+
+            // register mirror for osc update
+            oscOutput.registerMirror(it)
         }
     }
 
@@ -202,8 +216,8 @@ class Sketch : PApplet() {
             'i' -> isStatusViewShown = !isStatusViewShown
             'm' -> {
                 val m = grid[0, 0] as Mirror
-                m.xAxis.moveTo(30)
-                m.yAxis.moveTo(130)
+                m.xAxis.moveTo(random(0f, 180f).toInt())
+                m.yAxis.moveTo(random(0f, 180f).toInt())
             }
         }
     }

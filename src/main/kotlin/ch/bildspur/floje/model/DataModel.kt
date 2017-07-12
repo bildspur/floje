@@ -12,10 +12,11 @@ class DataModel<T>(private var dataValue: T) {
     var value: T
         get() = this.dataValue
         set(value) {
+            var oldValue = dataValue
             dataValue = value
 
             // fire event if changed
-            if (dataValue != value)
+            if (dataValue != oldValue)
                 fire()
         }
 

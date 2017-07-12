@@ -1,7 +1,6 @@
 package ch.bildspur.floje.controller
 
 import oscP5.OscP5
-import oscP5.OscPacket
 import processing.core.PApplet
 
 /**
@@ -21,9 +20,5 @@ class OscController(internal var sketch: PApplet) {
     fun setup() {
         osc = OscP5(sketch, INCOMING_PORT)
         isSetup = true
-    }
-
-    fun send(packet: OscPacket) {
-        osc.send(packet)
     }
 }

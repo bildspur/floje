@@ -26,4 +26,15 @@ class Mirror() : GridField() {
     fun setup() {
         address = NetAddress("$name.local", OscController.OUTGOING_PORT)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Mirror)
+            return other.name == name
+
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return name.hashCode()
+    }
 }
