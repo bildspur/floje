@@ -69,15 +69,26 @@ class Sketch : PApplet() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
 
         surface.setTitle(NAME)
+
+        peasy.setup()
     }
 
     override fun draw() {
-        // setup long loading controllers
-        if (initControllers()) {
+        background(255)
+
+        // skip first two frames
+        if (frameCount < 2) {
             peasy.hud {
                 textAlign(CENTER, CENTER)
-                text("loading controllers...", width / 2f, height / 2f)
+                fill(0)
+                textSize(20f)
+                text("FLØJE is loading...", width / 2f, height / 2f)
             }
+            return
+        }
+
+        // setup long loading controllers
+        if (initControllers()) {
             return
         }
 
@@ -124,7 +135,6 @@ class Sketch : PApplet() {
 
             visualiser = MirrorVisualiser(canvas, grid)
 
-            peasy.setup()
             timer.setup()
 
             prepareExitHandler()
@@ -149,6 +159,7 @@ class Sketch : PApplet() {
 
         pg.textAlign(PApplet.LEFT, PApplet.BOTTOM)
         pg.fill(0)
+        pg.textSize(12f)
         pg.text("FPS: ${frameRate.format(2)}\nFOT: ${averageFPS.format(2)}", 10f, height - 5f)
     }
 
