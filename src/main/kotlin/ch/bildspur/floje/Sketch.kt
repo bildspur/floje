@@ -5,6 +5,7 @@ import ch.bildspur.floje.controller.timer.TimerTask
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.view.MirrorVisualiser
+import ch.bildspur.floje.view.StatusView
 import org.opencv.core.Core
 import processing.core.PApplet
 import processing.core.PConstants
@@ -36,6 +37,8 @@ class Sketch : PApplet() {
 
     var fpsOverTime = 0f
 
+    var isStatusViewShown = false
+
     val peasy = PeasyController(this)
 
     val osc = OscController(this)
@@ -49,6 +52,8 @@ class Sketch : PApplet() {
     val grid = Grid(6, 4)
 
     lateinit var visualiser: MirrorVisualiser
+
+    lateinit var statusView: StatusView
 
     lateinit var canvas: PGraphics
 
@@ -107,6 +112,11 @@ class Sketch : PApplet() {
         peasy.hud {
             // output image
             image(canvas, 0f, 0f)
+
+            // overlay status
+            if (isStatusViewShown)
+                statusView.render()
+
             drawFPS(g)
         }
     }
@@ -134,6 +144,7 @@ class Sketch : PApplet() {
             config.loadConfiguration()
 
             visualiser = MirrorVisualiser(canvas, grid)
+            statusView = StatusView(g, grid)
 
             timer.setup()
 
@@ -187,8 +198,13 @@ class Sketch : PApplet() {
     }
 
     override fun keyPressed() {
-        val m = grid[1, 4] as Mirror
-        m.xAxis.moveTo(30)
-        m.yAxis.moveTo(130)
+        when (key) {
+            'i' -> isStatusViewShown = !isStatusViewShown
+            'm' -> {
+                val m = grid[0, 0] as Mirror
+                m.xAxis.moveTo(30)
+                m.yAxis.moveTo(130)
+            }
+        }
     }
 }

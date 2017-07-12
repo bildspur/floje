@@ -102,7 +102,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.noStroke()
         g.textSize(14f)
         g.textAlign(PApplet.CENTER, PApplet.CENTER)
-        g.text("$x,$y", 0f, 0f, 0f)
+        g.text("$y,$x", 0f, 0f, 0f)
     }
 
     internal fun renderFloor() {
@@ -118,10 +118,10 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
     internal fun translateToPosition(x: Int, y: Int) {
         val posX = radius
         val posY = 0f
-        val posZ = (y * elementSize) + (y * elementSpace)
+        val posZ = (x * elementSize) + (x * elementSpace)
 
         // rotate mirrors to direction
-        g.rotateZ(PApplet.radians((360f / grid.width) * x))
+        g.rotateZ(PApplet.radians((360f / grid.width) * y))
         g.translate(posX, posY, posZ)
 
         // rotate whole mirror
