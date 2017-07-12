@@ -2,3 +2,10 @@
 FLØJE is a kybernetic art installation.
 
 ![FLØJE](readme/FlojeReal.jpg)
+
+*Prototype 0.1 of FLØJE*
+
+
+![Software](readme/livevisualisation.png)
+
+*User Interface of FLØJE*

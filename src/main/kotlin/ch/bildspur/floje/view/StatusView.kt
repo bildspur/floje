@@ -30,7 +30,7 @@ class StatusView(val pg: PGraphics, val grid: Grid) {
                 if (!field.isEmpty())
                     showInformation(field as Mirror, x, y)
                 else {
-                    pg.fill(0)
+                    pg.fill(44f, 62f, 80f)
                     pg.text("C: $y R: $x => EMPTY", 0f, 0f)
                 }
 
@@ -41,9 +41,9 @@ class StatusView(val pg: PGraphics, val grid: Grid) {
 
     private fun showInformation(m: Mirror, x: Int, y: Int) {
         if (m.isOnline)
-            pg.fill(0f, 255f, 0f)
+            pg.fill(39f, 174f, 96f)
         else
-            pg.fill(255f, 0f, 0f)
+            pg.fill(192f, 57f, 43f)
 
         pg.text("C: $y R: $x => ${m.name}", 0f, 0f)
     }
