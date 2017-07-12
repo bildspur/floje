@@ -7,9 +7,20 @@
     {
       "position": {
         "column": 0,
-        "row": 0
+        "row": 3
       },
       "name": "floje-teal-cabbage-2bca70",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 0,
+        "row": 0
+      },
+      "name": "floje-red-leek-201e0f",
       "trim": {
         "x": 0,
         "y": 0

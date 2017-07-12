@@ -16,7 +16,7 @@ class OscOutput(val osc: OscP5, val grid: Grid) {
     fun updateMirrors() {
         grid.columns.forEachIndexed { y, fields ->
             fields.forEachIndexed { x, field ->
-                if (field.isEmpty())
+                if (!field.isEmpty())
                     updateMirror(field as Mirror)
             }
         }

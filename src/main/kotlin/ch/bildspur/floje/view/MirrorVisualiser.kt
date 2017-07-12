@@ -74,7 +74,11 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
         g.sphere(jointSize)
 
         // draw top plate
-        g.fill(236f, 240f, 241f)
+        if (mirror.isOnline)
+            g.fill(236f, 240f, 241f)
+        else
+            g.fill(236f, 100f, 75f)
+
         g.translate(0f, 0f, (jointSize / 2) + (elementThickness / 2))
 
         // rotate mirror

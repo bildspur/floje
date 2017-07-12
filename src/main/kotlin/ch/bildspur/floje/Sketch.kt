@@ -1,8 +1,7 @@
 package ch.bildspur.floje
 
-import ch.bildspur.floje.controller.ConfigurationController
-import ch.bildspur.floje.controller.OscController
-import ch.bildspur.floje.controller.PeasyController
+import ch.bildspur.floje.controller.*
+import ch.bildspur.floje.controller.timer.TimerTask
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.view.MirrorVisualiser
@@ -43,6 +42,10 @@ class Sketch : PApplet() {
 
     val config = ConfigurationController(this)
 
+    val timer = TimerController(this)
+
+    val ping = PingController(this)
+
     val grid = Grid(6, 4)
 
     lateinit var visualiser: MirrorVisualiser
@@ -66,20 +69,6 @@ class Sketch : PApplet() {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
 
         surface.setTitle(NAME)
-
-        canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
-        canvas.smooth(8)
-
-        config.setup()
-        config.loadConfiguration()
-
-        visualiser = MirrorVisualiser(canvas, grid)
-
-        peasy.setup()
-
-        prepareExitHandler()
-
-        setupMirrors()
     }
 
     override fun draw() {
@@ -92,6 +81,7 @@ class Sketch : PApplet() {
             return
         }
 
+        timer.update()
         updateServos()
 
         canvas.draw {
@@ -125,6 +115,27 @@ class Sketch : PApplet() {
     fun initControllers(): Boolean {
         if (!osc.isSetup) {
             osc.setup()
+
+            canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
+            canvas.smooth(8)
+
+            config.setup()
+            config.loadConfiguration()
+
+            visualiser = MirrorVisualiser(canvas, grid)
+
+            peasy.setup()
+            timer.setup()
+
+            prepareExitHandler()
+
+            setupMirrors()
+
+            // add ping task
+            timer.addTask(TimerTask(PingController.PING_INTERVAL, {
+                ping.pingMirrors(grid)
+            }))
+
             return true
         }
 
@@ -159,6 +170,8 @@ class Sketch : PApplet() {
 
             it.xAxis.maxVelocity = config.settings.limits.maxVelocity.toFloat()
             it.yAxis.maxVelocity = config.settings.limits.maxVelocity.toFloat()
+
+            it.setup()
         }
     }
 

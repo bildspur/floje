@@ -13,7 +13,7 @@ class PeasyController(internal var sketch: PApplet) {
 
     fun setup() {
         cam = PeasyCam(sketch, 0.0, 0.0, 0.0, 600.0)
-        //cam.rotateX(PApplet.radians(-20f).toDouble())
+
         cam.setMinimumDistance(200.0)
         cam.setMaximumDistance(800.0)
 
