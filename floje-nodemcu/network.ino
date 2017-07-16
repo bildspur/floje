@@ -11,7 +11,7 @@
 #define CONNECTION_ERROR_WAIT_TIME 5000
 
 // wifi credentials
-const char *ssid = "Der Geraet";
+const char *ssid = "Bildspur-ArtNet";
 const char *password = "";
 
 char deviceName[25];
@@ -35,8 +35,8 @@ void setupNetwork()
 
 void setupDeviceName()
 {
-  char *mac = "00:00:00:00:00:00";
-  WiFi.macAddress().toCharArray(mac, 17);
+  char *mac = "00:00:00:00:00:00N";
+  WiFi.macAddress().toCharArray(mac, 18);
 
   char hex[5];
   sprintf(hex, "%x", ESP.getChipId());

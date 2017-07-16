@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 const char *colors[] = {"blue",
                         "red",
@@ -65,8 +66,8 @@ char * concatStr(char *str1, char *str2, char *str3)
 
 char * generateName(char *macAddress)
 {
-  int colorIndex = subStrToInt(macAddress, 12);
-  int vegetableIndex = subStrToInt(macAddress, 13);
+  int colorIndex = subStrToInt(macAddress, 15);
+  int vegetableIndex = subStrToInt(macAddress, 16);
 
   return concatStr((char *) colors[colorIndex], "-", (char *) vegetables[vegetableIndex]);
 }
