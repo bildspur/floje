@@ -1,15 +1,15 @@
 {
   "limits": {
-    "maxAcceleration": 0.040,
-    "maxVelocity": 0.333
+    "maxAcceleration": 0.020,
+    "maxVelocity": 0.5
   },
   "mirrors": [
     {
       "position": {
         "column": 0,
-        "row": 3
+        "row": 0
       },
-      "name": "floje-teal-cabbage-2bca70",
+      "name": "floje-orange-celery-8774b",
       "trim": {
         "x": 0,
         "y": 0
@@ -18,9 +18,251 @@
     {
       "position": {
         "column": 0,
+        "row": 1
+      },
+      "name": "floje-teal-spinach-2bc6cc",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 0,
+        "row": 2
+      },
+      "name": "floje-red-broccoli-2da812",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 0,
+        "row": 3
+      },
+      "name": "floje-violet-bean-86ce5",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 1,
         "row": 0
       },
-      "name": "floje-red-leek-201e0f",
+      "name": "floje-white-pumpkin-2bcc88",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 1,
+        "row": 1
+      },
+      "name": "floje-pink-cucumber-2bd37d",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 1,
+        "row": 2
+      },
+      "name": "floje-white-tomato-2bc983",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 1,
+        "row": 3
+      },
+      "name": "floje-green-sweetcorn-86e21",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 2,
+        "row": 0
+      },
+      "name": "floje-gray-cucumber-86ebd",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 2,
+        "row": 1
+      },
+      "name": "floje-yellow-tomato-2daa53",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 2,
+        "row": 2
+      },
+      "name": "floje-blue-sweetcorn-2bcd01",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 2,
+        "row": 3
+      },
+      "name": "floje-violet-onion-2bcae6",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 3,
+        "row": 0
+      },
+      "name": "floje-black-onion-2bc196",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 3,
+        "row": 1
+      },
+      "name": "floje-white-leek-2bd38e",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 3,
+        "row": 2
+      },
+      "name": "floje-purple-cabbage-2bcd3a",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 3,
+        "row": 3
+      },
+      "name": "floje-silver-cucumber-2bc6ad",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 4,
+        "row": 0
+      },
+      "name": "floje-violet-potato-2da9e0",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 4,
+        "row": 1
+      },
+      "name": "floje-black-pea-2da99f",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 4,
+        "row": 2
+      },
+      "name": "floje-blue-potato-2bd100",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 4,
+        "row": 3
+      },
+      "name": "floje-aqua-cucumber-86cdd",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 5,
+        "row": 0
+      },
+      "name": "floje-red-onion-87316",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 5,
+        "row": 1
+      },
+      "name": "floje-white-cabbage-2da88a",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 5,
+        "row": 2
+      },
+      "name": "floje-blue-onion-2bc606",
+      "trim": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "position": {
+        "column": 5,
+        "row": 3
+      },
+      "name": "floje-orange-potato-2da940",
       "trim": {
         "x": 0,
         "y": 0

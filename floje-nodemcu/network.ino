@@ -126,7 +126,12 @@ void loopUdp()
   if ((size = Udp.parsePacket()) > 0) {
     while (size--)
       msg.fill(Udp.read());
+
     if (!msg.hasError()) {
+
+      // feed because of watchdog
+      ESP.wdtFeed();
+
       ledON();
       routeOSCMessage(msg);
       ledOFF();

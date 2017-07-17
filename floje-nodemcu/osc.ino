@@ -1,8 +1,30 @@
 #define SERVO_MAX 180
 
+IPAddress broadcastIP(255, 255, 255, 255);
+const unsigned int outPort = 9000;
+
 void setupOSC()
 {
+  // send reset reason boradcast
+  sendRestartReason();
+}
 
+void sendRestartReason()
+{
+  // copy reason
+  char msgBuffer[32];
+  ESP.getResetReason().toCharArray(msgBuffer, 32);
+
+  Serial.print("Restart reason:");
+  Serial.println(msgBuffer);
+
+  OSCMessage msg(concatStr("/floje/status/", deviceName));
+  msg.add(msgBuffer);
+
+  Udp.beginPacket(broadcastIP, outPort);
+  msg.send(Udp); // send the bytes to the SLIP stream
+  Udp.endPacket(); // mark the end of the OSC Packet
+  msg.empty(); // free space occupied by message
 }
 
 void routeOSCMessage(OSCMessage &msg)
