@@ -1,3 +1,8 @@
+#include <Arduino.h>
+extern "C" {
+#include <user_interface.h>
+}
+
 #include <OSCBundle.h>
 #include <OSCData.h>
 #include <OSCMatch.h>

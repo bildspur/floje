@@ -12,7 +12,7 @@
 
 // wifi credentials
 const char *ssid = "Bildspur-ArtNet";
-const char *password = "";
+const char *password = "B1ld5pur";
 
 char deviceName[25];
 

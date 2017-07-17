@@ -11,15 +11,35 @@ void setupOSC()
 
 void sendRestartReason()
 {
-  // copy reason
-  char msgBuffer[32];
-  ESP.getResetReason().toCharArray(msgBuffer, 32);
-
   Serial.print("Restart reason:");
-  Serial.println(msgBuffer);
+  Serial.println(ESP.getResetReason());
+
+  rst_info *resetInfo = ESP.getResetInfoPtr();
 
   OSCMessage msg(concatStr("/floje/status/", deviceName));
-  msg.add(msgBuffer);
+
+  // add reason
+  msg.add(resetInfo->reason);
+
+  // add extended information
+
+  //exccause
+  msg.add(resetInfo->exccause);
+
+  //epc1
+  msg.add(resetInfo->epc1);
+
+  //epc2
+  msg.add(resetInfo->epc2);
+
+  //epc3
+  msg.add(resetInfo->epc3);
+
+  //excvaddr
+  msg.add(resetInfo->excvaddr);
+
+  //depc
+  msg.add(resetInfo->depc);
 
   Udp.beginPacket(broadcastIP, outPort);
   msg.send(Udp); // send the bytes to the SLIP stream
