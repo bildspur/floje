@@ -11,7 +11,7 @@ import oscP5.OscP5
 class OscOutput(val osc: OscP5, val grid: Grid) {
     companion object {
         @JvmStatic val SERVO_ADDRESS = "/floje/servo/xy"
-        @JvmStatic val OUTPUT_INTERVAL = 50
+        @JvmStatic val OUTPUT_INTERVAL = 20
     }
 
     val modifiedMirrors = hashMapOf<Mirror, Boolean>()
@@ -54,6 +54,6 @@ class OscOutput(val osc: OscP5, val grid: Grid) {
 
         osc.send(msg, mirror.address)
 
-        println("Output to ${mirror.name} X: $x, Y: $y")
+        //println("Output to ${mirror.name} X: $x, Y: $y")
     }
 }

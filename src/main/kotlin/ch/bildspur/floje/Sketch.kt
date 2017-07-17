@@ -167,6 +167,8 @@ class Sketch : PApplet() {
                 oscOutput.updateMirrors()
             }))
 
+            // run mirror check
+            ping.pingMirrors(grid)
 
             return true
         }
@@ -215,9 +217,20 @@ class Sketch : PApplet() {
         when (key) {
             'i' -> isStatusViewShown = !isStatusViewShown
             'm' -> {
-                val m = grid[0, 0] as Mirror
-                m.xAxis.moveTo(random(0f, 180f).toInt())
-                m.yAxis.moveTo(random(0f, 180f).toInt())
+
+                val xpos = random(10f, 170f).toInt()
+                val ypos = random(10f, 180f).toInt()
+
+                // move all to random position
+                grid.columns.forEachIndexed { y, fields ->
+                    fields.forEachIndexed { x, field ->
+                        if (!field.isEmpty()) {
+                            val m = field as Mirror
+                            m.xAxis.moveTo(xpos)
+                            m.yAxis.moveTo(ypos)
+                        }
+                    }
+                }
             }
         }
     }

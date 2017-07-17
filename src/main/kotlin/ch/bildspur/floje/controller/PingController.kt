@@ -12,7 +12,7 @@ import kotlin.concurrent.thread
  */
 class PingController(internal var sketch: PApplet) {
     companion object {
-        val TIMEOUT = 500
+        val TIMEOUT = 1000
         val PING_INTERVAL = 15000
     }
 
