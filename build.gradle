@@ -28,6 +28,8 @@ dependencies {
 
     compile files('lib/openkinect/openkinect_processing.jar')
 
+    compile files('lib/sweep/jsweep-0.1.0.jar')
+
     compile files('lib/processing/core/library/core.jar')
     compile files('lib/processing/core/library/gluegen-rt-natives-macosx-universal.jar')
     compile files('lib/processing/core/library/gluegen-rt.jar')
