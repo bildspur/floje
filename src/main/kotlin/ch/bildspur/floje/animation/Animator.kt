@@ -1,6 +1,6 @@
 package ch.bildspur.floje.animation
 
-import ch.bildspur.floje.draw
+import ch.bildspur.floje.util.draw
 import processing.core.PGraphics
 
 /**

@@ -4,6 +4,8 @@ import ch.bildspur.floje.controller.*
 import ch.bildspur.floje.controller.timer.TimerTask
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.util.draw
+import ch.bildspur.floje.util.format
 import ch.bildspur.floje.view.MirrorVisualiser
 import ch.bildspur.floje.view.OscOutput
 import ch.bildspur.floje.view.StatusView

@@ -1,11 +1,11 @@
 package ch.bildspur.floje.view
 
 import ch.bildspur.floje.controller.SweepController
-import ch.bildspur.floje.draw
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
-import ch.bildspur.floje.processingAngle
-import ch.bildspur.floje.stackMatrix
+import ch.bildspur.floje.util.draw
+import ch.bildspur.floje.util.projectedAngle
+import ch.bildspur.floje.util.stackMatrix
 import processing.core.PApplet
 import processing.core.PGraphics
 
@@ -134,11 +134,11 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
     internal fun visualiseSweep() {
         val scan = sweep.currentScan
 
-        scan.forEach { s ->
+        scan.filter { it.signalStrength > 100f }.forEach { s ->
             g.stackMatrix {
-                g.rotateZ(PApplet.radians(s.processingAngle()))
+                g.rotateZ(PApplet.radians(s.projectedAngle()))
                 g.translate(s.distance.toFloat(), 0f)
-                g.fill(142f, 68f, 173f)
+                g.fill(142f, 68f, 173f, s.signalStrength.toFloat())
                 g.box(5f)
             }
         }

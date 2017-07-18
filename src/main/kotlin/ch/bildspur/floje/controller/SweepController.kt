@@ -1,7 +1,7 @@
 package ch.bildspur.floje.controller
 
-import ch.bildspur.floje.interaction.SweepDataProvider
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.sweep.SweepDataProvider
 import io.scanse.sweep.SweepSample
 import processing.core.PApplet
 import java.nio.file.Files

@@ -1,7 +1,5 @@
-package ch.bildspur.floje
+package ch.bildspur.floje.util
 
-import ch.bildspur.floje.util.BatchingSequence
-import io.scanse.sweep.SweepSample
 import javafx.scene.image.Image
 import org.opencv.core.*
 import org.opencv.imgcodecs.Imgcodecs
@@ -24,10 +22,6 @@ fun Float.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
 fun Float.isApproximate(value: Double, error: Double): Boolean {
     return (Math.abs(Math.abs(this) - Math.abs(value)) < error)
-}
-
-fun SweepSample.processingAngle(): Float {
-    return this.angle.toFloat() / -1000f
 }
 
 fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit) {

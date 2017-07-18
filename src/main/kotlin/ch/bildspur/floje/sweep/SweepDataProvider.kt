@@ -1,4 +1,4 @@
-package ch.bildspur.floje.interaction
+package ch.bildspur.floje.sweep
 
 import io.scanse.sweep.SweepDevice
 import io.scanse.sweep.SweepSample

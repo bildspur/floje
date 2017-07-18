@@ -1,7 +1,6 @@
-package ch.fhnw.afpars.util.opencv
+package ch.bildspur.floje.util
 
 import ch.bildspur.floje.Sketch
-import org.opencv.core.Point
 
 /**
  * Created by cansik on 06.01.17.
