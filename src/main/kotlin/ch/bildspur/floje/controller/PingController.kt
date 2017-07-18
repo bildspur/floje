@@ -3,8 +3,7 @@ package ch.bildspur.floje.controller
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import processing.core.PApplet
-import java.net.InetSocketAddress
-import java.net.Socket
+import java.net.InetAddress
 import kotlin.concurrent.thread
 
 
@@ -13,14 +12,11 @@ import kotlin.concurrent.thread
  */
 class PingController(internal var sketch: PApplet) {
     companion object {
-        val TIMEOUT = 500
-        val PING_INTERVAL = 15000
-        val TCP_PING_PORT = 80
+        val TIMEOUT = 5000
+        val PING_INTERVAL = 30000
     }
 
     @Volatile private var isPingRunning = false
-
-    private val bytes = ByteArray(128)
 
     fun pingMirrors(grid: Grid) {
         if (isPingRunning) {
@@ -31,11 +27,12 @@ class PingController(internal var sketch: PApplet) {
         isPingRunning = true
 
         thread {
-            println("new ping started!")
             grid.columns.forEachIndexed { y, fields ->
                 fields.forEachIndexed { x, field ->
-                    if (!field.isEmpty())
-                        ping(field as Mirror)
+                    thread {
+                        if (!field.isEmpty())
+                            ping(field as Mirror)
+                    }
                 }
             }
             isPingRunning = false
@@ -43,23 +40,12 @@ class PingController(internal var sketch: PApplet) {
     }
 
     private fun ping(mirror: Mirror) {
-        print("trying to ping ${mirror.name}...")
-
         var reachable = false
 
-        /*
-        try {
-            reachable = InetAddress.getByName(mirror.address.address()!!).isReachable(TIMEOUT)
-        } catch (e: Exception) {
-
-        }
-        */
 
         try {
-            val socket = Socket()
-            socket.connect(InetSocketAddress(mirror.address.address(), TCP_PING_PORT), 500)
-            reachable = socket.isConnected
-            socket.close()
+            val address = InetAddress.getByName(mirror.address.address()!!)
+            reachable = address.isReachable(TIMEOUT)
         } catch (e: Exception) {
         }
 
