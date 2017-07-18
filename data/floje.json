@@ -1,6 +1,6 @@
 {
   "limits": {
-    "maxAcceleration": 0.020,
+    "maxAcceleration": 0.01,
     "maxVelocity": 0.5
   },
   "mirrors": [

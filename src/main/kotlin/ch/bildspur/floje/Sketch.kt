@@ -220,8 +220,8 @@ class Sketch : PApplet() {
             'i' -> isStatusViewShown = !isStatusViewShown
             'm' -> {
 
-                val xpos = random(10f, 170f).toInt()
-                val ypos = random(10f, 180f).toInt()
+                val xpos = random(45f, 135f).toInt()
+                val ypos = random(45f, 135f).toInt()
 
                 // move all to random position
                 grid.columns.forEachIndexed { y, fields ->

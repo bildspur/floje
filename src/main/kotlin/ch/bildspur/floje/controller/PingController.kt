@@ -2,6 +2,7 @@ package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.util.SimpleNetAddress
 import processing.core.PApplet
 import java.net.InetAddress
 import kotlin.concurrent.thread
@@ -46,6 +47,9 @@ class PingController(internal var sketch: PApplet) {
         try {
             val address = InetAddress.getByName(mirror.address.address()!!)
             reachable = address.isReachable(TIMEOUT)
+
+            if (reachable)
+                (mirror.address as SimpleNetAddress).updateAddress(address)
         } catch (e: Exception) {
         }
 

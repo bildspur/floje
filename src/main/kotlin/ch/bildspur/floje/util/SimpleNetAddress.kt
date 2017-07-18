@@ -15,4 +15,9 @@ class SimpleNetAddress : NetAddress {
     fun updatePort(port: Int) {
         this.port = port
     }
+
+    fun updateAddress(inetaddress: InetAddress) {
+        this.inetaddress = inetaddress
+        this.isValid = true
+    }
 }
