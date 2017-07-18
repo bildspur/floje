@@ -8,10 +8,12 @@ import ch.bildspur.floje.view.MirrorVisualiser
 import ch.bildspur.floje.view.OscOutput
 import ch.bildspur.floje.view.StatusView
 import org.opencv.core.Core
+import oscP5.OscMessage
 import processing.core.PApplet
 import processing.core.PConstants
 import processing.core.PGraphics
 import processing.opengl.PJOGL
+
 
 /**
  * Created by cansik on 04.02.17.
@@ -231,6 +233,43 @@ class Sketch : PApplet() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    fun oscEvent(msg: OscMessage) {
+
+        if (msg.addrPattern().contains("/floje/status")) {
+            PApplet.print("Startup: ")
+            PApplet.print(msg.addrPattern())
+            PApplet.print("\tReason: ")
+
+            val reason = msg.arguments()[0] as Int
+            val excause = msg.arguments()[1] as Int
+            val epc1 = msg.arguments()[2] as Int
+            val epc2 = msg.arguments()[3] as Int
+            val epc3 = msg.arguments()[4] as Int
+            val excvaddr = msg.arguments()[5] as Int
+            val depc = msg.arguments()[6] as Int
+
+            val restartReason = if (reason == 0) "DEFAULT"
+            else if (reason == 1) "WDT"
+            else if (reason == 2) "EXCEPTION"
+            else if (reason == 3) "SOFT_WDT"
+            else if (reason == 4) "SOFT_RESTART"
+            else if (reason == 5) "DEEP_SLEEP_AWAKE"
+            else if (reason == 6) "EXT_SYS_RST" else "???"
+
+            PApplet.println(restartReason)
+
+            if (reason == 2) {
+                PApplet.print("EXCEPTION:")
+                PApplet.print("\tExcuse: " + excause)
+                PApplet.print("\tEPC1: " + epc1)
+                PApplet.print("\tEPC2: " + epc2)
+                PApplet.print("\tEPC3: " + epc3)
+                PApplet.print("\tEXCVADDR: " + excvaddr)
+                PApplet.println("\tDEPC: " + depc)
             }
         }
     }

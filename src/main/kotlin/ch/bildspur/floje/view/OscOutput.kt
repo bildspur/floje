@@ -53,7 +53,5 @@ class OscOutput(val osc: OscP5, val grid: Grid) {
         msg.add(y)
 
         osc.send(msg, mirror.address)
-
-        //println("Output to ${mirror.name} X: $x, Y: $y")
     }
 }
