@@ -18,6 +18,9 @@ void sendRestartReason()
 
   OSCMessage msg(concatStr("/floje/status/", deviceName));
 
+  // add software version
+  msg.add(version);
+
   // add reason
   msg.add(resetInfo->reason);
 

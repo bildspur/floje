@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 class ActiveRegionTracker {
     val regions = CopyOnWriteArrayList<ActiveRegion>()
 
-    var sparsing = 20.0
+    var sparsing = 25.0
     var maxDelta = 20.0
 
     fun track(components: List<SweepSample>) {

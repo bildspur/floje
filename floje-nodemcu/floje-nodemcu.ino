@@ -23,6 +23,8 @@ extern "C" {
 
 #define DEFAULT_LOOP_DELAY 10
 
+const char *version = "1.3";
+
 void setup() {
   // setup all controllers
   setupInfo();

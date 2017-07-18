@@ -139,7 +139,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
                 g.rotateZ(PApplet.radians(s.projectedAngle()))
                 g.translate(s.distance.toFloat(), 0f)
                 g.fill(142f, 68f, 173f, s.signalStrength.toFloat())
-                g.box(2f)
+                g.box(1f)
             }
         }
 
@@ -152,7 +152,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
 
                 g.translate(s.x.toFloat(), s.y.toFloat())
                 g.fill(46f, 204f, 113f, 100f)
-                g.box(10f)
+                g.box(20f)
             }
         }
     }
