@@ -25,8 +25,8 @@ class Mirror() : GridField() {
     @Volatile var isOnline = false
 
     fun setup() {
-        val addr = SimpleNetAddress("$name.local", OscController.OUTGOING_PORT)
-        //addr.updatePort(OscController.OUTGOING_PORT)
+        val addr = SimpleNetAddress("$name.local", 0)
+        addr.updatePort(OscController.OUTGOING_PORT)
 
         address = addr
     }

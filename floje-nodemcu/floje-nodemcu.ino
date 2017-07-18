@@ -30,7 +30,9 @@ void setup() {
   // network related
   setupNetwork();
   setupOTA();
+
   setupOSC();
+  setupStatus();
 
   // mechanical
   setupServo();
@@ -42,7 +44,10 @@ void setup() {
 
 void loop() {
   loopInfo();
+  
   loopNetwork();
+  loopStatus();
+
   loopOTA();
 }
 

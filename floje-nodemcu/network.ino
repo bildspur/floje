@@ -97,6 +97,8 @@ void setupMDNS()
   // Add service to MDNS-SD
   MDNS.addService("osc", "udp", OSC_LOCAL_PORT);
   MDNS.addServiceTxt("osc", "udp", "mac", WiFi.macAddress());
+
+  MDNS.addService("http", "tcp", 80);
 }
 
 void setupUDPServer()
