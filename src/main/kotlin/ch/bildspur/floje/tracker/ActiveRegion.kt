@@ -6,7 +6,7 @@ import ch.bildspur.floje.util.Point
  * Created by cansik on 12.02.17.
  */
 class ActiveRegion(x: Double, y: Double, val signalStrength: Double) : Point(x, y) {
-    var used = false
+    internal var used = false
 
     var lifeTime = 0
     var isDead = true

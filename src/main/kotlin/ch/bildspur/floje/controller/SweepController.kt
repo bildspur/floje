@@ -2,6 +2,7 @@ package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.sweep.SweepDataProvider
+import ch.bildspur.floje.tracker.ActiveRegion
 import io.scanse.sweep.SweepSample
 import processing.core.PApplet
 import java.nio.file.Files
@@ -50,6 +51,11 @@ class SweepController(internal var sketch: PApplet) {
                 return sweepDataProvider.lastScan
 
             return emptyList()
+        }
+
+    val regions: List<ActiveRegion>
+        get() {
+            return sweepDataProvider.tracker.regions.toList()
         }
 
     fun analyseSweep() {

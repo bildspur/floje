@@ -1,5 +1,6 @@
 package ch.bildspur.floje.sweep
 
+import ch.bildspur.floje.tracker.ActiveRegionTracker
 import io.scanse.sweep.SweepDevice
 import io.scanse.sweep.SweepSample
 
@@ -14,6 +15,8 @@ class SweepDataProvider(val port: String) {
     @Volatile var lastScan: List<SweepSample> = emptyList()
 
     @Volatile var running = true
+
+    val tracker = ActiveRegionTracker()
 
     fun start() {
         running = true
@@ -43,5 +46,6 @@ class SweepDataProvider(val port: String) {
 
     fun interact() {
         lastScan = sweep.nextScan()
+        tracker.track(lastScan)
     }
 }
