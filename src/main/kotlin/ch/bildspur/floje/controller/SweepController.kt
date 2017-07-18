@@ -1,7 +1,8 @@
 package ch.bildspur.floje.controller
 
-import ch.bildspur.floje.interaction.SweepInteraction
+import ch.bildspur.floje.interaction.SweepDataProvider
 import ch.bildspur.floje.model.grid.Grid
+import io.scanse.sweep.SweepSample
 import processing.core.PApplet
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -16,10 +17,14 @@ class SweepController(internal var sketch: PApplet) {
         @JvmStatic val SWEEP_PORT = "/dev/tty.usbserial-DO004HM4"
     }
 
-    lateinit var sweepInteraction: SweepInteraction
+    lateinit var sweepDataProvider: SweepDataProvider
+
+    lateinit var grid: Grid
 
     fun setup(grid: Grid) {
-        sweepInteraction = SweepInteraction(SWEEP_PORT, grid)
+        this.grid = grid
+
+        sweepDataProvider = SweepDataProvider(SWEEP_PORT)
 
         val path = Paths.get(SWEEP_PORT)
 
@@ -31,11 +36,23 @@ class SweepController(internal var sketch: PApplet) {
 
         // start interaction
         thread {
-            sweepInteraction.start()
+            sweepDataProvider.start()
         }
     }
 
     fun close() {
-        sweepInteraction.stop()
+        sweepDataProvider.stop()
+    }
+
+    val currentScan: List<SweepSample>
+        get() {
+            if (sweepDataProvider.running)
+                return sweepDataProvider.lastScan
+
+            return emptyList()
+        }
+
+    fun analyseSweep() {
+        val scan = currentScan
     }
 }

@@ -1,8 +1,10 @@
 package ch.bildspur.floje.view
 
+import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.draw
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.processingAngle
 import ch.bildspur.floje.stackMatrix
 import processing.core.PApplet
 import processing.core.PGraphics
@@ -10,7 +12,7 @@ import processing.core.PGraphics
 /**
  * Created by cansik on 08.06.17.
  */
-class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
+class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepController) {
 
     val radius = 37f
 
@@ -30,6 +32,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
 
     fun render() {
         g.draw {
+            visualiseSweep()
             renderFloor()
             grid.columns.forEachIndexed { y, fields ->
                 fields.forEachIndexed { x, field ->
@@ -126,5 +129,18 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid) {
 
         // rotate whole mirror
         g.rotateY(PApplet.radians(90f))
+    }
+
+    internal fun visualiseSweep() {
+        val scan = sweep.currentScan
+
+        scan.forEach { s ->
+            g.stackMatrix {
+                g.rotateZ(PApplet.radians(s.processingAngle()))
+                g.translate(s.distance.toFloat(), 0f)
+                g.fill(142f, 68f, 173f)
+                g.box(5f)
+            }
+        }
     }
 }

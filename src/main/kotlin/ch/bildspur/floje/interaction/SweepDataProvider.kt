@@ -1,15 +1,17 @@
 package ch.bildspur.floje.interaction
 
-import ch.bildspur.floje.model.grid.Grid
 import io.scanse.sweep.SweepDevice
+import io.scanse.sweep.SweepSample
 
 
 /**
  * Created by cansik on 18.07.17.
  */
-class SweepInteraction(val port: String, val grid: Grid) {
+class SweepDataProvider(val port: String) {
 
-    lateinit var sweep: SweepDevice
+    @Volatile lateinit var sweep: SweepDevice
+
+    @Volatile var lastScan: List<SweepSample> = emptyList()
 
     @Volatile var running = true
 
@@ -31,6 +33,7 @@ class SweepInteraction(val port: String, val grid: Grid) {
             interact()
         }
 
+        sweep.stopScanning()
         sweep.close()
     }
 
@@ -39,6 +42,6 @@ class SweepInteraction(val port: String, val grid: Grid) {
     }
 
     fun interact() {
-
+        lastScan = sweep.nextScan()
     }
 }

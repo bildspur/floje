@@ -105,6 +105,7 @@ class Sketch : PApplet() {
         }
 
         // update all time relevant methods
+        sweep.analyseSweep()
         updateServos()
         timer.update()
 
@@ -152,7 +153,7 @@ class Sketch : PApplet() {
             config.loadConfiguration()
 
             oscOutput = OscOutput(osc.osc, grid)
-            visualiser = MirrorVisualiser(canvas, grid)
+            visualiser = MirrorVisualiser(canvas, grid, sweep)
             statusView = StatusView(g, grid)
 
             timer.setup()

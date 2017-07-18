@@ -1,6 +1,7 @@
 package ch.bildspur.floje
 
 import ch.bildspur.floje.util.BatchingSequence
+import io.scanse.sweep.SweepSample
 import javafx.scene.image.Image
 import org.opencv.core.*
 import org.opencv.imgcodecs.Imgcodecs
@@ -25,7 +26,11 @@ fun Float.isApproximate(value: Double, error: Double): Boolean {
     return (Math.abs(Math.abs(this) - Math.abs(value)) < error)
 }
 
-fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit){
+fun SweepSample.processingAngle(): Float {
+    return this.angle.toFloat() / -1000f
+}
+
+fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit) {
     this.pushMatrix()
     block(this)
     this.popMatrix()
@@ -190,7 +195,7 @@ fun Mat.gray() {
 }
 
 fun Mat.erode(erosionSize: Int) {
-    if(erosionSize == 0)
+    if (erosionSize == 0)
         return
 
     val element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, Size(2.0 * erosionSize + 1.0, 2.0 * erosionSize + 1.0))
@@ -199,7 +204,7 @@ fun Mat.erode(erosionSize: Int) {
 }
 
 fun Mat.dilate(dilationSize: Int) {
-    if(dilationSize == 0)
+    if (dilationSize == 0)
         return
 
     val element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, Size(2.0 * dilationSize + 1.0, 2.0 * dilationSize + 1.0))
@@ -217,9 +222,8 @@ fun Mat.getRegionMask(regionLabel: Int): Mat {
     return labeledMask
 }
 
-fun PGraphics.imageRect(image : PImage, x : Float, y : Float, width : Float, height : Float)
-{
-    val ratio = if(width - image.width < height - image.height) width / image.width else height / image.height
+fun PGraphics.imageRect(image: PImage, x: Float, y: Float, width: Float, height: Float) {
+    val ratio = if (width - image.width < height - image.height) width / image.width else height / image.height
     this.image(image, x, y, image.width * ratio, image.height * ratio)
 }
 
