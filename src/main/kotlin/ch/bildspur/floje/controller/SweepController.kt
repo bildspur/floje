@@ -13,7 +13,7 @@ import kotlin.concurrent.thread
  */
 class SweepController(internal var sketch: PApplet) {
     companion object {
-        @JvmStatic val SWEEP_PORT = "/dev/ttyUSB0"
+        @JvmStatic val SWEEP_PORT = "/dev/tty.usbserial-DO004HM4"
     }
 
     lateinit var sweepInteraction: SweepInteraction
