@@ -134,7 +134,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
     internal fun visualiseSweep() {
         val scan = sweep.currentScan
 
-        scan.filter { it.signalStrength > 100f }.forEach { s ->
+        scan.forEach { s ->
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(s.projectedAngle()))
                 g.translate(s.distance.toFloat(), 0f)

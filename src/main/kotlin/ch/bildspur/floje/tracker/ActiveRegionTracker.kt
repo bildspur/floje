@@ -4,12 +4,13 @@ import ch.bildspur.floje.util.distance
 import ch.bildspur.floje.util.location
 import ch.bildspur.floje.util.sparsePoints
 import io.scanse.sweep.SweepSample
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * Created by cansik on 12.02.17.
  */
 class ActiveRegionTracker {
-    val regions = mutableListOf<ActiveRegion>()
+    val regions = CopyOnWriteArrayList<ActiveRegion>()
 
     var sparsing = 0.0
     var maxDelta = 100.0
