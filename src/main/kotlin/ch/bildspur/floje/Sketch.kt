@@ -52,6 +52,8 @@ class Sketch : PApplet() {
 
     val ping = PingController(this)
 
+    val sweep = SweepController(this)
+
     val grid = Grid(6, 4)
 
     lateinit var visualiser: MirrorVisualiser
@@ -172,6 +174,8 @@ class Sketch : PApplet() {
             // run mirror check
             ping.pingMirrors(grid)
 
+            sweep.setup(grid)
+
             return true
         }
 
@@ -192,6 +196,7 @@ class Sketch : PApplet() {
     fun prepareExitHandler() {
         Runtime.getRuntime().addShutdownHook(Thread {
             println("shutting down...")
+            sweep.close()
             osc.osc.stop()
         })
     }
