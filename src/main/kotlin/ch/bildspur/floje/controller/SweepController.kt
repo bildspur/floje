@@ -53,9 +53,9 @@ class SweepController(internal var sketch: PApplet) {
             return emptyList()
         }
 
-    val regions: Array<ActiveRegion>
+    val regions: List<ActiveRegion>
         get() {
-            return sweepDataProvider.tracker.regions.toTypedArray()
+            return sweepDataProvider.tracker.regions
         }
 
     fun analyseSweep() {

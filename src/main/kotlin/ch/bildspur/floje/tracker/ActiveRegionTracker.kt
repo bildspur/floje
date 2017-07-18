@@ -12,8 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList
 class ActiveRegionTracker {
     val regions = CopyOnWriteArrayList<ActiveRegion>()
 
-    var sparsing = 0.0
-    var maxDelta = 100.0
+    var sparsing = 50.0
+    var maxDelta = 0.0
 
     fun track(components: List<SweepSample>) {
         // sparse and prepare points
@@ -27,6 +27,7 @@ class ActiveRegionTracker {
                             it.map { it.signalStrength }.sum())
                 }
 
+
         // reset all regions
         regions.forEach { it.isDead = true }
 
@@ -35,9 +36,6 @@ class ActiveRegionTracker {
 
         // remove dead regions
         regions.removeAll { it.isDead }
-
-        // update regions
-        regions.forEach { it.lifeTime++ }
 
         // create new regions
         regions.addAll(points.filter { !it.used })
