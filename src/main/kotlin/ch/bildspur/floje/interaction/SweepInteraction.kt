@@ -17,12 +17,16 @@ class SweepInteraction(val port: String, val grid: Grid) {
         running = true
 
         sweep = SweepDevice(port)
-        sweep.startScanning()
 
+        println("waiting for sweep motors...")
         while (!sweep.isMotorReady) {
             Thread.sleep(100)
         }
 
+        println("start scanning...")
+        sweep.startScanning()
+
+        println("sweep running!")
         while (running) {
             interact()
         }
@@ -35,6 +39,6 @@ class SweepInteraction(val port: String, val grid: Grid) {
     }
 
     fun interact() {
-        
+
     }
 }
