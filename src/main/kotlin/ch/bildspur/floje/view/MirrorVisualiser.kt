@@ -134,19 +134,22 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
     internal fun visualiseSweep() {
         val scan = sweep.currentScan
 
-        println("Scans: ${scan.size}\tRegions: ${sweep.regions.size}")
-
         scan.forEach { s ->
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(s.projectedAngle()))
                 g.translate(s.distance.toFloat(), 0f)
                 g.fill(142f, 68f, 173f, s.signalStrength.toFloat())
-                g.box(5f)
+                g.box(2f)
             }
         }
 
-        sweep.regions.forEach { s ->
+        sweep.regions.filter { it.lifeTime > 1000 && it.lifeTime < 1000 * 20 }.forEachIndexed { i, s ->
             g.stackMatrix {
+                /*
+                if (i == 0)
+                    println("Lifetime: ${s.lifeTime}\t${s.creationTime}\t${s.deathTime}\t${Sketch.currentMillis()}")
+                    */
+
                 g.translate(s.x.toFloat(), s.y.toFloat())
                 g.fill(46f, 204f, 113f, 100f)
                 g.box(10f)
