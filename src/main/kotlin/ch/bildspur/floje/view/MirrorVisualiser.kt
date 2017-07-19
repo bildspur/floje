@@ -3,11 +3,13 @@ package ch.bildspur.floje.view
 import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.util.cylinder
 import ch.bildspur.floje.util.draw
 import ch.bildspur.floje.util.projectedAngle
 import ch.bildspur.floje.util.stackMatrix
 import processing.core.PApplet
 import processing.core.PGraphics
+
 
 /**
  * Created by cansik on 08.06.17.
@@ -134,6 +136,7 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
     internal fun visualiseSweep() {
         val scan = sweep.currentScan
 
+        // visualise dots
         scan.forEach { s ->
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(s.projectedAngle()))
@@ -143,17 +146,33 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
             }
         }
 
-        sweep.regions.filter { it.lifeTime > 1000 && it.lifeTime < 1000 * 20 }.forEachIndexed { i, s ->
+        // visualise active regions
+        sweep.regions.filter { it.lifeTime > 1000 }.forEachIndexed { i, s ->
             g.stackMatrix {
-                /*
-                if (i == 0)
-                    println("Lifetime: ${s.lifeTime}\t${s.creationTime}\t${s.deathTime}\t${Sketch.currentMillis()}")
-                    */
-
                 g.translate(s.x.toFloat(), s.y.toFloat())
                 g.fill(46f, 204f, 113f, 100f)
                 g.box(20f)
             }
+        }
+
+        // visualise cones
+        g.noStroke()
+        g.fill(0f, 255f, 0f, 50f)
+        g.stackMatrix {
+            it.cylinder(10,
+                    sweep.sweepDataProvider.innerCone.toFloat(),
+                    sweep.sweepDataProvider.innerCone.toFloat(),
+                    20f)
+        }
+
+        g.noStroke()
+        g.fill(255f, 0f, 0f, 50f)
+        g.stackMatrix {
+            it.cylinder(10,
+                    sweep.sweepDataProvider.outerCone.toFloat(),
+                    sweep.sweepDataProvider.outerCone.toFloat(),
+                    20f)
+
         }
     }
 }

@@ -8,7 +8,7 @@ import io.scanse.sweep.SweepSample
 /**
  * Created by cansik on 18.07.17.
  */
-class SweepDataProvider(val port: String) {
+class SweepDataProvider() {
 
     @Volatile lateinit var sweep: SweepDevice
 
@@ -18,9 +18,19 @@ class SweepDataProvider(val port: String) {
 
     val tracker = ActiveRegionTracker()
 
+    var port: String = ""
+
+    var innerCone = 0.0
+    var outerCone = Double.MAX_VALUE
+
+    constructor(port: String) : this() {
+        this.port = port
+    }
+
     fun start() {
         running = true
 
+        println("Opening sweep on $port...")
         sweep = SweepDevice(port)
 
         println("waiting for sweep motors...")

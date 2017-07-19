@@ -14,24 +14,22 @@ import kotlin.concurrent.thread
  * Created by cansik on 18.07.17.
  */
 class SweepController(internal var sketch: PApplet) {
-    companion object {
-        @JvmStatic val SWEEP_PORT = "/dev/tty.usbserial-DO004HM4"
-    }
+    var sweepPort = ""
 
-    lateinit var sweepDataProvider: SweepDataProvider
+    val sweepDataProvider = SweepDataProvider()
 
     lateinit var grid: Grid
 
     fun setup(grid: Grid) {
         this.grid = grid
 
-        sweepDataProvider = SweepDataProvider(SWEEP_PORT)
+        sweepDataProvider.port = sweepPort
 
-        val path = Paths.get(SWEEP_PORT)
+        val path = Paths.get(sweepPort)
 
         // if sweep is available
         if (!Files.exists(path)) {
-            println("Sweep not found ($SWEEP_PORT)")
+            println("Sweep not found ($sweepPort)")
             return
         }
 

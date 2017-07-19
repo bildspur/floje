@@ -47,6 +47,38 @@ fun PGraphics.cross(x: Float, y: Float, size: Float) {
     this.line(x - size, y, x + size, y)
 }
 
+fun PGraphics.cylinder(sides: Int, r1: Float, r2: Float, h: Float) {
+    val angle = (360 / sides).toFloat()
+    val halfHeight = h / 2
+    // top
+    this.beginShape()
+    for (i in 0..sides - 1) {
+        val x = PApplet.cos(PApplet.radians(i * angle)) * r1
+        val y = PApplet.sin(PApplet.radians(i * angle)) * r1
+        this.vertex(x, y, -halfHeight)
+    }
+    this.endShape(PApplet.CLOSE)
+    // bottom
+    this.beginShape()
+    for (i in 0..sides - 1) {
+        val x = PApplet.cos(PApplet.radians(i * angle)) * r2
+        val y = PApplet.sin(PApplet.radians(i * angle)) * r2
+        this.vertex(x, y, halfHeight)
+    }
+    this.endShape(PApplet.CLOSE)
+    // draw body
+    this.beginShape(PApplet.TRIANGLE_STRIP)
+    for (i in 0..sides + 1 - 1) {
+        val x1 = PApplet.cos(PApplet.radians(i * angle)) * r1
+        val y1 = PApplet.sin(PApplet.radians(i * angle)) * r1
+        val x2 = PApplet.cos(PApplet.radians(i * angle)) * r2
+        val y2 = PApplet.sin(PApplet.radians(i * angle)) * r2
+        this.vertex(x1, y1, -halfHeight)
+        this.vertex(x2, y2, halfHeight)
+    }
+    this.endShape(PApplet.CLOSE)
+}
+
 fun PImage.toMat(m: Mat) {
     val matPixels = ((this.native as BufferedImage).raster.dataBuffer as DataBufferInt).data
 

@@ -158,6 +158,8 @@ class Sketch : PApplet() {
             visualiser = MirrorVisualiser(canvas, grid, sweep)
             statusView = StatusView(g, grid)
 
+            applySettings()
+
             timer.setup()
 
             prepareExitHandler()
@@ -223,6 +225,16 @@ class Sketch : PApplet() {
         }
     }
 
+    fun applySettings() {
+        sweep.sweepPort = config.settings.sweep.port
+
+        sweep.sweepDataProvider.tracker.sparsing = config.settings.sweep.sparsing
+        sweep.sweepDataProvider.tracker.maxDelta = config.settings.sweep.maxDelta
+
+        sweep.sweepDataProvider.innerCone = config.settings.sweep.innerCone
+        sweep.sweepDataProvider.outerCone = config.settings.sweep.outerCone
+    }
+
     override fun keyPressed() {
         when (key) {
             'i' -> isStatusViewShown = !isStatusViewShown
@@ -242,7 +254,7 @@ class Sketch : PApplet() {
                     }
                 }
             }
-            's' -> {
+            'p' -> {
                 grid.columns.forEachIndexed { y, fields ->
                     fields.forEachIndexed { x, field ->
                         if (!field.isEmpty()) {
