@@ -1,6 +1,5 @@
 package ch.bildspur.floje.view
 
-import ch.bildspur.floje.Sketch
 import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
@@ -142,7 +141,8 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(s.projectedAngle()))
                 g.translate(s.distance.toFloat(), 0f)
-                g.fill(142f, 68f, 173f, s.signalStrength.toFloat())
+                g.noFill()
+                g.stroke(142f, 68f, 173f, s.signalStrength.toFloat())
                 g.box(5f)
             }
         }
@@ -151,14 +151,17 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
         sweep.relevantRegions.forEachIndexed { i, s ->
             g.stackMatrix {
                 g.translate(s.x.toFloat(), s.y.toFloat())
-                g.fill(46f, 204f, 113f, 100f)
+                g.noFill()
+                g.stroke(46f, 204f, 113f, 100f)
                 g.box(20f)
             }
         }
 
         // visualise cones
         g.noStroke()
-        g.fill(0f, 255f, 0f, 20f)
+        g.noFill()
+        g.strokeWeight(2f)
+        g.stroke(0f, 255f, 0f, 20f)
         g.stackMatrix {
             it.cylinder(50,
                     sweep.outerCone.toFloat(),
@@ -167,7 +170,9 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
         }
 
         g.noStroke()
-        g.fill(255f, 0f, 0f, 20f)
+        g.noFill()
+        g.strokeWeight(2f)
+        g.stroke(255f, 0f, 0f, 20f)
         g.stackMatrix {
             it.cylinder(50,
                     sweep.innerCone.toFloat(),
@@ -175,7 +180,5 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
                     6f)
 
         }
-
-        Sketch.instance.hint(PApplet.DISABLE_DEPTH_TEST)
     }
 }

@@ -27,6 +27,10 @@ class SweepController(internal var sketch: PApplet) {
 
     lateinit var grid: Grid
 
+    internal var running = false
+
+    internal lateinit var sweepThread: Thread
+
     fun setup(grid: Grid) {
         this.grid = grid
 
@@ -40,14 +44,24 @@ class SweepController(internal var sketch: PApplet) {
             return
         }
 
+        running = true
+
         // start interaction
-        thread {
-            sweepDataProvider.start()
+        sweepThread = thread {
+            while (running) {
+                try {
+                    sweepDataProvider.start()
+                } catch (ex: Exception) {
+                    println("Sweep Error: ${ex.message}")
+                }
+            }
         }
     }
 
     fun close() {
+        running = false
         sweepDataProvider.stop()
+        sweepThread.join()
     }
 
     val currentScan: List<SweepSample>

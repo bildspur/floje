@@ -30,4 +30,12 @@ class PeasyController(internal var sketch: PApplet) {
         block()
         cam.endHUD()
     }
+
+    fun disable() {
+        cam.isActive = false
+    }
+
+    fun enable() {
+        cam.isActive = true
+    }
 }

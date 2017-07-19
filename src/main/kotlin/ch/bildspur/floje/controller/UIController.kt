@@ -17,7 +17,7 @@ class UIController(internal var sketch: Sketch) {
 
     var hpos = 0f
     var vpos = 20f
-    var vspace = 2f
+    var vspace = 5f
 
     var controlWidth = 100
     var controlHeight = 20
@@ -34,10 +34,8 @@ class UIController(internal var sketch: Sketch) {
         */
         cp5.setColorCaptionLabel(0x2c3e50)
 
-        hpos = sketch.width / 6.0f * 4.0f
+        hpos = sketch.width / 7.0f * 5.0f
         setupControls()
-
-        println("Hpos: $hpos")
     }
 
     fun render() {
@@ -54,6 +52,8 @@ class UIController(internal var sketch: Sketch) {
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.innerCone.toFloat())
                 .setRange(0f, 500f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
                     sketch.sweep.innerCone = innerConeSlider.value.toDouble()
                 }
@@ -63,6 +63,8 @@ class UIController(internal var sketch: Sketch) {
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.outerCone.toFloat())
                 .setRange(0f, 500f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
                     sketch.sweep.outerCone = outerConeSlider.value.toDouble()
                 }
