@@ -56,6 +56,15 @@ class SweepController(internal var sketch: PApplet) {
             return sweepDataProvider.tracker.regions
         }
 
+    val relevantRegions: List<ActiveRegion>
+        get() {
+            return sweepDataProvider.tracker.regions.filter {
+                true
+                //todo: finish this
+            }
+        }
+
+
     fun analyseSweep() {
         val scan = currentScan
     }
