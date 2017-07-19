@@ -44,6 +44,8 @@ void sendRestartReason()
   //depc
   msg.add(resetInfo->depc);
 
+  ESP.wdtFeed();
+
   Udp.beginPacket(broadcastIP, outPort);
   msg.send(Udp); // send the bytes to the SLIP stream
   Udp.endPacket(); // mark the end of the OSC Packet

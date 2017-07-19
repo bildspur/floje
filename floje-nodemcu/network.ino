@@ -74,6 +74,7 @@ void setupWiFi()
       connectionWaitTimes = 0;
     }
 
+    ESP.wdtFeed();
     delay(DEFAULT_LOOP_DELAY);
   }
 

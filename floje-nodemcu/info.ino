@@ -3,7 +3,7 @@
 #define DEFAULT_BLINK_INTERVAL 500
 #define ERROR_BLINK_INTERVAL 100
 
-#define MIN_LED_BRIGHTNESS 10
+#define MIN_LED_BRIGHTNESS 5
 #define MAX_LED_BRIGHTNESS 255
 
 boolean isLEDBlinking = false;
