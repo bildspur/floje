@@ -44,6 +44,8 @@ class Sketch : PApplet() {
 
     var isStatusViewShown = false
 
+    var isUIShown = true
+
     val peasy = PeasyController(this)
 
     val osc = OscController(this)
@@ -57,6 +59,8 @@ class Sketch : PApplet() {
     val sweep = SweepController(this)
 
     val grid = Grid(6, 4)
+
+    val ui = UIController(this)
 
     lateinit var visualiser: MirrorVisualiser
 
@@ -124,6 +128,9 @@ class Sketch : PApplet() {
             // output image
             image(canvas, 0f, 0f)
 
+            if (isUIShown)
+                ui.render()
+
             // overlay status
             if (isStatusViewShown)
                 statusView.render()
@@ -180,6 +187,8 @@ class Sketch : PApplet() {
             ping.pingMirrors(grid)
 
             sweep.setup(grid)
+
+            ui.setup()
 
             return true
         }
@@ -239,6 +248,7 @@ class Sketch : PApplet() {
     override fun keyPressed() {
         when (key) {
             'i' -> isStatusViewShown = !isStatusViewShown
+            'u' -> isUIShown = !isUIShown
             'm' -> {
 
                 val xpos = random(45f, 135f).toInt()
