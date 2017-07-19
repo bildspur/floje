@@ -46,6 +46,8 @@ class Sketch : PApplet() {
 
     var isUIShown = true
 
+    var enableLights = false
+
     val peasy = PeasyController(this)
 
     val osc = OscController(this)
@@ -162,7 +164,7 @@ class Sketch : PApplet() {
             config.loadConfiguration()
 
             oscOutput = OscOutput(osc.osc, grid)
-            visualiser = MirrorVisualiser(canvas, grid, sweep)
+            visualiser = MirrorVisualiser(this, canvas, grid, sweep)
             statusView = StatusView(g, grid)
 
             applySettings()
@@ -249,6 +251,7 @@ class Sketch : PApplet() {
         when (key) {
             'i' -> isStatusViewShown = !isStatusViewShown
             'u' -> isUIShown = !isUIShown
+            'l' -> enableLights = !enableLights
             'm' -> {
 
                 val xpos = random(45f, 135f).toInt()

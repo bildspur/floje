@@ -1,5 +1,6 @@
 package ch.bildspur.floje.view
 
+import ch.bildspur.floje.Sketch
 import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
@@ -14,7 +15,7 @@ import processing.core.PGraphics
 /**
  * Created by cansik on 08.06.17.
  */
-class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepController) {
+class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val sweep: SweepController) {
 
     val radius = 37f
 
@@ -34,6 +35,9 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
 
     fun render() {
         g.draw {
+            if (sketch.enableLights)
+                setupLights()
+
             visualiseSweep()
             renderFloor()
             grid.columns.forEachIndexed { y, fields ->
@@ -48,6 +52,11 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
             }
         }
     }
+
+    internal fun setupLights() {
+        g.lights()
+    }
+
 
     internal fun renderEmpty(x: Int, y: Int) {
         translateToPosition(x, y)
