@@ -3,6 +3,8 @@ package ch.bildspur.floje.controller
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.sweep.SweepDataProvider
 import ch.bildspur.floje.tracker.ActiveRegion
+import ch.bildspur.floje.util.Point
+import ch.bildspur.floje.util.distance
 import io.scanse.sweep.SweepSample
 import processing.core.PApplet
 import java.nio.file.Files
@@ -17,6 +19,11 @@ class SweepController(internal var sketch: PApplet) {
     var sweepPort = ""
 
     val sweepDataProvider = SweepDataProvider()
+
+    var innerCone = 0.0
+    var outerCone = Double.MAX_VALUE
+
+    var minLifeTime = 0
 
     lateinit var grid: Grid
 
@@ -58,9 +65,9 @@ class SweepController(internal var sketch: PApplet) {
 
     val relevantRegions: List<ActiveRegion>
         get() {
-            return sweepDataProvider.tracker.regions.filter {
-                true
-                //todo: finish this
+            return regions.filter {
+                it.distance(Point(0.0, 0.0)) in innerCone..outerCone
+                        && it.lifeTime > 1000
             }
         }
 

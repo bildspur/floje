@@ -3,6 +3,7 @@
     "port": "/dev/tty.usbserial-DO004HM4",
     "innerCone": 20.0,
     "outerCone": 500.0,
+    "minLifeTime": 1000,
     "sparsing": 0.0,
     "maxDelta": 25.0
   },

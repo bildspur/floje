@@ -231,8 +231,9 @@ class Sketch : PApplet() {
         sweep.sweepDataProvider.tracker.sparsing = config.settings.sweep.sparsing
         sweep.sweepDataProvider.tracker.maxDelta = config.settings.sweep.maxDelta
 
-        sweep.sweepDataProvider.innerCone = config.settings.sweep.innerCone
-        sweep.sweepDataProvider.outerCone = config.settings.sweep.outerCone
+        sweep.innerCone = config.settings.sweep.innerCone
+        sweep.outerCone = config.settings.sweep.outerCone
+        sweep.minLifeTime = config.settings.sweep.minLifeTime
     }
 
     override fun keyPressed() {

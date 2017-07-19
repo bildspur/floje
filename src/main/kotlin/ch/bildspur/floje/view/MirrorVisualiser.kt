@@ -1,5 +1,6 @@
 package ch.bildspur.floje.view
 
+import ch.bildspur.floje.Sketch
 import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
@@ -142,12 +143,12 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
                 g.rotateZ(PApplet.radians(s.projectedAngle()))
                 g.translate(s.distance.toFloat(), 0f)
                 g.fill(142f, 68f, 173f, s.signalStrength.toFloat())
-                g.box(1f)
+                g.box(5f)
             }
         }
 
         // visualise active regions
-        sweep.regions.filter { it.lifeTime > 1000 }.forEachIndexed { i, s ->
+        sweep.relevantRegions.forEachIndexed { i, s ->
             g.stackMatrix {
                 g.translate(s.x.toFloat(), s.y.toFloat())
                 g.fill(46f, 204f, 113f, 100f)
@@ -157,22 +158,24 @@ class MirrorVisualiser(val g: PGraphics, val grid: Grid, val sweep: SweepControl
 
         // visualise cones
         g.noStroke()
-        g.fill(0f, 255f, 0f, 50f)
+        g.fill(0f, 255f, 0f, 20f)
         g.stackMatrix {
-            it.cylinder(10,
-                    sweep.sweepDataProvider.innerCone.toFloat(),
-                    sweep.sweepDataProvider.innerCone.toFloat(),
-                    20f)
+            it.cylinder(50,
+                    sweep.outerCone.toFloat(),
+                    sweep.outerCone.toFloat(),
+                    5f)
         }
 
         g.noStroke()
-        g.fill(255f, 0f, 0f, 50f)
+        g.fill(255f, 0f, 0f, 20f)
         g.stackMatrix {
-            it.cylinder(10,
-                    sweep.sweepDataProvider.outerCone.toFloat(),
-                    sweep.sweepDataProvider.outerCone.toFloat(),
-                    20f)
+            it.cylinder(50,
+                    sweep.innerCone.toFloat(),
+                    sweep.innerCone.toFloat(),
+                    6f)
 
         }
+
+        Sketch.instance.hint(PApplet.DISABLE_DEPTH_TEST)
     }
 }

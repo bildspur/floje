@@ -20,9 +20,6 @@ class SweepDataProvider() {
 
     var port: String = ""
 
-    var innerCone = 0.0
-    var outerCone = Double.MAX_VALUE
-
     constructor(port: String) : this() {
         this.port = port
     }

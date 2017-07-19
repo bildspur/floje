@@ -6,4 +6,5 @@ class Sweep {
     var outerCone = 0.0
     var sparsing = 0.0
     var maxDelta = 25.0
+    var minLifeTime = 0
 }
