@@ -23,7 +23,7 @@ extern "C" {
 
 #define DEFAULT_LOOP_DELAY 10
 
-const char *version = "1.3";
+const char *version = "1.4";
 
 void setup() {
   // setup all controllers
@@ -46,7 +46,7 @@ void setup() {
 
 void loop() {
   loopInfo();
-  
+
   loopNetwork();
   loopStatus();
 

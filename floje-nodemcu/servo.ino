@@ -5,9 +5,6 @@
 
 #define INITIAL_X_POS 90
 #define INITIAL_Y_POS 90
-#define INITIAL_STEP 1
-
-#define INITIAL_STATE_INTERVAL 300
 
 Servo servoX;
 Servo servoY;
@@ -25,28 +22,8 @@ void setupServo()
 void setInitialState()
 {
   // move slowly to initial position
-  int xpos = servoX.read();
-  int ypos = servoY.read();
-
-  ledBlink(INITIAL_STATE_INTERVAL);
-
-  while (xpos != INITIAL_X_POS || ypos != INITIAL_Y_POS)
-  {
-    xpos += getSign(INITIAL_X_POS - xpos) * INITIAL_STEP;
-    ypos += getSign(INITIAL_Y_POS - ypos) * INITIAL_STEP;
-
-    setXAxis(xpos);
-    setYAxis(ypos);
-
-    loopInfo();
-    delay(DEFAULT_LOOP_DELAY);
-
-    // read from servo
-    xpos = servoX.read();
-    ypos = servoY.read();
-  }
-
-  ledStopBlink();
+  setXAxis(INITIAL_X_POS);
+  setYAxis(INITIAL_Y_POS);
 }
 
 void setXAxis(int value)
