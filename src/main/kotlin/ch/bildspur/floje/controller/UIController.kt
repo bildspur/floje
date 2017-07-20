@@ -27,12 +27,12 @@ class UIController(internal var sketch: Sketch) {
         cp5.isAutoDraw = false
 
         // design cp5
-        /*
-        cp5.setColorBackground(0x2c3e50)
-        cp5.setColorForeground(0x16a085)
-        cp5.setColorValueLabel(0x2c3e50)
-        */
-        cp5.setColorCaptionLabel(0x2c3e50)
+        cp5.setColorBackground(sketch.color(44f, 62f, 80f))
+        cp5.setColorForeground(sketch.color(22f, 160f, 133f))
+        cp5.setColorActive(sketch.color(26f, 188f, 156f))
+
+        cp5.setColorValueLabel(sketch.color(236, 240, 241))
+        cp5.setColorCaptionLabel(sketch.color(44f, 62f, 80f))
 
         hpos = sketch.width / 7.0f * 5.0f
         setupControls()
@@ -67,6 +67,39 @@ class UIController(internal var sketch: Sketch) {
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
                     sketch.sweep.outerCone = outerConeSlider.value.toDouble()
+                }
+
+        minLifeTimeSlider = cp5.addSlider("Min Lifetime")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.minLifeTime.toFloat())
+                .setRange(0f, 1000f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.minLifeTime = minLifeTimeSlider.value.toInt()
+                }
+
+        sparsingSlider = cp5.addSlider("Sparse Distance")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.sweepDataProvider.tracker.sparsing.toFloat())
+                .setRange(0f, 500f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.sweepDataProvider.tracker.sparsing = sparsingSlider.value.toDouble()
+                }
+
+        maxDeltaSlider = cp5.addSlider("Max Delta")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+                .setRange(0f, 500f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.sweepDataProvider.tracker.maxDelta = maxDeltaSlider.value.toDouble()
                 }
     }
 }

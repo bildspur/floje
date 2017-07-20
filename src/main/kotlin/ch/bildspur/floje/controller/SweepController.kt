@@ -81,7 +81,7 @@ class SweepController(internal var sketch: PApplet) {
         get() {
             return regions.filter {
                 it.distance(Point(0.0, 0.0)) in innerCone..outerCone
-                        && it.lifeTime > 1000
+                        && it.lifeTime > minLifeTime
             }
         }
 
