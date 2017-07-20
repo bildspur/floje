@@ -17,14 +17,16 @@ class ActiveRegionTracker {
 
     fun track(components: List<SweepSample>) {
         // sparse and prepare points
-        val points = components.map { ActiveRegion(it.location(), it.signalStrength.toDouble()) }
+        val points = components.map { ActiveRegion(it.location(), it.signalStrength.toDouble(), 1) }
                 .toMutableList()
                 .sparsePoints(sparsing)
                 .map {
                     ActiveRegion(
                             it.map { it.x }.average(),
                             it.map { it.y }.average(),
-                            it.map { it.signalStrength }.sum())
+                            it.map { it.signalStrength }.sum(),
+                            it.size
+                    )
                 }
 
 

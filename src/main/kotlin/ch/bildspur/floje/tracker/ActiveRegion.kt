@@ -6,7 +6,7 @@ import ch.bildspur.floje.util.Point
 /**
  * Created by cansik on 12.02.17.
  */
-class ActiveRegion(x: Double, y: Double, val signalStrength: Double) : Point(x, y) {
+class ActiveRegion(x: Double, y: Double, val signalStrength: Double, val size: Int) : Point(x, y) {
     internal var used = false
 
     val creationTime = Sketch.currentMillis()
@@ -29,5 +29,5 @@ class ActiveRegion(x: Double, y: Double, val signalStrength: Double) : Point(x, 
         deathTime = Sketch.currentMillis()
     }
 
-    constructor(point: Point, signalStrength: Double) : this(point.x, point.y, signalStrength)
+    constructor(point: Point, signalStrength: Double, size: Int) : this(point.x, point.y, signalStrength, size)
 }
