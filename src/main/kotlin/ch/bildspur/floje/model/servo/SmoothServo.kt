@@ -28,7 +28,12 @@ class SmoothServo(val servo: Servo, // max speed per seconds
         tasks.enqueue(ServoTask(targetPosition, velocity * maxVelocity, acceleration * maxAcceleration))
     }
 
-    fun stop() {}
+    fun stop() {
+        if (task == null)
+            return
+
+        task!!.stop()
+    }
 
     var start: Int = 0
 

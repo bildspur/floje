@@ -77,6 +77,10 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
         decelerationTarget = linearMotionTarget + direction * decelerationPath
     }
 
+    fun stop() {
+        state = ServoState.DECELERATION
+    }
+
     fun nextPosition(currentPosition: Int): Int {
         // fix for 0 or 1 motion
         if (abs(targetPosition - startPosition) < 2) {

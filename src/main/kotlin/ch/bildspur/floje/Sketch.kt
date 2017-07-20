@@ -281,6 +281,17 @@ class Sketch : PApplet() {
                     }
                 }
             }
+            's' -> {
+                grid.columns.forEachIndexed { y, fields ->
+                    fields.forEachIndexed { x, field ->
+                        if (!field.isEmpty()) {
+                            val m = field as Mirror
+                            m.xAxis.stop()
+                            m.yAxis.stop()
+                        }
+                    }
+                }
+            }
         }
 
         fun oscEvent(msg: OscMessage) {
