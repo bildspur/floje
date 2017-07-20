@@ -246,6 +246,8 @@ class Sketch : PApplet() {
         sweep.outerCone = config.settings.sweep.outerCone
         sweep.minLifeTime = config.settings.sweep.minLifeTime
         sweep.rotation = config.settings.sweep.rotation
+        sweep.minRegionSize = config.settings.sweep.minRegionSize
+        sweep.sweepDataProvider.minimalSignalStrength = config.settings.sweep.minSignalStrength
     }
 
     override fun keyPressed() {

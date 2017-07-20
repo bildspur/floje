@@ -6,7 +6,9 @@
     "minLifeTime": 100,
     "sparsing": 25.0,
     "maxDelta": 30.0,
-    "rotation": 8.0
+    "rotation": 8.0,
+    "minSignalStrength": 150,
+    "minRegionSize": 3
   },
   "limits": {
     "maxAcceleration": 0.01,

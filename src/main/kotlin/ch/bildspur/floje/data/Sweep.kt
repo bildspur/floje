@@ -8,4 +8,6 @@ class Sweep {
     var maxDelta = 25.0
     var minLifeTime = 0
     var rotation = 0.0
+    var minSignalStrength = 0
+    var minRegionSize = 0
 }

@@ -17,6 +17,9 @@ class UIController(internal var sketch: Sketch) {
 
     lateinit var rotationSlider: Slider
 
+    lateinit var minSignalStrengthSlider: Slider
+    lateinit var minRegionSizeSlider: Slider
+
     var hpos = 0f
     var vpos = 20f
     var vspace = 5f
@@ -113,6 +116,28 @@ class UIController(internal var sketch: Sketch) {
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
                     sketch.sweep.rotation = rotationSlider.value.toDouble()
+                }
+
+        minRegionSizeSlider = cp5.addSlider("Min Region Size")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.minRegionSize.toFloat())
+                .setRange(0f, 50f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.minRegionSize = minRegionSizeSlider.value.toInt()
+                }
+
+        minSignalStrengthSlider = cp5.addSlider("Min Signal Strength")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.sweepDataProvider.minimalSignalStrength.toFloat())
+                .setRange(0f, 255f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.sweepDataProvider.minimalSignalStrength = minSignalStrengthSlider.value.toInt()
                 }
     }
 }

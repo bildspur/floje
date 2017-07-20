@@ -18,6 +18,8 @@ class SweepDataProvider() {
 
     val tracker = ActiveRegionTracker()
 
+    var minimalSignalStrength = 0
+
     var port: String = ""
 
     constructor(port: String) : this() {
@@ -53,6 +55,6 @@ class SweepDataProvider() {
 
     fun interact() {
         lastScan = sweep.nextScan()
-        tracker.track(lastScan)
+        tracker.track(lastScan.filter { it.signalStrength > minimalSignalStrength })
     }
 }

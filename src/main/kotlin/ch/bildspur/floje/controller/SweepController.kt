@@ -27,6 +27,8 @@ class SweepController(internal var sketch: PApplet) {
 
     var rotation = 0.0
 
+    var minRegionSize = 0
+
     lateinit var grid: Grid
 
     internal var running = false
@@ -84,6 +86,7 @@ class SweepController(internal var sketch: PApplet) {
             return regions.filter {
                 it.distance(Point(0.0, 0.0)) in innerCone..outerCone
                         && it.lifeTime > minLifeTime
+                        && it.size > minRegionSize
             }
         }
 
