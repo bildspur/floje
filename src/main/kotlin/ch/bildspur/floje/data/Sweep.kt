@@ -7,4 +7,5 @@ class Sweep {
     var sparsing = 0.0
     var maxDelta = 25.0
     var minLifeTime = 0
+    var rotation = 0.0
 }

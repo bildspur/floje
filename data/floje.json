@@ -5,7 +5,8 @@
     "outerCone": 100.0,
     "minLifeTime": 100,
     "sparsing": 25.0,
-    "maxDelta": 30.0
+    "maxDelta": 30.0,
+    "rotation": 8.0
   },
   "limits": {
     "maxAcceleration": 0.01,

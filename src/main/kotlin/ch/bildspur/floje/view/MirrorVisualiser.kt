@@ -148,7 +148,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         // visualise dots
         scan.forEach { s ->
             g.stackMatrix {
-                g.rotateZ(PApplet.radians(s.projectedAngle()))
+                g.rotateZ(PApplet.radians(s.projectedAngle() + sweep.rotation.toFloat()))
                 g.translate(s.distance.toFloat(), 0f)
                 g.noFill()
                 g.stroke(142f, 68f, 173f, s.signalStrength.toFloat())
@@ -159,6 +159,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         // visualise active regions
         sweep.relevantRegions.forEachIndexed { i, s ->
             g.stackMatrix {
+                g.rotateZ(PApplet.radians(sweep.rotation.toFloat()))
                 g.translate(s.x.toFloat(), s.y.toFloat())
                 g.noFill()
                 g.stroke(46f, 204f, 113f, 100f)

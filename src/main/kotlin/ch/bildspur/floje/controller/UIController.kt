@@ -15,6 +15,8 @@ class UIController(internal var sketch: Sketch) {
     lateinit var sparsingSlider: Slider
     lateinit var maxDeltaSlider: Slider
 
+    lateinit var rotationSlider: Slider
+
     var hpos = 0f
     var vpos = 20f
     var vspace = 5f
@@ -100,6 +102,17 @@ class UIController(internal var sketch: Sketch) {
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
                     sketch.sweep.sweepDataProvider.tracker.maxDelta = maxDeltaSlider.value.toDouble()
+                }
+
+        rotationSlider = cp5.addSlider("Rotation")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.rotation.toFloat())
+                .setRange(0f, 360f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.rotation = rotationSlider.value.toDouble()
                 }
     }
 }

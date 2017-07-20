@@ -25,6 +25,8 @@ class SweepController(internal var sketch: PApplet) {
 
     var minLifeTime = 0
 
+    var rotation = 0.0
+
     lateinit var grid: Grid
 
     internal var running = false
