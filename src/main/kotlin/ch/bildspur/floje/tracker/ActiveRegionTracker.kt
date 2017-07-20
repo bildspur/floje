@@ -25,7 +25,7 @@ class ActiveRegionTracker {
                             it.map { it.x }.average(),
                             it.map { it.y }.average(),
                             it.map { it.signalStrength }.sum(),
-                            it.size
+                            it.map { it.size }.sum()
                     )
                 }
 
