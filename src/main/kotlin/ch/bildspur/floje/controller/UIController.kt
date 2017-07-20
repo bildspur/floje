@@ -52,10 +52,25 @@ class UIController(internal var sketch: Sketch) {
     internal fun setupControls() {
         var controlIndex = 0
 
+        rotationSlider = cp5.addSlider("Rotation")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.rotation.toFloat())
+                .setColorForeground(sketch.color(22, 160, 133))
+                .setColorActive(sketch.color(26, 188, 156))
+                .setRange(0f, 360f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.rotation = rotationSlider.value.toDouble()
+                }
+
         innerConeSlider = cp5.addSlider("Inner Cone")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.innerCone.toFloat())
+                .setColorForeground(sketch.color(46, 204, 113))
+                .setColorActive(sketch.color(39, 174, 96))
                 .setRange(0f, 500f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
@@ -67,6 +82,8 @@ class UIController(internal var sketch: Sketch) {
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.outerCone.toFloat())
+                .setColorForeground(sketch.color(46, 204, 113))
+                .setColorActive(sketch.color(39, 174, 96))
                 .setRange(0f, 500f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
@@ -74,32 +91,12 @@ class UIController(internal var sketch: Sketch) {
                     sketch.sweep.outerCone = outerConeSlider.value.toDouble()
                 }
 
-        minLifeTimeSlider = cp5.addSlider("Min Lifetime")
-                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
-                .setSize(controlWidth, controlHeight)
-                .setValue(sketch.sweep.minLifeTime.toFloat())
-                .setRange(0f, 1000f)
-                .onEnter { sketch.peasy.disable() }
-                .onLeave { sketch.peasy.enable() }
-                .onChange { e ->
-                    sketch.sweep.minLifeTime = minLifeTimeSlider.value.toInt()
-                }
-
-        sparsingSlider = cp5.addSlider("Sparse Distance")
-                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
-                .setSize(controlWidth, controlHeight)
-                .setValue(sketch.sweep.sweepDataProvider.tracker.sparsing.toFloat())
-                .setRange(0f, 500f)
-                .onEnter { sketch.peasy.disable() }
-                .onLeave { sketch.peasy.enable() }
-                .onChange { e ->
-                    sketch.sweep.sweepDataProvider.tracker.sparsing = sparsingSlider.value.toDouble()
-                }
-
         maxDeltaSlider = cp5.addSlider("Max Delta")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+                .setColorForeground(sketch.color(41, 128, 185))
+                .setColorActive(sketch.color(52, 152, 219))
                 .setRange(0f, 500f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
@@ -107,21 +104,39 @@ class UIController(internal var sketch: Sketch) {
                     sketch.sweep.sweepDataProvider.tracker.maxDelta = maxDeltaSlider.value.toDouble()
                 }
 
-        rotationSlider = cp5.addSlider("Rotation")
+        sparsingSlider = cp5.addSlider("Sparse Distance")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
-                .setValue(sketch.sweep.rotation.toFloat())
-                .setRange(0f, 360f)
+                .setValue(sketch.sweep.sweepDataProvider.tracker.sparsing.toFloat())
+                .setColorForeground(sketch.color(41, 128, 185))
+                .setColorActive(sketch.color(52, 152, 219))
+                .setRange(0f, 500f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
-                    sketch.sweep.rotation = rotationSlider.value.toDouble()
+                    sketch.sweep.sweepDataProvider.tracker.sparsing = sparsingSlider.value.toDouble()
+                }
+
+
+        minLifeTimeSlider = cp5.addSlider("Min Lifetime")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.minLifeTime.toFloat())
+                .setColorForeground(sketch.color(142, 68, 173))
+                .setColorActive(sketch.color(155, 89, 182))
+                .setRange(0f, 1000f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.sweep.minLifeTime = minLifeTimeSlider.value.toInt()
                 }
 
         minRegionSizeSlider = cp5.addSlider("Min Region Size")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.minRegionSize.toFloat())
+                .setColorForeground(sketch.color(142, 68, 173))
+                .setColorActive(sketch.color(155, 89, 182))
                 .setRange(0f, 50f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
@@ -133,6 +148,8 @@ class UIController(internal var sketch: Sketch) {
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(sketch.sweep.sweepDataProvider.minimalSignalStrength.toFloat())
+                .setColorForeground(sketch.color(142, 68, 173))
+                .setColorActive(sketch.color(155, 89, 182))
                 .setRange(0f, 255f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }

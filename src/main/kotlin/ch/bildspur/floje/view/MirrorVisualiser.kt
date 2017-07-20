@@ -164,8 +164,6 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
                 g.noFill()
                 g.stroke(46f, 204f, 113f, 100f)
                 g.box(20f)
-
-                println("$i ${s.size}")
             }
         }
 
