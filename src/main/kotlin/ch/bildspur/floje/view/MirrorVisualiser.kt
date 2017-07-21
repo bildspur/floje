@@ -16,10 +16,6 @@ import processing.core.PGraphics
  * Created by cansik on 08.06.17.
  */
 class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val sweep: SweepController) {
-
-    val radius = 37f
-
-    val elementSize = 50f
     val elementThickness = 2f
 
     val towerSize = 7f
@@ -68,7 +64,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         g.fill(41f, 128f, 185f, 100f)
         g.noStroke()
         g.translate(0f, 0f, emptyHeight / 2)
-        g.box(elementSize, elementSize, emptyHeight)
+        g.box(sketch.sweep.sweepInteractor.mirrorSize, sketch.sweep.sweepInteractor.mirrorSize, emptyHeight)
 
         // add text name
         g.translate(0f, 0f, (emptyHeight / 2) + 1)
@@ -104,7 +100,8 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         g.rotateY(PApplet.radians(90f - mirror.yAxis.servo.position.value))
 
         // add mirror
-        g.box(elementSize, elementSize, elementThickness)
+        g.box(sketch.sweep.sweepInteractor.mirrorSize,
+                sketch.sweep.sweepInteractor.mirrorSize, elementThickness)
 
         // add text name
         g.translate(0f, 0f, (elementThickness / 2) + 1)
@@ -125,7 +122,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
 
     internal fun renderFloor() {
         g.pushMatrix()
-        g.translate(0f, 0f, 0f - elementSize)
+        g.translate(0f, 0f, 0f - sketch.sweep.sweepInteractor.mirrorSize)
 
         g.fill(127f, 140f, 141f, 100f)
         g.noStroke()
@@ -134,9 +131,9 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
     }
 
     internal fun translateToPosition(x: Int, y: Int) {
-        val posX = radius
+        val posX = sketch.sweep.sweepInteractor.mirrorRadius
         val posY = 0f
-        val posZ = (x * elementSize) + (x * elementSpace)
+        val posZ = (x * sketch.sweep.sweepInteractor.mirrorSize) + (x * elementSpace) + sketch.sweep.sweepInteractor.mirrorStartHeight
 
         // rotate mirrors to direction
         g.rotateZ(PApplet.radians((360f / grid.width) * y))
@@ -164,7 +161,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         sweep.relevantRegions.forEachIndexed { i, s ->
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(sweep.rotation.toFloat()))
-                g.translate(s.x.toFloat(), s.y.toFloat())
+                g.translate(s.x.toFloat(), s.y.toFloat(), sketch.sweep.sweepInteractor.regionHeight)
                 g.noFill()
                 g.strokeWeight(2.0f)
                 g.stroke(46f, 204f, 113f, 100f)
