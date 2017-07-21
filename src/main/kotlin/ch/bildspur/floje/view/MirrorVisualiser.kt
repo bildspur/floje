@@ -33,6 +33,10 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
 
     var showPosition = true
 
+    var showMaxDelta = false
+
+    var showSparsing = false
+
     fun render() {
         g.draw {
             if (sketch.enableLights)
@@ -167,18 +171,24 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
                 g.box(20f)
 
                 // visualise parameter
-                // max delta
-                g.strokeWeight(0.5f)
-                g.noFill()
-                g.stroke(230f, 126f, 34f)
-                g.sphereDetail(10)
-                g.sphere(sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+
+                if (showMaxDelta) {
+                    // max delta
+                    g.strokeWeight(0.5f)
+                    g.noFill()
+                    g.stroke(230f, 126f, 34f)
+                    g.sphereDetail(10)
+                    g.sphere(sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+                }
 
                 // sparsing
-                g.noFill()
-                g.stroke(241f, 196f, 15f)
-                g.sphereDetail(10)
-                g.sphere(sweep.sweepDataProvider.tracker.sparsing.toFloat())
+                if (showSparsing) {
+                    g.strokeWeight(0.5f)
+                    g.noFill()
+                    g.stroke(241f, 196f, 15f)
+                    g.sphereDetail(10)
+                    g.sphere(sweep.sweepDataProvider.tracker.sparsing.toFloat())
+                }
             }
         }
 

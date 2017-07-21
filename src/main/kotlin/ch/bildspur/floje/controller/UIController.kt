@@ -91,19 +91,6 @@ class UIController(internal var sketch: Sketch) {
                     sketch.sweep.outerCone = outerConeSlider.value.toDouble()
                 }
 
-        maxDeltaSlider = cp5.addSlider("Max Delta")
-                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
-                .setSize(controlWidth, controlHeight)
-                .setValue(sketch.sweep.sweepDataProvider.tracker.maxDelta.toFloat())
-                .setColorForeground(sketch.color(41, 128, 185))
-                .setColorActive(sketch.color(52, 152, 219))
-                .setRange(0f, 500f)
-                .onEnter { sketch.peasy.disable() }
-                .onLeave { sketch.peasy.enable() }
-                .onChange { e ->
-                    sketch.sweep.sweepDataProvider.tracker.maxDelta = maxDeltaSlider.value.toDouble()
-                }
-
         sparsingSlider = cp5.addSlider("Sparse Distance")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
@@ -111,10 +98,35 @@ class UIController(internal var sketch: Sketch) {
                 .setColorForeground(sketch.color(41, 128, 185))
                 .setColorActive(sketch.color(52, 152, 219))
                 .setRange(0f, 500f)
-                .onEnter { sketch.peasy.disable() }
-                .onLeave { sketch.peasy.enable() }
+                .onEnter {
+                    sketch.peasy.disable()
+                    sketch.visualiser.showSparsing = true
+                }
+                .onLeave {
+                    sketch.peasy.enable()
+                    sketch.visualiser.showSparsing = false
+                }
                 .onChange { e ->
                     sketch.sweep.sweepDataProvider.tracker.sparsing = sparsingSlider.value.toDouble()
+                }
+
+        maxDeltaSlider = cp5.addSlider("Max Delta")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+                .setColorForeground(sketch.color(41, 128, 185))
+                .setColorActive(sketch.color(52, 152, 219))
+                .setRange(0f, 500f)
+                .onEnter {
+                    sketch.peasy.disable()
+                    sketch.visualiser.showMaxDelta = true
+                }
+                .onLeave {
+                    sketch.peasy.enable()
+                    sketch.visualiser.showMaxDelta = false
+                }
+                .onChange { e ->
+                    sketch.sweep.sweepDataProvider.tracker.maxDelta = maxDeltaSlider.value.toDouble()
                 }
 
 
