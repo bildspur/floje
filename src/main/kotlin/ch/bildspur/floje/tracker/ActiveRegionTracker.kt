@@ -12,7 +12,14 @@ import java.util.concurrent.CopyOnWriteArrayList
 class ActiveRegionTracker {
     val regions = CopyOnWriteArrayList<ActiveRegion>()
 
+    /**
+     * How many points are clustered.
+     */
     var sparsing = 25.0
+
+    /**
+     * What is the maximum distance to travel, to still track.
+     */
     var maxDelta = 20.0
 
     fun track(components: List<SweepSample>) {

@@ -146,7 +146,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         val scan = sweep.currentScan
 
         // visualise dots
-        scan.forEach { s ->
+        scan.filter { it.signalStrength >= sweep.sweepDataProvider.minimalSignalStrength }.forEach { s ->
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(s.projectedAngle() + sweep.rotation.toFloat()))
                 g.translate(s.distance.toFloat(), 0f)
@@ -162,8 +162,23 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
                 g.rotateZ(PApplet.radians(sweep.rotation.toFloat()))
                 g.translate(s.x.toFloat(), s.y.toFloat())
                 g.noFill()
+                g.strokeWeight(2.0f)
                 g.stroke(46f, 204f, 113f, 100f)
                 g.box(20f)
+
+                // visualise parameter
+                // max delta
+                g.strokeWeight(0.5f)
+                g.noFill()
+                g.stroke(230f, 126f, 34f)
+                g.sphereDetail(10)
+                g.sphere(sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+
+                // sparsing
+                g.noFill()
+                g.stroke(241f, 196f, 15f)
+                g.sphereDetail(10)
+                g.sphere(sweep.sweepDataProvider.tracker.sparsing.toFloat())
             }
         }
 
