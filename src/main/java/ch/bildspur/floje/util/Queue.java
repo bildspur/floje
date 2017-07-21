@@ -59,4 +59,19 @@ public class Queue<T> {
         empty = (head == tail);
         return elem;
     }
+
+    /**
+     * Removes an element from the queue and returns it.
+     *
+     * @throws Exception when the queue is empty
+     */
+    public T next() {
+        // Check if queue is empty and throw exception
+        if (empty) {
+            System.out.println("The queue is empty");
+        }
+
+        // The queue is not empty, return element
+        return (T) queue[head];
+    }
 }

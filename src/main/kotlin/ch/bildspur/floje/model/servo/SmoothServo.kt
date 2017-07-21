@@ -25,6 +25,12 @@ class SmoothServo(val servo: Servo, // max speed per seconds
     }
 
     fun moveTo(targetPosition: Int, velocity: Float, acceleration: Float) {
+        // check if target is already enqueued
+        if (!tasks.empty) {
+            if (tasks.next().targetPosition == targetPosition)
+                return
+        }
+
         tasks.enqueue(ServoTask(targetPosition, velocity * maxVelocity, acceleration * maxAcceleration))
     }
 
