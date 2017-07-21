@@ -33,6 +33,8 @@ class SweepInteraction {
 
     private fun rotateMirror(mirror: Mirror, c: Int, r: Int, regions: List<ActiveRegion>) {
         val angle = (360f / grid.width) * c
+        val mirrorPosition = mirrorPosition(c, r)
+
         val summedRotation = PVector(0f, 0f)
 
         var relevantRegions = 0
@@ -51,16 +53,25 @@ class SweepInteraction {
             }
 
             // calculate angle difference
-            relevantRegions++
             summedRotation.x += -angleDiff
+
+            // height difference
+            val mirrorHeight = mirrorPosition.z
+            val heightDiff = mirrorHeight - regionHeight
+            val beta = Math.atan(heightDiff / (polar.r - mirrorRadius.toDouble()))
+
+            summedRotation.y += -PApplet.degrees(beta.toFloat())
+
+            // increment region counter
+            relevantRegions++
         }
 
         val x = 90f + Math.round(summedRotation.x / relevantRegions)
-        //val y = Math.abs(Math.round(summedRotation.y / regions.size.toFloat()) + 90f)
+        val y = 90f + Math.round(summedRotation.y / relevantRegions)
 
         // move mirror
         mirror.xAxis.moveTo(x.toInt())//limit(x, 60f, 120f).toInt())
-        //mirror.yAxis.moveTo(limit(y, 60f, 120f).toInt())
+        mirror.yAxis.moveTo(y.toInt())
     }
 
     private fun mirrorPosition(c: Int, r: Int): PVector {
