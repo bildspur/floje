@@ -28,3 +28,22 @@ fun PVector.add(s: Float) {
     this.y += s
     this.z += s
 }
+
+fun PVector.toPolar(): PolarCoordinates {
+    val r = PApplet.sqrt(PApplet.pow(x, 2f) + PApplet.pow(y, 2f))
+    var theta = PApplet.degrees(PApplet.atan(y / x))
+
+    if (x > 0 && y > 0)
+        theta += 0f
+
+    if (x < 0 && y > 0)
+        theta += 180f
+
+    if (x < 0 && y < 0)
+        theta += 180f
+
+    if (x > 0 && y < 0)
+        theta += 360f
+
+    return PolarCoordinates(r, theta)
+}
