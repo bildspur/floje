@@ -24,6 +24,10 @@ fun Float.isApproximate(value: Double, error: Double): Boolean {
     return (Math.abs(Math.abs(this) - Math.abs(value)) < error)
 }
 
+fun Float.limit(value: Float, min: Float, max: Float): Float {
+    return Math.max(Math.min(max, value), min)
+}
+
 fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit) {
     this.pushMatrix()
     block(this)

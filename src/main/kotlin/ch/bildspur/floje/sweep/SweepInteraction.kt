@@ -29,8 +29,6 @@ class SweepInteraction {
                 }
             }
         }
-
-        println("-------")
     }
 
     private fun rotateMirror(mirror: Mirror, c: Int, r: Int, regions: List<ActiveRegion>) {
@@ -46,22 +44,15 @@ class SweepInteraction {
             // calculate polar coordinates
             val polar = regionPosition.toPolar()
 
-
             // check if region is relevant
-            val lowerAngle = angle - viewAngle // Math.floorMod((angle - viewAngle).toInt(), 360)
-            val upperAngle = angle + viewAngle // Math.floorMod((angle + viewAngle).toInt(), 360)
-
-            if (polar.theta !in lowerAngle..upperAngle) {
+            val angleDiff = (angle - polar.theta + 180 + 360) % 360 - 180
+            if (angleDiff !in -viewAngle..viewAngle) {
                 return
             }
 
-
-            println("Mirror: c: $c r: $r -> angle: $angle ===> $lowerAngle < ${polar.theta} < $upperAngle")
-
             // calculate angle difference
             relevantRegions++
-            val angleDiff = polar.theta - angle
-            summedRotation.x += angleDiff
+            summedRotation.x += -angleDiff
         }
 
         val x = 90f + Math.round(summedRotation.x / relevantRegions)
@@ -70,10 +61,6 @@ class SweepInteraction {
         // move mirror
         mirror.xAxis.moveTo(x.toInt())//limit(x, 60f, 120f).toInt())
         //mirror.yAxis.moveTo(limit(y, 60f, 120f).toInt())
-    }
-
-    private fun limit(value: Float, min: Float, max: Float): Float {
-        return Math.max(Math.min(max, value), min)
     }
 
     private fun mirrorPosition(c: Int, r: Int): PVector {
