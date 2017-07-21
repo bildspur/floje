@@ -10,7 +10,7 @@ import socket
 
 version = "1.0"
 
-ip_of_sender = '192.168.1.101'
+ip_of_sender = '192.168.1.102'
 esp_respond_sender_port = '8255'
 sender_to_esp_port = '8266'
 update_password = 'bildspur'

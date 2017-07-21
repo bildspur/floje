@@ -20,7 +20,7 @@
         "column": 0,
         "row": 0
       },
-      "name": "floje-orange-celery-8774b",
+      "name": "floje-black-pea-2da99f",
       "trim": {
         "x": 0,
         "y": 0
@@ -31,7 +31,7 @@
         "column": 0,
         "row": 1
       },
-      "name": "floje-teal-spinach-2bc6cc",
+      "name": "floje-purple-cabbage-2bcd3a",
       "trim": {
         "x": 0,
         "y": 0
@@ -174,7 +174,7 @@
         "column": 3,
         "row": 2
       },
-      "name": "floje-purple-cabbage-2bcd3a",
+      "name": "floje-teal-spinach-2bc6cc",
       "trim": {
         "x": 0,
         "y": 0
@@ -185,7 +185,7 @@
         "column": 3,
         "row": 3
       },
-      "name": "floje-silver-cucumber-2bc6ad",
+      "name": "floje-white-cabbage-2da88a",
       "trim": {
         "x": 0,
         "y": 0
@@ -207,7 +207,7 @@
         "column": 4,
         "row": 1
       },
-      "name": "floje-black-pea-2da99f",
+      "name": "floje-orange-celery-8774b",
       "trim": {
         "x": 0,
         "y": 0
@@ -218,7 +218,7 @@
         "column": 4,
         "row": 2
       },
-      "name": "floje-blue-potato-2bd100",
+      "name": "floje-red-onion-87316",
       "trim": {
         "x": 0,
         "y": 0
@@ -240,7 +240,7 @@
         "column": 5,
         "row": 0
       },
-      "name": "floje-red-onion-87316",
+      "name": "floje-blue-potato-2bd100",
       "trim": {
         "x": 0,
         "y": 0
@@ -251,7 +251,7 @@
         "column": 5,
         "row": 1
       },
-      "name": "floje-white-cabbage-2da88a",
+      "name": "floje-gray-pumpkin-2bc4b8",
       "trim": {
         "x": 0,
         "y": 0

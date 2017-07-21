@@ -1,6 +1,7 @@
 package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.Sketch
+import ch.bildspur.floje.model.Mirror
 import controlP5.ControlP5
 import controlP5.Slider
 
@@ -19,6 +20,8 @@ class UIController(internal var sketch: Sketch) {
 
     lateinit var minSignalStrengthSlider: Slider
     lateinit var minRegionSizeSlider: Slider
+
+    lateinit var yAxisSlider: Slider
 
     var hpos = 0f
     var vpos = 20f
@@ -167,6 +170,28 @@ class UIController(internal var sketch: Sketch) {
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
                     sketch.sweep.sweepDataProvider.minimalSignalStrength = minSignalStrengthSlider.value.toInt()
+                }
+
+        yAxisSlider = cp5.addSlider("Y-Axis")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(90f)
+                .setColorForeground(sketch.color(142, 68, 173))
+                .setColorActive(sketch.color(155, 89, 182))
+                .setRange(0f, 180f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    sketch.grid.columns.forEachIndexed { y, fields ->
+                        fields.forEachIndexed { x, field ->
+                            if (!field.isEmpty()) {
+                                val m = field as Mirror
+                                //m.xAxis.moveTo(xpos)
+                                m.yAxis.servo.write(yAxisSlider.value.toInt())
+                                //m.yAxis.moveTo(yAxisSlider.value.toInt())
+                            }
+                        }
+                    }
                 }
     }
 }
