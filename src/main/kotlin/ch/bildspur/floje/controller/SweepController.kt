@@ -1,6 +1,7 @@
 package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.sweep.DemoSweepDataProvider
 import ch.bildspur.floje.sweep.SweepDataProvider
 import ch.bildspur.floje.sweep.SweepInteraction
 import ch.bildspur.floje.tracker.ActiveRegion
@@ -20,7 +21,7 @@ class SweepController(internal val sketch: PApplet) {
     var sweepPort = ""
 
     val sweepDataProvider = SweepDataProvider()
-    val sweepInteractor = SweepInteraction()
+    val sweepInteractor = SweepInteraction(this)
 
     var innerCone = 0.0
     var outerCone = Double.MAX_VALUE
@@ -46,7 +47,7 @@ class SweepController(internal val sketch: PApplet) {
         val path = Paths.get(sweepPort)
 
         // if sweep is available
-        if (!Files.exists(path)) {
+        if (sweepDataProvider !is DemoSweepDataProvider && !Files.exists(path)) {
             println("Sweep not found ($sweepPort)")
             return
         }

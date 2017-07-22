@@ -8,7 +8,7 @@ import io.scanse.sweep.SweepSample
 /**
  * Created by cansik on 18.07.17.
  */
-class SweepDataProvider() {
+open class SweepDataProvider() {
 
     @Volatile lateinit var sweep: SweepDevice
 
@@ -26,7 +26,7 @@ class SweepDataProvider() {
         this.port = port
     }
 
-    fun start() {
+    open fun start() {
         running = true
 
         println("Opening sweep on $port...")
@@ -49,11 +49,11 @@ class SweepDataProvider() {
         sweep.close()
     }
 
-    fun stop() {
+    open fun stop() {
         running = false
     }
 
-    fun interact() {
+    open fun interact() {
         lastScan = sweep.nextScan()
         tracker.track(lastScan.filter { it.signalStrength > minimalSignalStrength })
     }
