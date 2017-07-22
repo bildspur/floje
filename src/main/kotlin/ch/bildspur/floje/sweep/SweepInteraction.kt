@@ -66,13 +66,11 @@ class SweepInteraction {
             relevantRegions++
         }
 
-        println("relevant regions: $relevantRegions")
-
         val x = 90f + Math.round(summedRotation.x / relevantRegions)
         val y = 90f + Math.round(summedRotation.y / relevantRegions)
 
         // move mirror
-        mirror.xAxis.moveTo(x.toInt())//limit(x, 60f, 120f).toInt())
+        mirror.xAxis.moveTo(x.toInt())
         mirror.yAxis.moveTo(y.toInt())
     }
 
