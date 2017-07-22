@@ -8,5 +8,6 @@ import ch.bildspur.floje.model.Mirror
 class Settings {
     var sweep: Sweep = Sweep()
     var limits: Limits = Limits()
+    var interaction: Interaction = Interaction()
     var mirrors: List<Mirror> = emptyList()
 }

@@ -14,6 +14,10 @@
     "maxAcceleration": 0.01,
     "maxVelocity": 0.5
   },
+  "interaction": {
+    "servoLimit": 30.0,
+    "viewAngle": 30.0
+  },
   "mirrors": [
     {
       "position": {

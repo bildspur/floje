@@ -119,7 +119,7 @@ class Sketch : PApplet() {
         // update all time relevant
         if (isInteractionOn)
             sweep.analyseSweep()
-        
+
         updateServos()
         timer.update()
 
@@ -254,6 +254,9 @@ class Sketch : PApplet() {
         sweep.rotation = config.settings.sweep.rotation
         sweep.minRegionSize = config.settings.sweep.minRegionSize
         sweep.sweepDataProvider.minimalSignalStrength = config.settings.sweep.minSignalStrength
+
+        sweep.sweepInteraction.viewAngle = config.settings.interaction.viewAngle.toFloat()
+        sweep.sweepInteraction.servoLimit = config.settings.interaction.servoLimit.toFloat()
     }
 
     override fun keyPressed() {

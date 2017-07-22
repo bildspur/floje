@@ -4,6 +4,7 @@ import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.tracker.ActiveRegion
+import ch.bildspur.floje.util.limit
 import ch.bildspur.floje.util.toPolar
 import processing.core.PApplet
 import processing.core.PVector
@@ -17,6 +18,8 @@ class SweepInteraction(val sweepController: SweepController) {
     var mirrorStartHeight = 40f
 
     var viewAngle = 30f
+
+    var servoLimit = 30f
 
     lateinit var grid: Grid
 
@@ -71,8 +74,8 @@ class SweepInteraction(val sweepController: SweepController) {
         val y = 90f + Math.round(summedRotation.y / relevantRegions)
 
         // move mirror
-        mirror.xAxis.moveTo(x.toInt())
-        mirror.yAxis.moveTo(y.toInt())
+        mirror.xAxis.moveTo(x.limit(90f - servoLimit, 90f + servoLimit).toInt())
+        mirror.yAxis.moveTo(y.limit(90f - servoLimit, 90f + servoLimit).toInt())
     }
 
     private fun mirrorPosition(c: Int, r: Int): PVector {
