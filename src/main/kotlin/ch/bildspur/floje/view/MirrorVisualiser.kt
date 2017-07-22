@@ -173,8 +173,10 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
                     g.strokeWeight(0.5f)
                     g.noFill()
                     g.stroke(230f, 126f, 34f)
-                    g.sphereDetail(10)
-                    g.sphere(sweep.sweepDataProvider.tracker.maxDelta.toFloat())
+                    g.cylinder(50,
+                            sweep.sweepDataProvider.tracker.maxDelta.toFloat(),
+                            sweep.sweepDataProvider.tracker.maxDelta.toFloat(),
+                            10f)
                 }
 
                 // sparsing
@@ -182,8 +184,10 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
                     g.strokeWeight(0.5f)
                     g.noFill()
                     g.stroke(241f, 196f, 15f)
-                    g.sphereDetail(10)
-                    g.sphere(sweep.sweepDataProvider.tracker.sparsing.toFloat())
+                    g.cylinder(50,
+                            sweep.sweepDataProvider.tracker.sparsing.toFloat(),
+                            sweep.sweepDataProvider.tracker.sparsing.toFloat(),
+                            10f)
                 }
             }
         }
