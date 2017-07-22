@@ -1,5 +1,6 @@
 package ch.bildspur.floje.sweep
 
+import ch.bildspur.floje.controller.SweepController
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.tracker.ActiveRegion
@@ -7,7 +8,7 @@ import ch.bildspur.floje.util.toPolar
 import processing.core.PApplet
 import processing.core.PVector
 
-class SweepInteraction {
+class SweepInteraction(val sweepController: SweepController) {
 
     var regionHeight = 100f
 
@@ -45,25 +46,25 @@ class SweepInteraction {
 
             // calculate polar coordinates
             val polar = regionPosition.toPolar()
+            val theta = (polar.theta + sweepController.rotation) % 360
 
             // check if region is relevant
-            val angleDiff = (angle - polar.theta + 180 + 360) % 360 - 180
-            if (angleDiff !in -viewAngle..viewAngle) {
-                return
+            val angleDiff = (angle - theta + 180 + 360) % 360 - 180
+            if (angleDiff in -viewAngle..viewAngle) {
+
+                // calculate angle difference
+                summedRotation.x += -angleDiff.toFloat()
+
+                // height difference
+                val mirrorHeight = mirrorPosition.z
+                val heightDiff = mirrorHeight - regionHeight
+                val beta = Math.atan(heightDiff / (polar.r - mirrorRadius.toDouble()))
+
+                summedRotation.y += -PApplet.degrees(beta.toFloat())
+
+                // increment region counter
+                relevantRegions++
             }
-
-            // calculate angle difference
-            summedRotation.x += -angleDiff
-
-            // height difference
-            val mirrorHeight = mirrorPosition.z
-            val heightDiff = mirrorHeight - regionHeight
-            val beta = Math.atan(heightDiff / (polar.r - mirrorRadius.toDouble()))
-
-            summedRotation.y += -PApplet.degrees(beta.toFloat())
-
-            // increment region counter
-            relevantRegions++
         }
 
         val x = 90f + Math.round(summedRotation.x / relevantRegions)
