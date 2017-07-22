@@ -2,6 +2,7 @@ package ch.bildspur.floje.view
 
 import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
+import ch.bildspur.floje.util.limit
 import oscP5.OscMessage
 import oscP5.OscP5
 
@@ -44,13 +45,13 @@ class OscOutput(val osc: OscP5, val grid: Grid) {
         if (!mirror.isOnline)
             return
 
-        val x = mirror.xAxis.servo.position.value.toFloat()
-        val y = mirror.yAxis.servo.position.value.toFloat()
+        val x = mirror.xAxis.servo.position.value + mirror.trim.x
+        val y = mirror.yAxis.servo.position.value + mirror.trim.y
 
         // send the output
         val msg = OscMessage(SERVO_ADDRESS)
-        msg.add(x)
-        msg.add(y)
+        msg.add(x.toFloat().limit(0f, 180f))
+        msg.add(y.toFloat().limit(0f, 180f))
 
         osc.send(msg, mirror.address)
     }
