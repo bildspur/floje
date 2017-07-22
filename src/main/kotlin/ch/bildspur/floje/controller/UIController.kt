@@ -4,6 +4,7 @@ import ch.bildspur.floje.Sketch
 import ch.bildspur.floje.model.Mirror
 import controlP5.ControlP5
 import controlP5.Slider
+import controlP5.Toggle
 
 class UIController(internal var sketch: Sketch) {
     lateinit var cp5: ControlP5
@@ -22,6 +23,8 @@ class UIController(internal var sketch: Sketch) {
     lateinit var minRegionSizeSlider: Slider
 
     lateinit var yAxisSlider: Slider
+
+    lateinit var interactionToggle: Toggle
 
     var hpos = 0f
     var vpos = 20f
@@ -193,5 +196,16 @@ class UIController(internal var sketch: Sketch) {
                         }
                     }
                 }
+
+        interactionToggle = cp5.addToggle("Interaction")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(sketch.isInteractionOn)
+                .setColorForeground(sketch.color(192, 57, 43))
+                .setColorActive(sketch.color(231, 76, 60))
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e -> sketch.isInteractionOn = interactionToggle.booleanValue }
+
     }
 }
