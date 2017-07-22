@@ -1,7 +1,6 @@
 package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.Sketch
-import ch.bildspur.floje.model.Mirror
 import controlP5.ControlP5
 import controlP5.Slider
 import controlP5.Toggle
@@ -185,15 +184,10 @@ class UIController(internal var sketch: Sketch) {
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
-                    sketch.grid.columns.forEachIndexed { y, fields ->
-                        fields.forEachIndexed { x, field ->
-                            if (!field.isEmpty()) {
-                                val m = field as Mirror
-                                //m.xAxis.moveTo(xpos)
-                                m.yAxis.servo.write(yAxisSlider.value.toInt())
-                                //m.yAxis.moveTo(yAxisSlider.value.toInt())
-                            }
-                        }
+                    sketch.grid.forEachMirror { mirror, c, r ->
+                        //mirror.xAxis.moveTo(xpos)
+                        mirror.yAxis.servo.write(yAxisSlider.value.toInt())
+                        //mirror.yAxis.moveTo(yAxisSlider.value.toInt())
                     }
                 }
 

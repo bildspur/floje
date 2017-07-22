@@ -28,13 +28,8 @@ class PingController(internal var sketch: PApplet) {
         isPingRunning = true
 
         thread {
-            grid.columns.forEachIndexed { y, fields ->
-                fields.forEachIndexed { x, field ->
-                    thread {
-                        if (!field.isEmpty())
-                            ping(field as Mirror)
-                    }
-                }
+            grid.forEachMirror { mirror, c, r ->
+                ping(mirror)
             }
             isPingRunning = false
         }

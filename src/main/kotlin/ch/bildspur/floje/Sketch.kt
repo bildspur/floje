@@ -2,7 +2,6 @@ package ch.bildspur.floje
 
 import ch.bildspur.floje.controller.*
 import ch.bildspur.floje.controller.timer.TimerTask
-import ch.bildspur.floje.model.Mirror
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.util.draw
 import ch.bildspur.floje.util.format
@@ -148,14 +147,9 @@ class Sketch : PApplet() {
     }
 
     fun updateServos() {
-        grid.columns.forEachIndexed { y, fields ->
-            fields.forEachIndexed { x, field ->
-                if (!field.isEmpty()) {
-                    val mirror = (field as Mirror)
-                    mirror.xAxis.update()
-                    mirror.yAxis.update()
-                }
-            }
+        grid.forEachMirror { mirror, c, r ->
+            mirror.xAxis.update()
+            mirror.yAxis.update()
         }
     }
 

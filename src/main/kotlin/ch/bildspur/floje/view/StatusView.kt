@@ -20,22 +20,19 @@ class StatusView(val pg: PGraphics, val grid: Grid) {
         pg.fill(0)
         pg.textSize(TEXT_SIZE)
 
-        grid.columns.forEachIndexed { y, fields ->
-            fields.forEachIndexed { x, field ->
+        grid.forEach { field, y, x ->
+            pg.pushMatrix()
+            val index = x + (y * grid.height)
+            pg.translate(MARGIN_X, MARGIN_Y + (index * (TEXT_SIZE + SPACE)))
 
-                pg.pushMatrix()
-                val index = x + (y * grid.height)
-                pg.translate(MARGIN_X, MARGIN_Y + (index * (TEXT_SIZE + SPACE)))
-
-                if (!field.isEmpty())
-                    showInformation(field as Mirror, x, y)
-                else {
-                    pg.fill(44f, 62f, 80f)
-                    pg.text("C: $y R: $x => EMPTY", 0f, 0f)
-                }
-
-                pg.popMatrix()
+            if (!field.isEmpty())
+                showInformation(field as Mirror, x, y)
+            else {
+                pg.fill(44f, 62f, 80f)
+                pg.text("C: $y R: $x => EMPTY", 0f, 0f)
             }
+
+            pg.popMatrix()
         }
     }
 

@@ -26,12 +26,8 @@ class SweepInteraction(val sweepController: SweepController) {
     fun interact(regions: List<ActiveRegion>) {
 
         // loop through mirrors
-        grid.columns.forEachIndexed { c, fields ->
-            fields.forEachIndexed { r, field ->
-                if (!field.isEmpty()) {
-                    rotateMirror(field as Mirror, c, r, regions)
-                }
-            }
+        grid.forEachMirror { mirror, c, r ->
+            rotateMirror(mirror, c, r, regions)
         }
     }
 

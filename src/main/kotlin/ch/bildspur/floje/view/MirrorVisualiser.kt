@@ -40,14 +40,13 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
 
             visualiseSweep()
             renderFloor()
-            grid.columns.forEachIndexed { y, fields ->
-                fields.forEachIndexed { x, field ->
-                    g.stackMatrix {
-                        if (field.isEmpty())
-                            renderEmpty(x, y)
-                        else
-                            renderMirror(field as Mirror, x, y)
-                    }
+
+            grid.forEach { field, c, r ->
+                g.stackMatrix {
+                    if (field.isEmpty())
+                        renderEmpty(r, c)
+                    else
+                        renderMirror(field as Mirror, r, c)
                 }
             }
         }
