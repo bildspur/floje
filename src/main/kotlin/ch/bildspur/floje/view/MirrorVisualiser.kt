@@ -57,7 +57,6 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         g.lights()
     }
 
-
     internal fun renderEmpty(x: Int, y: Int) {
         translateToPosition(x, y)
 
@@ -161,7 +160,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         sweep.relevantRegions.forEachIndexed { i, s ->
             g.stackMatrix {
                 g.rotateZ(PApplet.radians(sweep.rotation.toFloat()))
-                g.translate(s.x.toFloat(), s.y.toFloat(), sketch.sweep.sweepInteractor.regionHeight)
+                g.translate(s.x.toFloat(), s.y.toFloat(), 0f)
                 g.noFill()
                 g.strokeWeight(2.0f)
                 g.stroke(46f, 204f, 113f, 100f)
