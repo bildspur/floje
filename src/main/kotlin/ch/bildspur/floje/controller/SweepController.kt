@@ -21,7 +21,7 @@ class SweepController(internal val sketch: PApplet) {
     var sweepPort = ""
 
     val sweepDataProvider = SweepDataProvider()
-    val sweepInteractor = SweepInteraction(this)
+    val sweepInteraction = SweepInteraction(this)
 
     var innerCone = 0.0
     var outerCone = Double.MAX_VALUE
@@ -40,7 +40,7 @@ class SweepController(internal val sketch: PApplet) {
 
     fun setup(grid: Grid) {
         this.grid = grid
-        sweepInteractor.grid = grid
+        sweepInteraction.grid = grid
 
         sweepDataProvider.port = sweepPort
 
@@ -96,6 +96,6 @@ class SweepController(internal val sketch: PApplet) {
 
 
     fun analyseSweep() {
-        sweepInteractor.interact(relevantRegions)
+        sweepInteraction.interact(relevantRegions)
     }
 }

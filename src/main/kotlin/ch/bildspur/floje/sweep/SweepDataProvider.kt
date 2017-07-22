@@ -32,12 +32,16 @@ open class SweepDataProvider() {
         println("Opening sweep on $port...")
         sweep = SweepDevice(port)
 
+        println("setting configuration")
+        sweep.sampleRate = 500
+        sweep.motorSpeed = 5
+
         println("waiting for sweep motors...")
         while (!sweep.isMotorReady) {
             Thread.sleep(100)
         }
 
-        println("start scanning...")
+        println("start scanning with ${sweep.sampleRate} Hz sample rate and ${sweep.motorSpeed} Hz motor speed...")
         sweep.startScanning()
 
         println("sweep running!")

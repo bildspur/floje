@@ -63,7 +63,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         g.fill(41f, 128f, 185f, 100f)
         g.noStroke()
         g.translate(0f, 0f, emptyHeight / 2)
-        g.box(sketch.sweep.sweepInteractor.mirrorSize, sketch.sweep.sweepInteractor.mirrorSize, emptyHeight)
+        g.box(sketch.sweep.sweepInteraction.mirrorSize, sketch.sweep.sweepInteraction.mirrorSize, emptyHeight)
 
         // add text name
         g.translate(0f, 0f, (emptyHeight / 2) + 1)
@@ -99,8 +99,8 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         g.rotateY(PApplet.radians(90f - mirror.yAxis.servo.position.value))
 
         // add mirror
-        g.box(sketch.sweep.sweepInteractor.mirrorSize,
-                sketch.sweep.sweepInteractor.mirrorSize, elementThickness)
+        g.box(sketch.sweep.sweepInteraction.mirrorSize,
+                sketch.sweep.sweepInteraction.mirrorSize, elementThickness)
 
         // add text name
         g.translate(0f, 0f, (elementThickness / 2) + 1)
@@ -121,7 +121,7 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
 
     internal fun renderFloor() {
         g.pushMatrix()
-        g.translate(0f, 0f, 0f - sketch.sweep.sweepInteractor.mirrorSize)
+        g.translate(0f, 0f, 0f - sketch.sweep.sweepInteraction.mirrorSize)
 
         g.fill(127f, 140f, 141f, 100f)
         g.noStroke()
@@ -130,9 +130,9 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
     }
 
     internal fun translateToPosition(x: Int, y: Int) {
-        val posX = sketch.sweep.sweepInteractor.mirrorRadius
+        val posX = sketch.sweep.sweepInteraction.mirrorRadius
         val posY = 0f
-        val posZ = (x * sketch.sweep.sweepInteractor.mirrorSize) + (x * elementSpace) + sketch.sweep.sweepInteractor.mirrorStartHeight
+        val posZ = (x * sketch.sweep.sweepInteraction.mirrorSize) + (x * elementSpace) + sketch.sweep.sweepInteraction.mirrorStartHeight
 
         // rotate mirrors to direction
         g.rotateZ(PApplet.radians((360f / grid.width) * y))
