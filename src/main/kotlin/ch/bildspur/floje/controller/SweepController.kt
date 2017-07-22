@@ -96,7 +96,6 @@ class SweepController(internal val sketch: PApplet) {
             }
         }
 
-
     fun analyseSweep() {
         sweepInteraction.interact(relevantRegions)
     }

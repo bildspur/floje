@@ -39,6 +39,10 @@ class RemoteController(internal var sketch: Sketch) {
                 // rain position
                 sketch.grid.moveMirrors(90, 45)
             }
+            '3' -> {
+                // transport / access position
+                sketch.grid.moveMirrors(30, 90)
+            }
         }
     }
 }
