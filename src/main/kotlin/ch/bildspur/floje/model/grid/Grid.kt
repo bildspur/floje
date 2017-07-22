@@ -16,6 +16,13 @@ class Grid(val width: Int, val height: Int) {
         columns[c][r] = element
     }
 
+    fun moveMirrors(x: Int, y: Int) {
+        forEachMirror { mirror, c, r ->
+            mirror.xAxis.moveTo(x)
+            mirror.yAxis.moveTo(y)
+        }
+    }
+
     fun forEach(block: (field: GridField, c: Int, r: Int) -> Unit) {
         columns.forEachIndexed { c, fields ->
             fields.forEachIndexed { r, field ->

@@ -94,8 +94,8 @@ class MirrorVisualiser(val sketch: Sketch, val g: PGraphics, val grid: Grid, val
         g.translate(0f, 0f, (jointSize / 2) + (elementThickness / 2))
 
         // rotate mirror
-        g.rotateX(PApplet.radians(90f - mirror.xAxis.servo.position.value))
-        g.rotateY(PApplet.radians(90f - mirror.yAxis.servo.position.value))
+        g.rotateX(PApplet.radians(90f - (180 - mirror.xAxis.servo.position.value)))
+        g.rotateY(PApplet.radians(90f - (180 - mirror.yAxis.servo.position.value)))
 
         // add mirror
         g.box(sketch.sweep.sweepInteraction.mirrorSize,

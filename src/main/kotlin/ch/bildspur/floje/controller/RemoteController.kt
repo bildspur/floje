@@ -15,10 +15,7 @@ class RemoteController(internal var sketch: Sketch) {
                 val ypos = sketch.random(45f, 135f).toInt()
 
                 // move all to random position
-                sketch.grid.forEachMirror { mirror, c, r ->
-                    mirror.xAxis.moveTo(xpos)
-                    mirror.yAxis.moveTo(ypos)
-                }
+                sketch.grid.moveMirrors(xpos, ypos)
             }
             'p' -> {
                 sketch.grid.forEachMirror { mirror, c, r ->
@@ -30,6 +27,17 @@ class RemoteController(internal var sketch: Sketch) {
                     mirror.xAxis.stop()
                     mirror.yAxis.stop()
                 }
+            }
+            'x' -> {
+                sketch.isInteractionOn = !sketch.isInteractionOn
+            }
+            '1' -> {
+                // initial position
+                sketch.grid.moveMirrors(90, 90)
+            }
+            '2' -> {
+                // rain position
+                sketch.grid.moveMirrors(90, 45)
             }
         }
     }

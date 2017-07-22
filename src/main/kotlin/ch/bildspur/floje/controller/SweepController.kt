@@ -67,9 +67,11 @@ class SweepController(internal val sketch: PApplet) {
     }
 
     fun close() {
-        running = false
-        sweepDataProvider.stop()
-        sweepThread.join()
+        if (running) {
+            running = false
+            sweepDataProvider.stop()
+            sweepThread.join()
+        }
     }
 
     val currentScan: List<SweepSample>
