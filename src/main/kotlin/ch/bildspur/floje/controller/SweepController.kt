@@ -2,7 +2,6 @@ package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.sweep.DemoSweepDataProvider
-import ch.bildspur.floje.sweep.SweepDataProvider
 import ch.bildspur.floje.sweep.SweepInteraction
 import ch.bildspur.floje.tracker.ActiveRegion
 import ch.bildspur.floje.util.Point
@@ -20,7 +19,7 @@ import kotlin.concurrent.thread
 class SweepController(internal val sketch: PApplet) {
     var sweepPort = ""
 
-    val sweepDataProvider = SweepDataProvider()
+    val sweepDataProvider = DemoSweepDataProvider()
     val sweepInteraction = SweepInteraction(this)
 
     var innerCone = 0.0

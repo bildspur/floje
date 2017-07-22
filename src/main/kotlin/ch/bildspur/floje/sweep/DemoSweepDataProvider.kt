@@ -24,7 +24,7 @@ class DemoSweepDataProvider : SweepDataProvider() {
     }
 
     override fun interact() {
-        updateDemoSamples()
+        //updateDemoSamples()
 
         lastScan = demoSamples
         tracker.track(lastScan.filter { it.signalStrength > minimalSignalStrength })

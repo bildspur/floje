@@ -186,7 +186,7 @@ class UIController(internal var sketch: Sketch) {
                 .onChange { e ->
                     sketch.grid.forEachMirror { mirror, c, r ->
                         //mirror.xAxis.moveTo(xpos)
-                        mirror.xAxis.servo.write(yAxisSlider.value.toInt())
+                        mirror.yAxis.servo.write(yAxisSlider.value.toInt())
                         //mirror.yAxis.moveTo(yAxisSlider.value.toInt())
                     }
                 }

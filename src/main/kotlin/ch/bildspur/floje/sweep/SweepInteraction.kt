@@ -52,14 +52,14 @@ class SweepInteraction(val sweepController: SweepController) {
             if (angleDiff in -viewAngle..viewAngle) {
 
                 // calculate angle difference
-                summedRotation.x += -angleDiff.toFloat()
+                summedRotation.x += angleDiff.toFloat()
 
                 // height difference
                 val mirrorHeight = mirrorPosition.z
                 val heightDiff = mirrorHeight - regionHeight
                 val beta = Math.atan(heightDiff / (polar.r - mirrorRadius.toDouble()))
 
-                summedRotation.y += -PApplet.degrees(beta.toFloat())
+                summedRotation.y += PApplet.degrees(beta.toFloat())
 
                 // increment region counter
                 relevantRegions++
