@@ -1,9 +1,17 @@
 package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.Sketch
+import ch.bildspur.floje.util.toFloat
+import netP5.NetAddress
 import oscP5.OscMessage
 import oscP5.OscP5
 import processing.core.PApplet
+import java.io.IOException
+import java.net.InetAddress
+import javax.jmdns.JmDNS
+import javax.jmdns.ServiceInfo
+import kotlin.concurrent.thread
+
 
 /**
  * Created by cansik on 09.07.17.
@@ -17,14 +25,79 @@ class OscController(internal var sketch: Sketch) {
     @Volatile
     var isSetup = false
 
+    lateinit var apps: NetAddress
+    lateinit var jmdns: JmDNS
+
     lateinit var osc: OscP5
 
     fun setup() {
-        osc = OscP5(sketch, INCOMING_PORT)
+        osc = OscP5(this, INCOMING_PORT)
+        apps = NetAddress("255.255.255.255", OUTGOING_PORT)
+
+        thread {
+            setupZeroConf()
+        }
+
         isSetup = true
     }
 
-    fun processMessage(msg: OscMessage) {
+    fun stop() {
+        jmdns.unregisterAllServices()
+    }
+
+    private fun setupZeroConf() {
+        try {
+            println("setting up zero conf...")
+            val address = InetAddress.getLocalHost()
+            jmdns = JmDNS.create(address)
+            jmdns.registerService(ServiceInfo.create("_osc._udp.", "FLØJE Remote", INCOMING_PORT, ""))
+            println("zero conf running!")
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun oscEvent(msg: OscMessage) {
+        checkIfIsStatusMessage(msg)
+
+        when (msg.addrPattern()) {
+            "/floje/remote/interaction" -> {
+                sketch.remote.processCommand('x')
+            }
+            "/floje/remote/random" -> {
+                sketch.remote.processCommand('m')
+            }
+            "/floje/remote/position/initial" -> {
+                sketch.remote.processCommand('1')
+            }
+            "/floje/remote/position/rain" -> {
+                sketch.remote.processCommand('2')
+            }
+            "/floje/remote/position/access" -> {
+                sketch.remote.processCommand('3')
+            }
+        }
+
+        updateOSCApp()
+    }
+
+    fun updateOSCApp() {
+        sendMessage("/floje/remote/interaction", sketch.isInteractionOn.toFloat())
+    }
+
+    fun sendMessage(address: String, value: Float) {
+        val m = OscMessage(address)
+        m.add(value)
+        osc.send(m, apps)
+    }
+
+    fun sendMessage(address: String, value: String) {
+        val m = OscMessage(address)
+        m.add(value)
+        osc.send(m, apps)
+    }
+
+    internal fun checkIfIsStatusMessage(msg: OscMessage) {
         if (msg.addrPattern().contains("/floje/status")) {
             PApplet.print("Startup: ")
             PApplet.print(msg.addrPattern())

@@ -28,6 +28,10 @@ fun Float.limit(min: Float, max: Float): Float {
     return Math.max(Math.min(max, this), min)
 }
 
+fun Boolean.toFloat(): Float {
+    return if (this) 1f else 0f
+}
+
 fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit) {
     this.pushMatrix()
     block(this)

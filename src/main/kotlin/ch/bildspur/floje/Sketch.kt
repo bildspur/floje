@@ -9,7 +9,6 @@ import ch.bildspur.floje.view.MirrorVisualiser
 import ch.bildspur.floje.view.OscOutput
 import ch.bildspur.floje.view.StatusView
 import org.opencv.core.Core
-import oscP5.OscMessage
 import processing.core.PApplet
 import processing.core.PConstants
 import processing.core.PGraphics
@@ -255,9 +254,5 @@ class Sketch : PApplet() {
 
     override fun keyPressed() {
         remote.processCommand(key)
-    }
-
-    fun oscEvent(msg: OscMessage) {
-        osc.processMessage(msg)
     }
 }
