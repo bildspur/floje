@@ -88,7 +88,7 @@ class OscController(internal var sketch: Sketch) {
     }
 
     fun updateOSCApp() {
-        sendMessage("/floje/remote/interaction", sketch.isInteractionOn.toFloat())
+        sendMessage("/floje/remote/interaction", sketch.isInteractionOn.value.toFloat())
     }
 
     fun sendMessage(address: String, value: Float) {

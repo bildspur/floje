@@ -29,7 +29,7 @@ class RemoteController(internal var sketch: Sketch) {
                 }
             }
             'x' -> {
-                sketch.isInteractionOn = !sketch.isInteractionOn
+                sketch.isInteractionOn.value = !sketch.isInteractionOn.value
             }
             '1' -> {
                 // initial position

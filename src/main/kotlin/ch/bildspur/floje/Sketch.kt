@@ -2,6 +2,7 @@ package ch.bildspur.floje
 
 import ch.bildspur.floje.controller.*
 import ch.bildspur.floje.controller.timer.TimerTask
+import ch.bildspur.floje.model.DataModel
 import ch.bildspur.floje.model.grid.Grid
 import ch.bildspur.floje.util.draw
 import ch.bildspur.floje.util.format
@@ -46,7 +47,7 @@ class Sketch : PApplet() {
 
     var enableLights = false
 
-    var isInteractionOn = true
+    var isInteractionOn = DataModel(true)
 
     val peasy = PeasyController(this)
 
@@ -115,7 +116,7 @@ class Sketch : PApplet() {
         }
 
         // update all time relevant
-        if (isInteractionOn)
+        if (isInteractionOn.value)
             sweep.analyseSweep()
 
         updateServos()

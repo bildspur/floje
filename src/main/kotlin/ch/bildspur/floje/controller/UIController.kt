@@ -194,12 +194,12 @@ class UIController(internal var sketch: Sketch) {
         interactionToggle = cp5.addToggle("Interaction")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
-                .setValue(sketch.isInteractionOn)
+                .setValue(sketch.isInteractionOn.value)
                 .setColorForeground(sketch.color(192, 57, 43))
                 .setColorActive(sketch.color(231, 76, 60))
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
-                .onChange { e -> sketch.isInteractionOn = interactionToggle.booleanValue }
-
+                .onChange { e -> sketch.isInteractionOn.value = interactionToggle.booleanValue }
+        sketch.isInteractionOn.onChanged += { interactionToggle.setValue(sketch.isInteractionOn.value) }
     }
 }
