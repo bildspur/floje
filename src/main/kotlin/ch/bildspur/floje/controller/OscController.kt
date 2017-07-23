@@ -1,6 +1,7 @@
 package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.Sketch
+import ch.bildspur.floje.simulation.OscSimulation
 import ch.bildspur.floje.util.toFloat
 import netP5.NetAddress
 import oscP5.OscMessage
@@ -30,6 +31,8 @@ class OscController(internal var sketch: Sketch) {
 
     lateinit var osc: OscP5
 
+    val simulator = OscSimulation(sketch)
+
     fun setup() {
         osc = OscP5(this, INCOMING_PORT)
         apps = NetAddress("255.255.255.255", OUTGOING_PORT)
@@ -58,6 +61,9 @@ class OscController(internal var sketch: Sketch) {
     }
 
     fun oscEvent(msg: OscMessage) {
+        if (msg.addrPattern().startsWith("/floje/simulation"))
+            simulator.simulate(msg)
+
         checkIfIsStatusMessage(msg)
 
         when (msg.addrPattern()) {
