@@ -6,5 +6,6 @@ package ch.bildspur.floje.model.servo
 enum class ServoState {
     ACCELERATION,
     LINEARMOTION,
-    DECELERATION
+    DECELERATION,
+    BRAKE
 }

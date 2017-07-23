@@ -32,6 +32,12 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
     var linearMotionPath: Float = 0.toFloat()
     var decelerationPath: Float = 0.toFloat()
 
+    var brakeTarget: Float = 0.toFloat()
+    var brakeTime: Float = 0.toFloat()
+    var brakePath: Float = 0.toFloat()
+
+    var shouldBrake = false
+
     var direction: Int = 0
 
     init {
@@ -78,7 +84,20 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
     }
 
     fun stop() {
-        state = ServoState.DECELERATION
+        // difference to break start
+        val position = nextPosition(0)
+
+        shouldBrake = true
+
+        if (state === ServoState.LINEARMOTION) {
+            startTime = currentMillis()
+            startPosition = position
+            brakeTime = calculateMotionTime(velocity, 0f, acceleration)
+            brakePath = calculateMotionPath(velocity, brakeTime, acceleration * -1)
+            brakeTarget = startPosition + direction * brakePath
+
+            state = ServoState.BRAKE
+        }
     }
 
     fun nextPosition(currentPosition: Int): Int {
@@ -94,6 +113,8 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
             ServoState.LINEARMOTION -> return linearMotion()
 
             ServoState.DECELERATION -> return deceleration()
+
+            ServoState.BRAKE -> return brake()
         }
     }
 
@@ -108,6 +129,10 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
         // check state switch
         if (t >= d) {
             state = ServoState.LINEARMOTION
+
+            if (shouldBrake) {
+                stop()
+            }
         }
 
         return Math.round(easeInQuad(t, b, c, d))
@@ -137,6 +162,20 @@ class ServoTask(var targetPosition: Int, var velocity: Float, var acceleration: 
         val b = linearMotionTarget
         val c = decelerationTarget - linearMotionTarget
         val d = decelerationTime
+
+        // check state switch
+        if (t >= d) {
+            status = ServoTaskStatus.FINISHED
+        }
+
+        return Math.round(easeOutQuad(t, b, c, d))
+    }
+
+    fun brake(): Int {
+        val t = currentMillis() - startTime.toFloat()
+        val b = startPosition.toFloat()
+        val c = brakeTarget - startPosition
+        val d = brakeTime
 
         // check state switch
         if (t >= d) {
