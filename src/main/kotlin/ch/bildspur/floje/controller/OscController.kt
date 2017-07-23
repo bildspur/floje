@@ -61,7 +61,7 @@ class OscController(internal var sketch: Sketch) {
     }
 
     fun oscEvent(msg: OscMessage) {
-        if (msg.addrPattern().startsWith("/floje/simulation"))
+        if (msg.addrPattern().startsWith("/floje/show"))
             simulator.simulate(msg)
 
         checkIfIsStatusMessage(msg)
