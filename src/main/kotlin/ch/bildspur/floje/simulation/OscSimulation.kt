@@ -35,7 +35,7 @@ class OscSimulation(val sketch: Sketch) {
             // send to servo
             when (cmd.axis) {
                 "x" -> it.xAxis.servo.write(value.toServoValue())
-                "y" -> it.xAxis.servo.write(value.toServoValue())
+                "y" -> it.yAxis.servo.write(value.toServoValue())
             }
         }
     }
