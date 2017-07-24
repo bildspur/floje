@@ -53,7 +53,7 @@ class OscController(internal var sketch: Sketch) {
             println("setting up zero conf...")
             val address = InetAddress.getLocalHost()
             jmdns = JmDNS.create(address)
-            jmdns.registerService(ServiceInfo.create("_osc._udp.", "FLØJE Remote", INCOMING_PORT, ""))
+            jmdns.registerService(ServiceInfo.create("_osc._udp.", Sketch.NAME, INCOMING_PORT, ""))
             println("zero conf running!")
         } catch (e: IOException) {
             e.printStackTrace()
