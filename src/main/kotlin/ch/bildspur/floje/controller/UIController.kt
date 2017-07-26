@@ -1,7 +1,9 @@
 package ch.bildspur.floje.controller
 
 import ch.bildspur.floje.Sketch
+import ch.bildspur.floje.model.Mirror
 import controlP5.ControlP5
+import controlP5.DropdownList
 import controlP5.Slider
 import controlP5.Toggle
 
@@ -21,9 +23,13 @@ class UIController(internal var sketch: Sketch) {
     lateinit var minSignalStrengthSlider: Slider
     lateinit var minRegionSizeSlider: Slider
 
+    lateinit var mirrorSelector: DropdownList
     lateinit var yAxisSlider: Slider
+    lateinit var xAxisSlider: Slider
 
     lateinit var interactionToggle: Toggle
+
+    var selectedMirror: Mirror? = null
 
     var hpos = 0f
     var vpos = 20f
@@ -174,21 +180,61 @@ class UIController(internal var sketch: Sketch) {
                     sketch.sweep.sweepDataProvider.minimalSignalStrength = minSignalStrengthSlider.value.toInt()
                 }
 
-        yAxisSlider = cp5.addSlider("Y-Axis")
+        mirrorSelector = cp5.addDropdownList("Mirror")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(90f)
-                .setColorForeground(sketch.color(142, 68, 173))
-                .setColorActive(sketch.color(155, 89, 182))
+                .setColorForeground(sketch.color(243, 156, 18))
+                .setColorActive(sketch.color(241, 196, 15))
+                .setColorValueLabel(sketch.color(255))
+                .setColorCaptionLabel(sketch.color(255))
+                .onEnter {
+                    sketch.peasy.disable()
+                    mirrorSelector.bringToFront()
+                    mirrorSelector.height = 150
+                    mirrorSelector.width = 150
+                }
+                .onLeave {
+                    sketch.peasy.enable()
+                    mirrorSelector.height = controlHeight
+                    mirrorSelector.width = mirrorSelector.width
+                }
+                .addItems(sketch.config.settings.mirrors.map { it.name })
+                .onChange { e ->
+                    sketch.grid.forEachMirror { mirror, c, r ->
+                        if (mirror.name == mirrorSelector.valueLabel.text) {
+                            selectedMirror = mirror
+                            println("mirror ${mirror.name} selected!")
+                        }
+                    }
+                }
+
+        xAxisSlider = cp5.addSlider("X-Axis")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(90f)
+                .setColorForeground(sketch.color(243, 156, 18))
+                .setColorActive(sketch.color(241, 196, 15))
                 .setRange(0f, 180f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
-                    sketch.grid.forEachMirror { mirror, c, r ->
-                        //mirror.xAxis.moveTo(xpos)
-                        mirror.yAxis.servo.write(yAxisSlider.value.toInt())
-                        //mirror.yAxis.moveTo(yAxisSlider.value.toInt())
-                    }
+                    if (selectedMirror != null)
+                        selectedMirror!!.xAxis.servo.write(xAxisSlider.value.toInt())
+                }
+
+        yAxisSlider = cp5.addSlider("Y-Axis")
+                .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
+                .setSize(controlWidth, controlHeight)
+                .setValue(90f)
+                .setColorForeground(sketch.color(243, 156, 18))
+                .setColorActive(sketch.color(241, 196, 15))
+                .setRange(0f, 180f)
+                .onEnter { sketch.peasy.disable() }
+                .onLeave { sketch.peasy.enable() }
+                .onChange { e ->
+                    if (selectedMirror != null)
+                        selectedMirror!!.yAxis.servo.write(yAxisSlider.value.toInt())
                 }
 
         interactionToggle = cp5.addToggle("Interaction")
