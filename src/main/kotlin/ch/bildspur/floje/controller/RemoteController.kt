@@ -17,9 +17,11 @@ class RemoteController(internal var sketch: Sketch) {
                 // move all to random position
                 sketch.grid.moveMirrors(xpos, ypos)
             }
-            'p' -> {
+            't' -> {
                 sketch.grid.forEachMirror { mirror, c, r ->
-                    PApplet.println("${mirror.name}.local")
+                    PApplet.println("${mirror.name}.local\t" +
+                            "TrimX: ${mirror.xAxis.servo.position.value - 90}\t" +
+                            "TrimY: ${mirror.yAxis.servo.position.value - 90}\t")
                 }
             }
             's' -> {

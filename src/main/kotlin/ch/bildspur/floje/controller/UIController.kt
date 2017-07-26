@@ -201,12 +201,9 @@ class UIController(internal var sketch: Sketch) {
                 }
                 .addItems(sketch.config.settings.mirrors.map { it.name })
                 .onChange { e ->
-                    sketch.grid.forEachMirror { mirror, c, r ->
-                        if (mirror.name == mirrorSelector.valueLabel.text) {
-                            selectedMirror = mirror
-                            println("mirror ${mirror.name} selected!")
-                        }
-                    }
+                    val mirror = sketch.config.settings.mirrors[mirrorSelector.value.toInt()]
+                    selectedMirror = mirror
+                    println("mirror ${mirror.name} selected!")
                 }
 
         xAxisSlider = cp5.addSlider("X-Axis")
