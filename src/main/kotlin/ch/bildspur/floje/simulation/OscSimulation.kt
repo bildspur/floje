@@ -29,6 +29,7 @@ class OscSimulation(val sketch: Sketch) {
             val value = when (cmd.command) {
                 "move" -> cmd.value
                 "random" -> 0.5f + sketch.random(-cmd.value, cmd.value)
+                "sin" -> 0.5f
                 else -> 0.5f
             }
 

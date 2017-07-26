@@ -41,7 +41,17 @@ class RemoteController(internal var sketch: Sketch) {
             }
             '3' -> {
                 // transport / access position
-                sketch.grid.moveMirrors(30, 90)
+                sketch.grid.forEachMirror { mirror, c, r ->
+                    if (c == 3 || c == 0) {
+                        mirror.xAxis.moveTo(30)
+                        mirror.yAxis.moveTo(90)
+                    }
+
+                    if (c == 2 || c == 5) {
+                        mirror.xAxis.moveTo(150)
+                        mirror.yAxis.moveTo(90)
+                    }
+                }
             }
         }
     }
