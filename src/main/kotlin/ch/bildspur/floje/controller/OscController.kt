@@ -21,12 +21,14 @@ class OscController(internal var sketch: Sketch) {
     companion object {
         @JvmStatic val INCOMING_PORT = 9000
         @JvmStatic val OUTGOING_PORT = 8000
+        @JvmStatic val VEZER_PORT = 1234
     }
 
     @Volatile
     var isSetup = false
 
     lateinit var apps: NetAddress
+    lateinit var vezer: NetAddress
     lateinit var jmdns: JmDNS
 
     lateinit var osc: OscP5
@@ -36,6 +38,7 @@ class OscController(internal var sketch: Sketch) {
     fun setup() {
         osc = OscP5(this, INCOMING_PORT)
         apps = NetAddress("255.255.255.255", OUTGOING_PORT)
+        vezer = NetAddress("127.0.0.1", VEZER_PORT)
 
         thread {
             setupZeroConf()
@@ -82,6 +85,15 @@ class OscController(internal var sketch: Sketch) {
             "/floje/remote/position/access" -> {
                 sketch.remote.processCommand('3')
             }
+            "/floje/remote/show/play" -> {
+                sendMessage(vezer, "/vezer/mainshow/play", 1.0f)
+            }
+            "/floje/remote/show/pause" -> {
+                sendMessage(vezer, "/vezer/mainshow/play", 0.0f)
+            }
+            "/floje/remote/show/rewind" -> {
+                sendMessage(vezer, "/vezer/mainshow/rewind", 1.0f)
+            }
         }
 
         updateOSCApp()
@@ -89,6 +101,12 @@ class OscController(internal var sketch: Sketch) {
 
     fun updateOSCApp() {
         sendMessage("/floje/remote/interaction", sketch.isInteractionOn.value.toFloat())
+    }
+
+    fun sendMessage(ip: NetAddress, address: String, value: Float) {
+        val m = OscMessage(address)
+        m.add(value)
+        osc.send(m, ip)
     }
 
     fun sendMessage(address: String, value: Float) {

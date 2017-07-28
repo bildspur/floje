@@ -3,6 +3,7 @@ package ch.bildspur.floje.simulation
 import ch.bildspur.floje.Sketch
 import ch.bildspur.floje.model.Mirror
 import oscP5.OscMessage
+import processing.core.PApplet
 
 class OscSimulation(val sketch: Sketch) {
 
@@ -29,7 +30,15 @@ class OscSimulation(val sketch: Sketch) {
             val value = when (cmd.command) {
                 "move" -> cmd.value
                 "random" -> 0.5f + sketch.random(-cmd.value, cmd.value)
-                "sin" -> 0.5f
+                "sin" -> {
+                    val input = 0.25f
+                    val speed = cmd.value
+                    val sinusSpeed = 1f / (500f * (1f - speed))
+                    val pos = 0.5f + PApplet.sin(sketch.millis() * sinusSpeed) * input
+
+                    println(pos)
+                    pos
+                }
                 else -> 0.5f
             }
 
