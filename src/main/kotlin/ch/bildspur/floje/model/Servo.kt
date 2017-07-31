@@ -1,6 +1,4 @@
-package ch.bildspur.floje.model.servo
-
-import ch.bildspur.floje.model.DataModel
+package ch.bildspur.floje.model
 
 
 /**

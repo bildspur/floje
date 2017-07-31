@@ -1,4 +1,4 @@
-package ch.bildspur.floje.model.servo
+package ch.bildspur.floje.servo.smooth
 
 import ch.bildspur.floje.Sketch.Companion.currentMillis
 import ch.bildspur.floje.util.Easing.easeInQuad

@@ -1,18 +1,21 @@
-package ch.bildspur.floje.model.servo
+package ch.bildspur.floje.servo.smooth
 
 import ch.bildspur.floje.Sketch.Companion.currentMillis
+import ch.bildspur.floje.model.Servo
+import ch.bildspur.floje.servo.ServoDriver
 import ch.bildspur.floje.util.Queue
 
 
 /**
  * Created by cansik on 10.07.17.
  */
-class SmoothServo(val servo: Servo, // max speed per seconds
-                  var maxVelocity: Float, var maxAcceleration: Float) {
+class SmoothServo(servo: Servo) : ServoDriver(servo) {
     private var tasks = Queue<ServoTask>(30)
     private var task: ServoTask? = null
 
     private var servoPosition: Int = 0
+
+    var start: Int = 0
 
     init {
         // init servo to have same position
@@ -20,11 +23,7 @@ class SmoothServo(val servo: Servo, // max speed per seconds
         servo.write(servoPosition)
     }
 
-    @JvmOverloads fun moveTo(targetPosition: Int, velocity: Float = maxVelocity) {
-        moveTo(targetPosition, maxVelocity, maxAcceleration)
-    }
-
-    fun moveTo(targetPosition: Int, velocity: Float, acceleration: Float) {
+    override fun moveTo(targetPosition: Int, velocity: Float, acceleration: Float) {
         // check if target is already enqueued
         if (!tasks.empty) {
             if (tasks.next().targetPosition == targetPosition)
@@ -34,16 +33,14 @@ class SmoothServo(val servo: Servo, // max speed per seconds
         tasks.enqueue(ServoTask(targetPosition, velocity * maxVelocity, acceleration * maxAcceleration))
     }
 
-    fun stop() {
+    override fun stop() {
         if (task == null)
             return
 
         task!!.stop()
     }
 
-    var start: Int = 0
-
-    fun update() {
+    override fun update() {
         //  check if we need a new task from the queue
         if (task == null
                 || task!!.status === ServoTaskStatus.FINISHED
