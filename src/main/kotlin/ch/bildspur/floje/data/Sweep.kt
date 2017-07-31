@@ -1,13 +1,15 @@
 package ch.bildspur.floje.data
 
+import com.google.gson.annotations.Expose
+
 class Sweep {
-    var port = ""
-    var innerCone = 0.0
-    var outerCone = 0.0
-    var sparsing = 0.0
-    var maxDelta = 25.0
-    var minLifeTime = 0
-    var rotation = 0.0
-    var minSignalStrength = 0
-    var minRegionSize = 0
+    @Expose var port = ""
+    @Expose var innerCone = 0.0
+    @Expose var outerCone = 0.0
+    @Expose var sparsing = 0.0
+    @Expose var maxDelta = 25.0
+    @Expose var minLifeTime = 0
+    @Expose var rotation = 0.0
+    @Expose var minSignalStrength = 0
+    @Expose var minRegionSize = 0
 }

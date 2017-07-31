@@ -7,6 +7,7 @@ import ch.bildspur.floje.model.grid.GridField
 import ch.bildspur.floje.model.servo.Servo
 import ch.bildspur.floje.model.servo.SmoothServo
 import ch.bildspur.floje.util.SimpleNetAddress
+import com.google.gson.annotations.Expose
 import netP5.NetAddress
 
 /**
@@ -16,9 +17,9 @@ class Mirror() : GridField() {
     var xAxis = SmoothServo(Servo(), 60.0f / 180.0f, 0.04f)
     var yAxis = SmoothServo(Servo(), 60.0f / 180.0f, 0.04f)
 
-    var position: Position = Position()
-    var name: String = ""
-    var trim: Trim = Trim()
+    @Expose var position: Position = Position()
+    @Expose var name: String = ""
+    @Expose var trim: Trim = Trim()
 
     lateinit var address: NetAddress
 

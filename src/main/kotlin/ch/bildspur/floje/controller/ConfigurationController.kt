@@ -3,6 +3,7 @@ package ch.bildspur.floje.controller
 import ch.bildspur.floje.data.Settings
 import com.github.salomonbrys.kotson.fromJson
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import processing.core.PApplet
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -21,7 +22,10 @@ class ConfigurationController(internal var sketch: PApplet) {
     lateinit var settings: Settings
 
     fun setup() {
-        gson = Gson()
+        gson = GsonBuilder()
+                .setPrettyPrinting()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create()
         settings = Settings()
     }
 
@@ -32,6 +36,6 @@ class ConfigurationController(internal var sketch: PApplet) {
 
     fun saveConfiguration() {
         val content = gson.toJson(settings)
-        Files.write(Paths.get(sketch.dataPath(CONFIGURATION_FILE)), content.toByteArray())
+        Files.write(Paths.get(sketch.dataPath("tmp" + CONFIGURATION_FILE)), content.toByteArray())
     }
 }

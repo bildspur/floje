@@ -30,6 +30,10 @@ class RemoteController(internal var sketch: Sketch) {
                     mirror.yAxis.stop()
                 }
             }
+            'v' -> {
+                // save configuration
+                sketch.config.saveConfiguration()
+            }
             'x' -> {
                 sketch.isInteractionOn.value = !sketch.isInteractionOn.value
             }

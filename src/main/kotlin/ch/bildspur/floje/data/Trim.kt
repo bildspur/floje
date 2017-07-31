@@ -1,9 +1,11 @@
 package ch.bildspur.floje.data
 
+import com.google.gson.annotations.Expose
+
 /**
  * Created by cansik on 11.07.17.
  */
 class Trim {
-    var x: Int = 0
-    var y: Int = 0
+    @Expose var x: Int = 0
+    @Expose var y: Int = 0
 }
