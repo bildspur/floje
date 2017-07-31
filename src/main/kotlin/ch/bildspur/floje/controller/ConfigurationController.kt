@@ -36,6 +36,6 @@ class ConfigurationController(internal var sketch: PApplet) {
 
     fun saveConfiguration() {
         val content = gson.toJson(settings)
-        Files.write(Paths.get(sketch.dataPath("tmp" + CONFIGURATION_FILE)), content.toByteArray())
+        Files.write(Paths.get(sketch.dataPath(CONFIGURATION_FILE)), content.toByteArray())
     }
 }

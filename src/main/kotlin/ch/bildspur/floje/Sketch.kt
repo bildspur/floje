@@ -236,6 +236,23 @@ class Sketch : PApplet() {
         }
     }
 
+    fun resyncSettings() {
+        config.settings.sweep.port = sweep.sweepPort
+
+        config.settings.sweep.sparsing = sweep.sweepDataProvider.tracker.sparsing
+        config.settings.sweep.maxDelta = sweep.sweepDataProvider.tracker.maxDelta
+
+        config.settings.sweep.innerCone = sweep.innerCone
+        config.settings.sweep.outerCone = sweep.outerCone
+        config.settings.sweep.minLifeTime = sweep.minLifeTime
+        config.settings.sweep.rotation = sweep.rotation
+        config.settings.sweep.minRegionSize = sweep.minRegionSize
+        config.settings.sweep.minSignalStrength = sweep.sweepDataProvider.minimalSignalStrength
+
+        config.settings.interaction.viewAngle = sweep.sweepInteraction.viewAngle.toDouble()
+        config.settings.interaction.servoLimit = sweep.sweepInteraction.servoLimit.toDouble()
+    }
+
     fun applySettings() {
         sweep.sweepPort = config.settings.sweep.port
 

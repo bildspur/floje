@@ -32,7 +32,10 @@ class RemoteController(internal var sketch: Sketch) {
             }
             'v' -> {
                 // save configuration
+                sketch.resyncSettings()
                 sketch.config.saveConfiguration()
+
+                println("Configuration saved!")
             }
             'x' -> {
                 sketch.isInteractionOn.value = !sketch.isInteractionOn.value
