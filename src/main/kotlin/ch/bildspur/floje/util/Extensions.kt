@@ -32,6 +32,17 @@ fun Boolean.toFloat(): Float {
     return if (this) 1f else 0f
 }
 
+/**
+ * Returns a single list of all elements from all arrays in the given array.
+ */
+fun <T> Array<out Array<out T>>.flatten(): List<T> {
+    val result = ArrayList<T>(sumBy { it.size })
+    for (element in this) {
+        result.addAll(element)
+    }
+    return result
+}
+
 fun PGraphics.stackMatrix(block: (g: PGraphics) -> Unit) {
     this.pushMatrix()
     block(this)

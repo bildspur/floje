@@ -1,6 +1,7 @@
 package ch.bildspur.floje.model.grid
 
 import ch.bildspur.floje.model.Mirror
+import ch.bildspur.floje.util.flatten
 
 /**
  * Created by cansik on 08.06.17.
@@ -22,6 +23,11 @@ class Grid(val width: Int, val height: Int) {
             mirror.yAxis.moveTo(y)
         }
     }
+
+    var mirror: List<Mirror> = emptyList()
+        get() {
+            return columns.flatten().filterIsInstance<Mirror>().toList()
+        }
 
     fun forEach(block: (field: GridField, c: Int, r: Int) -> Unit) {
         columns.forEachIndexed { c, fields ->

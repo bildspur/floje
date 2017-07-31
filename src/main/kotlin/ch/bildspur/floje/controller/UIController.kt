@@ -180,7 +180,7 @@ class UIController(internal var sketch: Sketch) {
                     sketch.sweep.sweepDataProvider.minimalSignalStrength = minSignalStrengthSlider.value.toInt()
                 }
 
-        mirrorSelector = cp5.addDropdownList("Mirror")
+        mirrorSelector = cp5.addDropdownList("Mirror Trim")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
                 .setValue(90f)
@@ -199,39 +199,53 @@ class UIController(internal var sketch: Sketch) {
                     mirrorSelector.height = controlHeight
                     mirrorSelector.width = mirrorSelector.width
                 }
-                .addItems(sketch.config.settings.mirrors.map { it.name })
+                .addItems(sketch.config.settings.mirrors.map { "(${it.position.column}, ${it.position.row}) ${it.name}" })
                 .onChange { e ->
                     val mirror = sketch.config.settings.mirrors[mirrorSelector.value.toInt()]
                     selectedMirror = mirror
+
+                    xAxisSlider.value = selectedMirror!!.trim.x.toFloat()
+                    yAxisSlider.value = selectedMirror!!.trim.y.toFloat()
+
                     println("mirror ${mirror.name} selected!")
                 }
 
         xAxisSlider = cp5.addSlider("X-Axis")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
-                .setValue(90f)
+                .setValue(0f)
                 .setColorForeground(sketch.color(243, 156, 18))
                 .setColorActive(sketch.color(241, 196, 15))
-                .setRange(0f, 180f)
+                .setRange(-30f, 30f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
-                    if (selectedMirror != null)
-                        selectedMirror!!.xAxis.servo.write(xAxisSlider.value.toInt())
+                    if (selectedMirror != null) {
+                        selectedMirror!!.trim.x = xAxisSlider.value.toInt()
+
+                        // force write trim position
+                        selectedMirror!!.xAxis.servo.write(90)
+                        selectedMirror!!.xAxis.servo.position.fire()
+                    }
                 }
 
         yAxisSlider = cp5.addSlider("Y-Axis")
                 .setPosition(hpos, vpos + (vspace + controlHeight) * controlIndex++)
                 .setSize(controlWidth, controlHeight)
-                .setValue(90f)
+                .setValue(0f)
                 .setColorForeground(sketch.color(243, 156, 18))
                 .setColorActive(sketch.color(241, 196, 15))
-                .setRange(0f, 180f)
+                .setRange(-30f, 30f)
                 .onEnter { sketch.peasy.disable() }
                 .onLeave { sketch.peasy.enable() }
                 .onChange { e ->
-                    if (selectedMirror != null)
-                        selectedMirror!!.yAxis.servo.write(yAxisSlider.value.toInt())
+                    if (selectedMirror != null) {
+                        selectedMirror!!.trim.y = yAxisSlider.value.toInt()
+
+                        // force write trim position
+                        selectedMirror!!.yAxis.servo.write(90)
+                        selectedMirror!!.yAxis.servo.position.fire()
+                    }
                 }
 
         interactionToggle = cp5.addToggle("Interaction")
