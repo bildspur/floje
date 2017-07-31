@@ -61,6 +61,7 @@ class SweepController(internal val sketch: PApplet) {
                     sweepDataProvider.start()
                 } catch (ex: Exception) {
                     println("Sweep Error: ${ex.message}")
+                    running = false
                 }
             }
         }

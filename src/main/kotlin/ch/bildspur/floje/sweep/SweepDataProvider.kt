@@ -46,7 +46,13 @@ open class SweepDataProvider() {
 
         println("sweep running!")
         while (running) {
-            interact()
+            try {
+                interact()
+            } catch (ex: Exception) {
+                println("Sweep is not connected anymore!")
+                running = false
+                return
+            }
         }
 
         sweep.stopScanning()
