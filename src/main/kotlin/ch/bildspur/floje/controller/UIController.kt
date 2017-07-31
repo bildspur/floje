@@ -199,9 +199,9 @@ class UIController(internal var sketch: Sketch) {
                     mirrorSelector.height = controlHeight
                     mirrorSelector.width = mirrorSelector.width
                 }
-                .addItems(sketch.config.settings.mirrors.map { "(${it.position.column}, ${it.position.row}) ${it.name}" })
+                .addItems(sketch.grid.mirror.map { "(${it.position.column}, ${it.position.row}) ${it.name}" })
                 .onChange { e ->
-                    val mirror = sketch.config.settings.mirrors[mirrorSelector.value.toInt()]
+                    val mirror = sketch.grid.mirror[mirrorSelector.value.toInt()]
                     selectedMirror = mirror
 
                     xAxisSlider.value = selectedMirror!!.trim.x.toFloat()
