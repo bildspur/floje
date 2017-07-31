@@ -5,7 +5,7 @@ import ch.bildspur.floje.data.Position
 import ch.bildspur.floje.data.Trim
 import ch.bildspur.floje.model.grid.GridField
 import ch.bildspur.floje.servo.ServoDriver
-import ch.bildspur.floje.servo.smooth.SmoothServo
+import ch.bildspur.floje.servo.easing.EasingServo
 import ch.bildspur.floje.util.SimpleNetAddress
 import com.google.gson.annotations.Expose
 import netP5.NetAddress
@@ -14,8 +14,8 @@ import netP5.NetAddress
  * Created by cansik on 08.06.17.
  */
 class Mirror() : GridField() {
-    var xAxis: ServoDriver = SmoothServo(Servo())
-    var yAxis: ServoDriver = SmoothServo(Servo())
+    var xAxis: ServoDriver = EasingServo(Servo())
+    var yAxis: ServoDriver = EasingServo(Servo())
 
     @Expose var position: Position = Position()
     @Expose var name: String = ""
