@@ -81,6 +81,9 @@ class Sketch : PApplet() {
     override fun settings() {
         size(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
         PJOGL.profile = 1
+        
+        // retina screen
+        pixelDensity = 2
     }
 
     override fun setup() {
