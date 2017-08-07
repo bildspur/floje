@@ -21,7 +21,7 @@ import processing.opengl.PJOGL
  */
 class Sketch : PApplet() {
     companion object {
-        @JvmStatic val FRAME_RATE = 30f
+        @JvmStatic val FRAME_RATE = 60f
 
         @JvmStatic val WINDOW_WIDTH = 768
         @JvmStatic val WINDOW_HEIGHT = 576
@@ -81,7 +81,7 @@ class Sketch : PApplet() {
     override fun settings() {
         size(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
         PJOGL.profile = 1
-        
+
         // retina screen
         pixelDensity = 2
     }
@@ -161,7 +161,7 @@ class Sketch : PApplet() {
             osc.setup()
 
             canvas = createGraphics(WINDOW_WIDTH, WINDOW_HEIGHT, PConstants.P3D)
-            canvas.smooth(8)
+            canvas.pixelDensity = 2
 
             config.setup()
             config.loadConfiguration()
