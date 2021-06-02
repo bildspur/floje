@@ -54,9 +54,14 @@ void sendRestartReason()
 
 void routeOSCMessage(OSCMessage &msg)
 {
+  msg.route("/floje/servo/speed", setServoSpeed);
   msg.route("/floje/servo/x", setServoX);
   msg.route("/floje/servo/y", setServoY);
   msg.route("/floje/servo/xy", setServoXY);
+}
+
+void setServoSpeed(OSCMessage &msg, int addrOffset) {
+  setSpeed(msg.getFloat(0));
 }
 
 void setServoXY(OSCMessage &msg, int addrOffset)
@@ -84,4 +89,3 @@ void setServoY(OSCMessage &msg, int addrOffset)
 
   setYAxis(p);
 }
-

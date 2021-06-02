@@ -1,7 +1,8 @@
-#include <Arduino.h>
 extern "C" {
 #include <user_interface.h>
 }
+
+#include <Arduino.h>
 
 #include <OSCBundle.h>
 #include <OSCData.h>
@@ -51,6 +52,8 @@ void loop() {
   loopStatus();
 
   loopOTA();
+
+  servoLoop();
 }
 
 void softReset() {
@@ -66,4 +69,3 @@ void wait(unsigned long waitTime)
     delay(DEFAULT_LOOP_DELAY);
   }
 }
-
